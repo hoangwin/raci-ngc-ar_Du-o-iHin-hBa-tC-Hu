@@ -32,20 +32,21 @@ namespace WindowsFormsApplication1
             System.Console.WriteLine("pixelPerCell " + pixelPerCell);
             Color c,cNorth,cEast,cSouth,cWest;
             //chu y luc nao cung phai +1 de loai pixel dau tien ra
-           
-            //chu y 1/2/4/8
-            //North,1
-            //East,2
-            //South,3
-            //West,4
+
+            /*
+            new IntVector2(0, 1),//south      
+		    new IntVector2(1, 0),//west
+		    new IntVector2(0, -1),//north
+		    new IntVector2(-1, 0)//east
+            */
             for (int i = 0;i< Int32.Parse(textBoxHeight.Text);i++)
             {
                 System.Console.Write("{");
                 for (int j = 0; j < Int32.Parse(textBoxWidth.Text); j++)
                 {
                     //pixel o giua
-                    int y = 1 + j * pixelPerCell + pixelPerCell / 2;//dien giua cua cell
-                    int x = pixelPerCell * i + 1 + pixelPerCell / 2;//diem giua cua cell
+                    int y = 1 + i * pixelPerCell + pixelPerCell / 2;//dien giua cua cell
+                    int x = pixelPerCell * j + 1 + pixelPerCell / 2;//diem giua cua cell
                     c = image1.GetPixel(y, x);
                     //neu c = mau do thi co nghia no chinh la duong di
                     if (c.R == Color.Red.R && c.G == Color.Red.G && c.B == Color.Red.B)
@@ -53,8 +54,8 @@ namespace WindowsFormsApplication1
                         //System.Console.WriteLine(i + "," + j + "=" + c);
                     }
                     //          cNorth1
-                    //   cWest8          cEast4
-                    //           cSouth 2  
+                    //   cWest8          cEast2
+                    //           cSouth4  
                     cNorth = image1.GetPixel(x, y - pixelPerCell / 2);
                     cSouth = image1.GetPixel(x, y + pixelPerCell / 2);
                     cEast = image1.GetPixel(x + pixelPerCell / 2, y);
@@ -62,19 +63,19 @@ namespace WindowsFormsApplication1
                     int direction = 0;
                     //000 -> den
                     //fff ->trang
-                    if (cNorth.G == 0)//co mau den
+                    if (cNorth.R == 0)//co mau den
                     {
-                        direction += 1;
+                        direction += 1<<0;
                     }
-                    if (cSouth.G == 0)//co mau den
-                    {
-                        direction += 1 << 1;
-                    }
-                    if (cEast.G == 0)//co mau den
+                    if (cSouth.R == 0)//co mau den
                     {
                         direction += 1 << 2;
                     }
-                    if (cWest.G == 0)//co mau den
+                    if (cEast.R == 0)//co mau den
+                    {
+                        direction += 1 << 1;
+                    }
+                    if (cWest.R == 0)//co mau den
                     {
                         direction += 1 << 3;
                     }

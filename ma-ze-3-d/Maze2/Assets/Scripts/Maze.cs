@@ -14,7 +14,7 @@ public class Maze : MonoBehaviour {
 	public MazeWall wallPrefab;
 
 	private MazeCell[,] cells;
-    
+    public static Maze instance; 
 
 	public IntVector2 RandomCoordinates {
 		get {
@@ -127,7 +127,7 @@ public class Maze : MonoBehaviour {
                 CreateWall(currentCell, neighbor4, MazeDirection.East);
         }
         else
-           CreateWall(currentCell, null, MazeDirection.East);
+            ;// CreateWall(currentCell, null, MazeDirection.East);
 
         
         coordinatesNeighbor = coordinates + MazeDirections.ToIntVector2(MazeDirection.West);
@@ -144,7 +144,7 @@ public class Maze : MonoBehaviour {
 
         }
         else
-            CreateWall(currentCell, null, MazeDirection.West);
+            ;// CreateWall(currentCell, null, MazeDirection.West);
 
         
     }

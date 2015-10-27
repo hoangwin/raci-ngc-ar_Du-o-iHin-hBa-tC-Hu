@@ -38,9 +38,9 @@ public static class MazeDirections {
 	
 	private static IntVector2[] vectors = {
 		new IntVector2(0, 1),//south
-		new IntVector2(1, 0),//west
+		new IntVector2(-1, 0),//west
 		new IntVector2(0, -1),//north
-		new IntVector2(-1, 0)//east
+		new IntVector2(1, 0)//east
 	};
 	
 	public static IntVector2 ToIntVector2 (this MazeDirection direction) {

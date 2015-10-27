@@ -16,3 +16,12 @@ E:\Temp_Project\TestMaze2\tool\www.mazegenerator.net\WindowsFormsApplication1\ob
 E:\Temp_Project\TestMaze2\tool\www.mazegenerator.net\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Form1.resources
 E:\Temp_Project\TestMaze2\tool\www.mazegenerator.net\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
 E:\Temp_Project\TestMaze2\tool\www.mazegenerator.net\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
+E:\github\raci-ngc-ar_Du-o-iHin-hBa-tC-Hu\ma-ze-3-d\tool\www.mazegenerator.net\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+E:\github\raci-ngc-ar_Du-o-iHin-hBa-tC-Hu\ma-ze-3-d\tool\www.mazegenerator.net\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+E:\github\raci-ngc-ar_Du-o-iHin-hBa-tC-Hu\ma-ze-3-d\tool\www.mazegenerator.net\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+E:\github\raci-ngc-ar_Du-o-iHin-hBa-tC-Hu\ma-ze-3-d\tool\www.mazegenerator.net\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+E:\github\raci-ngc-ar_Du-o-iHin-hBa-tC-Hu\ma-ze-3-d\tool\www.mazegenerator.net\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+E:\github\raci-ngc-ar_Du-o-iHin-hBa-tC-Hu\ma-ze-3-d\tool\www.mazegenerator.net\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+E:\github\raci-ngc-ar_Du-o-iHin-hBa-tC-Hu\ma-ze-3-d\tool\www.mazegenerator.net\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Form1.resources
+E:\github\raci-ngc-ar_Du-o-iHin-hBa-tC-Hu\ma-ze-3-d\tool\www.mazegenerator.net\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+E:\github\raci-ngc-ar_Du-o-iHin-hBa-tC-Hu\ma-ze-3-d\tool\www.mazegenerator.net\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
