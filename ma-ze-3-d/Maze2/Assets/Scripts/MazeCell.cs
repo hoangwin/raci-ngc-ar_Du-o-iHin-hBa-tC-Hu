@@ -7,7 +7,7 @@ public class MazeCell : MonoBehaviour {
 	private MazeCellEdge[] edges = new MazeCellEdge[MazeDirections.Count];
 
 	private int initializedEdgeCount;
-
+    public int value;
 	public bool IsFullyInitialized {
 		get {
 			return initializedEdgeCount == MazeDirections.Count;

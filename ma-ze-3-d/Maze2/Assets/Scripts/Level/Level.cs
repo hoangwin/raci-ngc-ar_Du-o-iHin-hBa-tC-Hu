@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Level : MonoBehaviour {
+public abstract class Level  {
     public int WIDTH = 0;
     public int HEIGHT = 0;
     public int[,] array2D;
@@ -14,8 +14,6 @@ public class Level : MonoBehaviour {
 	void Update () {
 	
 	}
-    public virtual void  init()
-    {
-
-    }
+    public abstract void init();
+    
 }

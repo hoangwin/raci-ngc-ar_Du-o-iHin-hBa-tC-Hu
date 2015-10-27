@@ -37,10 +37,10 @@ public static class MazeDirections {
 	}
 	
 	private static IntVector2[] vectors = {
-		new IntVector2(0, 1),
-		new IntVector2(1, 0),
-		new IntVector2(0, -1),
-		new IntVector2(-1, 0)
+		new IntVector2(0, 1),//south
+		new IntVector2(1, 0),//west
+		new IntVector2(0, -1),//north
+		new IntVector2(-1, 0)//east
 	};
 	
 	public static IntVector2 ToIntVector2 (this MazeDirection direction) {
@@ -48,10 +48,10 @@ public static class MazeDirections {
 	}
 
 	private static Quaternion[] rotations = {
-		Quaternion.identity,
-		Quaternion.Euler(0f, 90f, 0f),
-		Quaternion.Euler(0f, 180f, 0f),
-		Quaternion.Euler(0f, 270f, 0f)
+		Quaternion.identity,               //south
+		Quaternion.Euler(0f, 90f, 0f),     //west
+		Quaternion.Euler(0f, 180f, 0f),    //north
+		Quaternion.Euler(0f, 270f, 0f)     //east
 	};
 	
 	public static Quaternion ToRotation (this MazeDirection direction) {
