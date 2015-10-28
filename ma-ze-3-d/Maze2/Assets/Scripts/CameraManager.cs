@@ -1,0 +1,47 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class CameraManager : MonoBehaviour
+{
+
+    // Use this for initialization
+    public GameObject camera1;
+    public GameObject camera2;
+    public GameObject camera3;
+    int indexCamera;
+    public static CameraManager instance;
+    void Start()
+    {
+        instance = this;
+    }
+    public void init()
+    {
+        camera3 = GameManager.instance.playerInstance.playerCamera;
+    }
+    public void setCamera()
+    {
+        indexCamera++;
+        if(indexCamera>=3)
+            indexCamera = 0;
+
+        if(indexCamera == 0)
+        {
+             camera1.SetActive(true);
+             camera2.SetActive(false);
+             camera3.SetActive(false);
+        }
+        if (indexCamera == 1)
+        {
+             camera1.SetActive(false);
+             camera2.SetActive(true);
+             camera3.SetActive(false);
+        }
+        if (indexCamera == 2)
+        {
+             camera1.SetActive(false);
+             camera2.SetActive(false);
+             camera3.SetActive(true);
+        }
+    }
+
+}

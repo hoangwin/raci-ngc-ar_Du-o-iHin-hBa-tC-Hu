@@ -2,12 +2,11 @@
 
 public class Player : MonoBehaviour {
 
+    public GameObject playerCamera;
 	public MazeCell currentCell;
-
 	public MazeDirection currentDirection;
-
-	public void SetLocation (MazeCell cell) {
-		
+    
+	public void SetLocation (MazeCell cell) {		
 		currentCell = cell;
 		transform.localPosition = cell.transform.localPosition;
 		
