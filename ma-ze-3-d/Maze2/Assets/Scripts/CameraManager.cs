@@ -8,7 +8,7 @@ public class CameraManager : MonoBehaviour
     public GameObject camera1;
     public GameObject camera2;
     public GameObject camera3;
-    int indexCamera;
+    public int indexCamera;
     public static CameraManager instance;
     void Start()
     {
@@ -17,6 +17,8 @@ public class CameraManager : MonoBehaviour
     public void init()
     {
         camera3 = GameManager.instance.playerInstance.playerCamera;
+        indexCamera = 1;//khoi dau
+        setCamera();
     }
     public void setCamera()
     {

@@ -21,8 +21,8 @@ public class Maze : MonoBehaviour {
     public Target targetPrefab;   
     private Target targetInstance;
 
-    Vector2 coordinateBegin;
-    Vector2 coordinateEnd;
+   public Vector2 coordinateBegin;
+    public Vector2 coordinateEnd;
 
     public static Maze instance; 
 
@@ -173,7 +173,14 @@ public class Maze : MonoBehaviour {
 	}
     public void setPlayerBegin(Player player)
     {
+
         IntVector2 v = new IntVector2((int)coordinateBegin.x, (int) coordinateBegin.y);
-        player.SetLocation(GetCell(v));//set get
+        player.SetLocationDirect(GetCell(v));//set get
+        player.SetLocation(GameManager.instance.posPlayerBegin.position);//set get//here
+        player.HandleCharacter.transform.rotation = new Quaternion(0, 180, 0, 0);
+       player.playerCamera.transform.position = player.posCameraBegin.position;
+       player.playerCamera.transform.rotation = player.posCameraBegin.rotation;
+       player.initBeginPlayAnim();
+      
     }
 }

@@ -23,7 +23,8 @@ public class ButtonControl : MonoBehaviour {
     {
         ScoreCOntrol.mcurrentMode = 0;
         MainMenu.instance.panelUI.SetActive(false);
-        MainMenu.instance.panelLevel.SetActive(true);        
+        MainMenu.instance.panelLevel.SetActive(true);
+        MainMenu.instance.initSelectLevel();
     }
 
     public void ButtonNormal()
@@ -31,13 +32,15 @@ public class ButtonControl : MonoBehaviour {
         ScoreCOntrol.mcurrentMode = 1;
         MainMenu.instance.panelUI.SetActive(false);
         MainMenu.instance.panelLevel.SetActive(true);
+        MainMenu.instance.initSelectLevel();
     }
 
     public void ButtonHard()
     {
         ScoreCOntrol.mcurrentMode = 2;
         MainMenu.instance.panelUI.SetActive(false);
-        MainMenu.instance.panelLevel.SetActive(true);        
+        MainMenu.instance.panelLevel.SetActive(true);
+        MainMenu.instance.initSelectLevel();
     }
     public void ButtonBackToMainmenu()
     {     

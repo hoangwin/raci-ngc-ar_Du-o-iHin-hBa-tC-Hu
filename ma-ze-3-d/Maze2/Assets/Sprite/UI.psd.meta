@@ -1,11 +1,15 @@
 fileFormatVersion: 2
 guid: b83da92505d2e984ab634d535b6c8d1a
-timeCreated: 1446082130
+timeCreated: 1446121302
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: UI_0
     21300002: UI_1
+    21300004: UI_2
+    21300006: UI_3
+    21300008: UI_4
+    21300010: UI_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -55,20 +59,60 @@ TextureImporter:
     - name: UI_0
       rect:
         serializedVersion: 2
-        x: 61
-        y: 352
+        x: 15
+        y: 367
         width: 718
-        height: 646
+        height: 645
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: UI_1
       rect:
         serializedVersion: 2
-        x: 149
-        y: 116
-        width: 452
+        x: 745
+        y: 787
+        width: 449
         height: 154
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: UI_2
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 124
+        width: 543
+        height: 148
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: UI_3
+      rect:
+        serializedVersion: 2
+        x: 795
+        y: 582
+        width: 329
+        height: 121
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: UI_4
+      rect:
+        serializedVersion: 2
+        x: 802
+        y: 451
+        width: 328
+        height: 122
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: UI_5
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 288
+        width: 328
+        height: 124
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}

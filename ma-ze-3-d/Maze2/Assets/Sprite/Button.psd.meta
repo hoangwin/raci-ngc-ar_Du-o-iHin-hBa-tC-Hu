@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 421918fd33f507244bb353d58b0b83cd
-timeCreated: 1446104796
+timeCreated: 1446117833
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -18,6 +18,7 @@ TextureImporter:
     21300022: Button_11
     21300024: Button_12
     21300026: Button_13
+    21300028: Button_14
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -201,6 +202,16 @@ TextureImporter:
         y: 217
         width: 173
         height: 125
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Button_14
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 565
+        width: 93
+        height: 25
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}

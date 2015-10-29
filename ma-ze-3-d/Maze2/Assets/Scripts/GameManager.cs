@@ -11,9 +11,11 @@ public class GameManager : MonoBehaviour {
 
 	public Player playerInstance;
     public static GameManager instance;
+    public Transform posPlayerBegin;
 
 	private void Start () {
         instance = this;
+       
 		StartCoroutine(BeginGame());
         
 	}
@@ -25,16 +27,17 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private IEnumerator BeginGame () {
-		Camera.main.clearFlags = CameraClearFlags.Skybox;
-		Camera.main.rect = new Rect(0f, 0f, 1f, 1f);
+		
+	
 		mazeInstance = Instantiate(mazePrefab) as Maze;
 		yield return StartCoroutine(mazeInstance.Generate2());
-        Debug.Log("aaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+     //   Debug.Log("aaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         Maze.instance = mazeInstance;
 		playerInstance = Instantiate(playerPrefab) as Player;
         mazeInstance.setPlayerBegin(playerInstance);		
-		Camera.main.clearFlags = CameraClearFlags.Depth;
+		//Camera.main.clearFlags = CameraClearFlags.Depth;//here
 		//Camera.main.rect = new Rect(0f, 0f, 0.5f, 0.5f);//camera here
+        //Camera.main.rect = new Rect(0f, 0f, 1f, 1f);
         CameraManager.instance.init();
 	}
 
