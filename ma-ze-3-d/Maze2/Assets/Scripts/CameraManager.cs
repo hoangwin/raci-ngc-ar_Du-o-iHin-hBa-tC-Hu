@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class CameraManager : MonoBehaviour
@@ -10,6 +11,10 @@ public class CameraManager : MonoBehaviour
     public GameObject camera3;
     public int indexCamera;
     public static CameraManager instance;
+
+    public int hintListCount = 3;
+    public GameObject hintListButton;
+    public Text hintListText;
     void Start()
     {
         instance = this;

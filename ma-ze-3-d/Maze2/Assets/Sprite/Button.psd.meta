@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 421918fd33f507244bb353d58b0b83cd
-timeCreated: 1446117833
+timeCreated: 1446461528
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -19,6 +19,13 @@ TextureImporter:
     21300024: Button_12
     21300026: Button_13
     21300028: Button_14
+    21300030: Button_15
+    21300032: Button_16
+    21300034: Button_17
+    21300036: Button_18
+    21300038: Button_19
+    21300040: Button_20
+    21300042: Button_21
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -158,8 +165,8 @@ TextureImporter:
     - name: Button_9
       rect:
         serializedVersion: 2
-        x: 141
-        y: 376
+        x: 736
+        y: 724
         width: 130
         height: 130
       alignment: 0
@@ -212,6 +219,76 @@ TextureImporter:
         y: 565
         width: 93
         height: 25
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Button_15
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 374
+        width: 173
+        height: 125
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Button_16
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 222
+        width: 173
+        height: 125
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Button_17
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 37
+        width: 173
+        height: 125
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Button_18
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 37
+        width: 173
+        height: 125
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Button_19
+      rect:
+        serializedVersion: 2
+        x: 503
+        y: 37
+        width: 173
+        height: 125
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Button_20
+      rect:
+        serializedVersion: 2
+        x: 760
+        y: 37
+        width: 173
+        height: 125
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Button_21
+      rect:
+        serializedVersion: 2
+        x: 826
+        y: 388
+        width: 173
+        height: 125
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}

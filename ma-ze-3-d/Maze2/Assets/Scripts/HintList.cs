@@ -25,4 +25,8 @@ public class HintList : MonoBehaviour {
         hint.transform.localPosition = new Vector3(coordinates.x - size.x * 0.5f + 0.5f, 0f, -coordinates.z - size.z * 0.5f + 0.5f);
         return hint;
     }
+    public void cleanAll()
+    {
+        hintList.Clear();
+    }
 }

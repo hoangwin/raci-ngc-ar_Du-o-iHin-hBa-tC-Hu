@@ -30,10 +30,8 @@ public class ScoreCOntrol : MonoBehaviour {
     }
 
     public static void setCurrentLevel(SuperArrayInt _levelArray, SuperInt _level)
-    {
-        Debug.Log(level);
-        level = _level;
-        Debug.Log(level);
+    {       
+        level = _level;        
         levelArray = _levelArray;
     }
 }

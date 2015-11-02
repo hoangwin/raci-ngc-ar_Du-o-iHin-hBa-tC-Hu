@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 
 public enum MazeDirection {
+    
 	North,
 	East,
 	South,
-	West
+    West, 
+    None
 }
 
 public static class MazeDirections {
@@ -21,7 +23,8 @@ public static class MazeDirections {
 		MazeDirection.South,
 		MazeDirection.West,
 		MazeDirection.North,
-		MazeDirection.East
+		MazeDirection.East,
+        
 	};
 
 	public static MazeDirection GetOpposite (this MazeDirection direction) {

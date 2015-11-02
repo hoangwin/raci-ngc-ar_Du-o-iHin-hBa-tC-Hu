@@ -6,10 +6,7 @@ public class MainMenu : MonoBehaviour {
 
 	// Use this for initialization
 
-    public Sprite sprStart0;
-    public Sprite sprStart1;
-    public Sprite sprStart2;
-    public Sprite sprStart3;
+    public Sprite[] sprStart;
     public Sprite sprStartDisable;
     public Sprite sprButtonEnable;
     public Sprite sprButtonDisable;
@@ -44,7 +41,7 @@ public class MainMenu : MonoBehaviour {
         {
             initSelectLevelWithType(ScoreCOntrol.levelEasyArray, ScoreCOntrol.levelEasy);
         }
-        if(ScoreCOntrol.mcurrentMode ==1)//normal
+        else if(ScoreCOntrol.mcurrentMode ==1)//normal
         {
             initSelectLevelWithType(ScoreCOntrol.levelNormalArray, ScoreCOntrol.levelNormal);
         }else//hard
@@ -56,18 +53,13 @@ public class MainMenu : MonoBehaviour {
     }
     public void initSelectLevelWithType(SuperArrayInt _levelArray, SuperInt _level)//t =0 easy
     {
+       
         ScoreCOntrol.setCurrentLevel(_levelArray, _level);
         for(int i=0;i<=ScoreCOntrol.level.NUM;i++)
         {
             gameObjectArrayButton[i].image.sprite = MainMenu.instance.sprButtonEnable;
-            if (ScoreCOntrol.levelArray.Get(i) == 0)
-                gameObjectArrayButton[i].star.sprite = sprStart0;
-            else if (ScoreCOntrol.levelArray.Get(i) == 1)
-                gameObjectArrayButton[i].star.sprite = sprStart1;
-            else if (ScoreCOntrol.levelArray.Get(i) == 2)
-                gameObjectArrayButton[i].star.sprite = sprStart2;
-            else
-                gameObjectArrayButton[i].star.sprite = sprStart3;
+            gameObjectArrayButton[i].star.sprite = sprStart[ScoreCOntrol.levelArray.Get(i) ];
+           
             gameObjectArrayButton[i].gameObject.GetComponent<Button>().interactable = true; 
         }
         for(int i=ScoreCOntrol.level.NUM+1;i<ScoreCOntrol.levelArray.N;i++)

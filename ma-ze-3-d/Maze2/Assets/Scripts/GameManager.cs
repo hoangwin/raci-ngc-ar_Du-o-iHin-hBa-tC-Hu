@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
@@ -13,11 +14,26 @@ public class GameManager : MonoBehaviour {
     public static GameManager instance;
     public Transform posPlayerBegin;
 
+    public GameObject panelUI;
+    public GameObject panelWIN;
+    public GameObject panelPAUSE;
+    public TJoyStick tJoyStick;
+
+    public GameObject hintButton;
+    public Text hintText;
+    public int hintCount;
+    public Sprite[] sprBigStart;
+    public Image starGameOver;
+    public Text textGameOver;
+    public GameObject mazetemplate; //will delete when go game. it gor design
 	private void Start () {
         instance = this;
-       
-		StartCoroutine(BeginGame());
-        
+        setUI(null);
+        tJoyStick.init();
+        if (mazetemplate != null)
+            Destroy(mazetemplate.gameObject);
+
+		StartCoroutine(BeginGame());        
 	}
 	
 	private void Update () {
@@ -27,8 +43,8 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private IEnumerator BeginGame () {
-		
-	
+        hintCount = 3;
+        setHint(hintCount);
 		mazeInstance = Instantiate(mazePrefab) as Maze;
 		yield return StartCoroutine(mazeInstance.Generate2());
      //   Debug.Log("aaaaaaaaaaaaaaaaaaaaaaaaaaaa");
@@ -41,12 +57,39 @@ public class GameManager : MonoBehaviour {
         CameraManager.instance.init();
 	}
 
-	private void RestartGame () {
+	public void RestartGame () {
 		StopAllCoroutines();
-		Destroy(mazeInstance.gameObject);
+        
+
+        mazeInstance.destroyAll();
+        
 		if (playerInstance != null) {
 			Destroy(playerInstance.gameObject);
 		}
 		StartCoroutine(BeginGame());
 	}
+    public void setUI(GameObject objectPanel)
+    {
+        panelUI.SetActive(false);
+        panelWIN.SetActive(false);
+        panelPAUSE.SetActive(false);
+        
+        if (objectPanel == panelUI)
+            panelUI.SetActive(true);
+        else if (objectPanel == panelWIN)
+            panelWIN.SetActive(true);
+        else if (objectPanel == panelPAUSE)
+            panelPAUSE.SetActive(true);
+    }
+    public void setHint(int count)
+    {
+        if (count < 1)
+            hintButton.SetActive(false);
+        else
+        {
+            hintButton.SetActive(true);
+            hintText.text = count.ToString();
+
+        }
+    }
 }

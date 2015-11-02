@@ -47,6 +47,10 @@ public class ButtonControl : MonoBehaviour {
         MainMenu.instance.panelUI.SetActive(true);
         MainMenu.instance.panelLevel.SetActive(false);
     }
+    public void ButtonPause()
+    {
+        GameManager.instance.setUI(GameManager.instance.panelPAUSE);
+    }
     public void ButtonSoundPress()
     {
         SoundEngine.isSoundMusic = !SoundEngine.isSoundMusic;
@@ -82,5 +86,28 @@ public class ButtonControl : MonoBehaviour {
             MainMenu.instance.imageSFX.sprite = MainMenu.instance.imageSFXOff;
         }
         SoundEngine.play(SoundEngine.instance.click);
+    }
+    public void ButtonHome()
+    {
+        Application.LoadLevel("Menu");
+    }
+    public void ButtonRestart()
+    {
+        GameManager.instance.setUI(null);
+        GameManager.instance.RestartGame();
+    }
+    public void ButtonReSume()
+    {
+        GameManager.instance.setUI(GameManager.instance.panelUI);
+    }
+    public void ButtonNext()
+    {
+        GameManager.instance.setUI(null);
+        GameManager.instance.RestartGame();
+    }
+    public void ButtonShowHintList()
+    {
+        GameManager.instance.setHint(--GameManager.instance.hintCount);
+       Maze.instance.showHintList();
     }
 }

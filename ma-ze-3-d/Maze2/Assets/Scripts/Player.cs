@@ -11,12 +11,25 @@ public class Player : MonoBehaviour {
     public bool isCanmove = true;
     public Transform posCameraBegin;
     public Transform posCameraEnd;
+    public MazeDirection directionKeyWating;
+    private MazeCell targetCell;
 	public void SetLocation (MazeCell cell) {		
-		currentCell = cell;
+	
+       // anim.Play("WALK");//.SetBool("ISWALK", true);
+       // isCanmove = false;
+       // int step =Mathf.Abs( cell.coordinates.x - currentCell.coordinates.x + cell.coordinates.z - currentCell.coordinates.z);
+       // Debug.Log(step);
+        //iTween.MoveTo(gameObject, iTween.Hash("position", cell.transform.localPosition, "easetype", iTween.EaseType.linear, "time", step*0.6f + 0.2f,"onComplete", "walkCompleted"));
+
+		
+
+
         anim.Play("WALK");//.SetBool("ISWALK", true);
         isCanmove = false;
-        iTween.MoveTo(gameObject, iTween.Hash("position", cell.transform.localPosition, "easetype", iTween.EaseType.linear, "time", 0.6f,"onComplete", "walkCompleted"));
-		//transform.localPosition = cell.transform.localPosition;
+        float distance = Vector3.Distance(transform.position, cell.transform.position); ;// Mathf.Abs(cell.coordinates.x - currentCell.coordinates.x + cell.coordinates.z - currentCell.coordinates.z);
+      //  Debug.Log(distance);
+        iTween.MoveTo(gameObject, iTween.Hash("position", cell.transform.localPosition, "easetype", iTween.EaseType.linear, "time", distance * 0.4f , "onComplete", "walkCompleted"));
+        
 		
 	}
     public void SetLocationDirect(MazeCell cell)
@@ -29,7 +42,57 @@ public class Player : MonoBehaviour {
         
         transform.localPosition = tran;
     }
-	
+	private void Move1(MazeDirection direction)
+    {        
+          MazeCell nextcell =  Maze.instance.getLongNextMazeCell(currentCell, direction);
+          directionKeyWating = MazeDirection.None;// khong 
+          setRotation(direction);
+          currentDirection = direction;
+          if (nextcell != null)
+          {              
+              SetLocation(nextcell);
+              targetCell = nextcell;
+          }
+    }
+    private void moveContinue(MazeDirection _direction)// khi dang di chuyen ma co nut nhan
+    {
+        if((currentDirection == MazeDirection.North && _direction == MazeDirection.South ) ||
+            (currentDirection == MazeDirection.South && _direction == MazeDirection.North ) ||
+            (currentDirection == MazeDirection.East && _direction == MazeDirection.West ) ||
+            (currentDirection == MazeDirection.West && _direction == MazeDirection.East ) )
+        {
+            
+            MazeCell tempCurrentcell = Maze.instance.findCell(transform.position);
+            MazeCell nextcell = currentCell;//.instance.getLongNextMazeCell(currentCell, _direction);
+            // directionKeyWating = MazeDirection.None;// khong 
+            setRotation(_direction);
+            if (nextcell != null)
+            {
+                currentCell = tempCurrentcell;
+                SetLocation(nextcell);
+                targetCell = nextcell;               
+            }
+            // dung la
+        }
+        
+       
+    }
+    public void setRotation(MazeDirection direction)
+    {
+        if (direction == MazeDirection.North)
+
+            iTween.RotateTo(HandleCharacter, iTween.Hash("y", 0, "time", 0.5));//"oncomplete", "EndRotation"
+
+        if (direction == MazeDirection.East)
+            iTween.RotateTo(HandleCharacter, iTween.Hash("y", 90, "time", 0.5));//"oncomplete", "EndRotation"
+
+        if (direction == MazeDirection.South)
+            iTween.RotateTo(HandleCharacter, iTween.Hash("y", 180, "time", 0.5));//"oncomplete", "EndRotation"
+
+        if (direction == MazeDirection.West)
+            iTween.RotateTo(HandleCharacter, iTween.Hash("y", -90, "time", 0.5));//"oncomplete", "EndRotation"
+        
+    }
     private void Move2(MazeDirection direction)
     {
         if (!isCanmove)
@@ -87,7 +150,7 @@ public class Player : MonoBehaviour {
             }
 
         }
-        checkWin();
+       
     }
 
 	private void Look (MazeDirection direction) {
@@ -96,43 +159,121 @@ public class Player : MonoBehaviour {
 	}
 
 	private void Update () {
-		if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) {
-            Move2(MazeDirection.North);
-		}
-		else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) {
-            Move2(MazeDirection.East);
-		}
-		else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) {
-            Move2(MazeDirection.South);
-		}
-		else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) {
-            Move2(MazeDirection.West);
-		}
-		else if (Input.GetKeyDown(KeyCode.Q)) {//chuyen goc nhin
-			Look(currentDirection.GetNextCounterclockwise());
-		}
-        else if (Input.GetKeyDown(KeyCode.E)){//chuyen goc nhin
-			Look(currentDirection.GetNextClockwise());
-		}
+       TJoyStick4Way way =  TJoyStick.Get4Way();
+     //  Debug.Log(way);
+       if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || way == TJoyStick4Way.UP)
+        {
+            if (isCanmove)
+                Move1(MazeDirection.North);
+            else
+            {
+                //float distance = Vector3.Distance(transform.position, currentCell.transform.position);               
+                //if (distance < 0.7f) 
+                directionKeyWating = MazeDirection.North;
+                moveContinue(MazeDirection.North);
+                //kiem tra can luu lai key hay khong
+                return;
+            }
+        }
+       else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow) || way == TJoyStick4Way.RIGHT)
+        {
+            if (isCanmove)
+                Move1(MazeDirection.East);
+               else
+            {
+                //float distance = Vector3.Distance(transform.position, currentCell.transform.position);                
+                //if (distance < 0.7f) 
+                directionKeyWating = MazeDirection.East;
+                moveContinue(MazeDirection.East);
+                //kiem tra can luu lai key hay khong
+                return;
+            }
+        }
+       else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow) || way == TJoyStick4Way.DOWN)
+        {
+            if (isCanmove)
+                Move1(MazeDirection.South);
+               else
+            {
+                //float distance = Vector3.Distance(transform.position, currentCell.transform.position);                
+                //if (distance < 0.7f) 
+                directionKeyWating = MazeDirection.South;
+                moveContinue(MazeDirection.South);
+                //kiem tra can luu lai key hay khong
+                return;
+            }
+        }
+       else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow) || way == TJoyStick4Way.LEFT)
+        {
+            if (isCanmove)
+                Move1(MazeDirection.West);
+               else
+            {
+                //float distance = Vector3.Distance(transform.position, currentCell.transform.position);                
+                //if (distance < 0.7f)
+                directionKeyWating = MazeDirection.West;
+                moveContinue(MazeDirection.West);
+                //kiem tra can luu lai key hay khong
+                return;
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Q))
+        {//chuyen goc nhin
+            Look(currentDirection.GetNextCounterclockwise());
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {//chuyen goc nhin
+            Look(currentDirection.GetNextClockwise());
+        }
 	}
     public void walkCompleted()
     {
         isCanmove = true;
-        anim.Play("IDE");//.SetBool("ISWALK", true);
+        currentCell = targetCell;
+        if (checkWin())
+        {
+            anim.Play("IDE");//.SetBool("ISWALK", true);
+        }
+        else
+        {
+            if (directionKeyWating != MazeDirection.None)
+            {
+                Move1(directionKeyWating);
+            }
+            else
+                anim.Play("IDE");//.SetBool("ISWALK", true);
+        }
+
     }
     private bool checkWin()
     {
-        
-       if(currentCell.coordinates.x==  Maze.instance.coordinateEnd.x &&currentCell.coordinates.z==  Maze.instance.coordinateEnd.y)
-       {
-           Debug.Log("WIN");
-           return true;
-       }
+
+        if (currentCell.coordinates.x == Maze.instance.coordinateEnd.x && currentCell.coordinates.z == Maze.instance.coordinateEnd.y)
+        {
+            Debug.Log("WIN" + ScoreCOntrol.level +"," +ScoreCOntrol.mcurrentLevel);
+            
+            if (ScoreCOntrol.mcurrentLevel >= ScoreCOntrol.level.NUM)
+            {
+                ScoreCOntrol.level.NUM++;
+                ScoreCOntrol.level.Save();
+            }
+           
+            int _Star =GameManager.instance.hintCount == 0? 1 : GameManager.instance.hintCount;
+            GameManager.instance.starGameOver.sprite = GameManager.instance.sprBigStart[_Star-1];
+            GameManager.instance.textGameOver.text = ScoreCOntrol.mcurrentLevel.ToString();
+
+            ScoreCOntrol.levelArray.Set(ScoreCOntrol.mcurrentLevel, _Star);
+            ScoreCOntrol.levelArray.Save();
+            ScoreCOntrol.mcurrentLevel++;
+
+            GameManager.instance.setUI(GameManager.instance.panelWIN);
+            return true;
+        }
         return false;
     }
     public void initBeginPlayAnim()
     {
-        StartCoroutine(WaitAndBeginAnim(2.0F));
+        StartCoroutine(WaitAndBeginAnim(1.0F));
         
     }
 
@@ -143,14 +284,16 @@ public class Player : MonoBehaviour {
         yield return new WaitForSeconds(waitTime);
         print("WaitAndPrint " + Time.time);
         anim.Play("WALK");//.SetBool("ISWALK", true);
-        iTween.MoveTo(gameObject, iTween.Hash("position", currentCell.transform.localPosition, "easetype", iTween.EaseType.linear, "time", 3.0f, "onComplete", "BeginStep1Completed"));
+        GameManager.instance.setUI(null);
+        iTween.MoveTo(gameObject, iTween.Hash("position", currentCell.transform.localPosition, "easetype", iTween.EaseType.linear, "time", 2.0f, "onComplete", "BeginStep1Completed"));
         iTween.RotateTo(HandleCharacter, iTween.Hash("y", 0, "time", 0.5));//"oncomplete", "EndRotation"
-        iTween.MoveTo(playerCamera, iTween.Hash("position", posCameraEnd.localPosition, "easetype", iTween.EaseType.linear, "time", 2.6f, "islocal", true));
-        iTween.RotateTo(playerCamera, iTween.Hash("x", posCameraEnd.eulerAngles.x, "time", 2.6));//"oncomplete", "EndRotation"
+        iTween.MoveTo(playerCamera, iTween.Hash("position", posCameraEnd.localPosition, "easetype", iTween.EaseType.linear, "time", 1.6f, "islocal", true));
+        iTween.RotateTo(playerCamera, iTween.Hash("x", posCameraEnd.eulerAngles.x, "time", 1.6));//"oncomplete", "EndRotation"
     }
     private void BeginStep1Completed()
     {
         isCanmove = true;
         anim.Play("IDE");//.SetBool("ISWALK", true);
+        GameManager.instance.setUI(GameManager.instance.panelUI);
     }
 }
