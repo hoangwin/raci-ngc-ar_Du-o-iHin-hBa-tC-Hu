@@ -49,8 +49,10 @@ public class Maze : MonoBehaviour
 
     public IEnumerator Generate2()
     {
+        if (ScoreCOntrol.mcurrentLevel == 0)//chi de test
+            ScoreCOntrol.mcurrentLevel = 1;
         WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
-        Level level = new Level1();
+        Level level = Level.initLevel(ScoreCOntrol.mcurrentMode ,ScoreCOntrol.mcurrentLevel);
         level.init();
         size.x = level.WIDTH;
         size.z = level.HEIGHT;
@@ -179,12 +181,12 @@ public class Maze : MonoBehaviour
         //	wall.Initialize(otherCell, cell, direction.GetOpposite());
         //}
     }
-    public void setPlayerBegin(Player player)
+    public void setPlayerBegin(Player player)//here
     {
 
         IntVector2 v = new IntVector2((int)coordinateBegin.x, (int)coordinateBegin.y);
         player.SetLocationDirect(GetCell(v));//set get
-        player.SetLocation(GameManager.instance.posPlayerBegin.position);//set get//here
+        player.SetLocation(GameManager.instance.platformInstance.posPlayerBegin.position);//set get//here
         player.HandleCharacter.transform.rotation = new Quaternion(0, 180, 0, 0);
         player.playerCamera.transform.position = player.posCameraBegin.position;
         player.playerCamera.transform.rotation = player.posCameraBegin.rotation;

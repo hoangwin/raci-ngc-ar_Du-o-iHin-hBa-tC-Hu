@@ -6,21 +6,27 @@ public class CameraManager : MonoBehaviour
 {
 
     // Use this for initialization
-    public GameObject camera1;
-    public GameObject camera2;
-    public GameObject camera3;
+    public GameObject camera1;// no se chon tuy thuoc vao came mode
+    public GameObject camera2;// no se chon tuy thuoc vao came mode
+    public GameObject camera3;// di theo player
     public int indexCamera;
     public static CameraManager instance;
 
     public int hintListCount = 3;
     public GameObject hintListButton;
     public Text hintListText;
+    public GameObject[] camera1Array;
+    public GameObject[] camera2Array;
     void Start()
     {
         instance = this;
     }
     public void init()
     {
+        
+        camera1 = camera1Array[ScoreCOntrol.mcurrentMode];
+        camera2 = camera2Array[ScoreCOntrol.mcurrentMode];
+        
         camera3 = GameManager.instance.playerInstance.playerCamera;
         indexCamera = 1;//khoi dau
         setCamera();

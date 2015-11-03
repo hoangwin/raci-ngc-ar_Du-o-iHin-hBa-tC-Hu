@@ -158,8 +158,14 @@ public class Player : MonoBehaviour {
 		currentDirection = direction;
 	}
 
+    bool chektouch;
 	private void Update () {
-       TJoyStick4Way way =  TJoyStick.Get4Way();
+        chektouch = (TJoyStick.stateTouch == TJoyStick.TOUCH_STASE.STATE_DOWN && TJoyStick.timePress > 0f &&  TJoyStick.timePress <0.3f);
+        chektouch = chektouch || (TJoyStick.stateTouch == TJoyStick.TOUCH_STASE.STATE_UP);
+        chektouch = chektouch || (TJoyStick.stateTouch == TJoyStick.TOUCH_STASE.STATE_DRAG && TJoyStick.timePress < 0.3);
+        if (chektouch)
+            return;
+         TJoyStick4Way way =  TJoyStick.Get4Way();
      //  Debug.Log(way);
        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || way == TJoyStick4Way.UP)
         {

@@ -21,6 +21,15 @@ public class TJoyStick : MonoBehaviour
     static float DIRECTTION_THREASHOLD_s;
     public static bool IS_USING_TJOYSTICK = false;
     public bool isInit = false;
+    public static float timePress = 0;
+    public static TOUCH_STASE stateTouch = TOUCH_STASE.STATE_NONE;
+    public enum TOUCH_STASE
+    {
+        STATE_NONE,
+        STATE_DOWN,
+        STATE_UP,
+        STATE_DRAG
+    };
     void Start() 
     {
         if (!isInit)
@@ -45,22 +54,25 @@ public class TJoyStick : MonoBehaviour
     {
         if (IS_USING_TJOYSTICK)
         {
+            timePress += Time.deltaTime;
             if (is_not_hold)
             {
                 D *= TOCDO_QUAYVE;
                 image.rectTransform.localPosition = D;
-                if (IS_USING_TJOYSTICK)
-                {
-                    OUTPUT_POS = D / DISTANCE;
-                    if (Mathf.Abs(OUTPUT_POS.x) < 0.01f && Mathf.Abs(OUTPUT_POS.y) < 0.01f)
-                        IS_USING_TJOYSTICK = false;
-                }
+
+                OUTPUT_POS = D / DISTANCE;
+                if (Mathf.Abs(OUTPUT_POS.x) < 0.01f && Mathf.Abs(OUTPUT_POS.y) < 0.01f)
+                    IS_USING_TJOYSTICK = false;
+
             }
             OUTPUT_POS = D / DISTANCE;
         }
 	}
     public void ButtonDown(BaseEventData eventData)
     {
+        Debug.Log("down");
+        stateTouch = TOUCH_STASE.STATE_DOWN;
+        timePress = 0;
         is_not_hold = false;
         IS_USING_TJOYSTICK = true;
         D = ((PointerEventData)eventData).position  - POSISTION2;
@@ -74,6 +86,8 @@ public class TJoyStick : MonoBehaviour
     }
     public void ButtonUp(BaseEventData eventData)
     {
+        Debug.Log("up");
+        stateTouch = TOUCH_STASE.STATE_UP;
         
         D = ((PointerEventData)eventData).position  - POSISTION2;
         if (Mathf.Sqrt(D.x * D.x + D.y * D.y) > DISTANCE)
@@ -86,6 +100,8 @@ public class TJoyStick : MonoBehaviour
     }
     public void ButtonDrag(BaseEventData eventData)
     {
+        Debug.Log("drag");
+        stateTouch = TOUCH_STASE.STATE_DRAG;
         D = ((PointerEventData)eventData).position - POSISTION2;
         if (Mathf.Sqrt(D.x * D.x + D.y * D.y) > DISTANCE)
         { D.Normalize(); D *= DISTANCE; }

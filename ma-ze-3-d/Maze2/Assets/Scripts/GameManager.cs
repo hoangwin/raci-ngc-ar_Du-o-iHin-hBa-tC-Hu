@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
 
 	public Player playerInstance;
     public static GameManager instance;
-    public Transform posPlayerBegin;
+    
 
     public GameObject panelUI;
     public GameObject panelWIN;
@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour {
     public Image starGameOver;
     public Text textGameOver;
     public GameObject mazetemplate; //will delete when go game. it gor design
+    public Platform[] platformPrefab;   
+    public Platform platformInstance;
 	private void Start () {
         instance = this;
         setUI(null);
@@ -48,6 +50,7 @@ public class GameManager : MonoBehaviour {
 		mazeInstance = Instantiate(mazePrefab) as Maze;
 		yield return StartCoroutine(mazeInstance.Generate2());
      //   Debug.Log("aaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        platformInstance = Instantiate(platformPrefab[ScoreCOntrol.mcurrentMode]) as Platform;
         Maze.instance = mazeInstance;
 		playerInstance = Instantiate(playerPrefab) as Player;
         mazeInstance.setPlayerBegin(playerInstance);		
