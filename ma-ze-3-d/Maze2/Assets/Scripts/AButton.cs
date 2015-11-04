@@ -16,6 +16,7 @@ public class AButton : MonoBehaviour {
 	
 	public void buttonPress()
     {
+        SoundEngine.play(SoundEngine.instance.click);
         ScoreCOntrol.mcurrentLevel = Index-1;
         Debug.Log("index | " + Index);
         Application.LoadLevel("Scene");

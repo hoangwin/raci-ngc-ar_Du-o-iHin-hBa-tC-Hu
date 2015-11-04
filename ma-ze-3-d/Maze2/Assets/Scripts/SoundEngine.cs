@@ -5,6 +5,7 @@ public class SoundEngine : MonoBehaviour
 {
     public static bool isSoundMusic = true;
     public static bool isSoundSFX = true;
+    
     // Use this for initialization
    
     //music
@@ -15,22 +16,35 @@ public class SoundEngine : MonoBehaviour
     public AudioClip music4;
 
     //sfx
-    public AudioClip lose;
+    
 	public AudioClip click;
-	public AudioClip paird;
+    public AudioClip move;
     public AudioClip win;
-    public AudioClip failt;
+    
     public AudioSource audioSource;
+    public AudioSource audioSourceFXLoop;
     
     public static SoundEngine instance;
     void Start()
     {
 
-        instance = this;
+            instance = this;        
+            SoundEngine.instance.music.enabled = isSoundMusic;
+            SoundEngine.instance.audioSource.enabled = isSoundSFX;
     }
+    public static void playLoop(AudioClip clip)
+    {
+        instance.audioSourceFXLoop.clip = clip;
+        instance.audioSourceFXLoop.Play();
+    }
+
     public static void play(AudioClip clip)
     {
         instance.audioSource.PlayOneShot(clip);
+    }
+    public static void stop()
+    {
+        instance.audioSourceFXLoop.Stop();
     }
    
     // Update is called once per frame

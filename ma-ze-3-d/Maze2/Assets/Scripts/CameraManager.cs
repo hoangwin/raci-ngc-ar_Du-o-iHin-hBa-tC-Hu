@@ -17,19 +17,32 @@ public class CameraManager : MonoBehaviour
     public Text hintListText;
     public GameObject[] camera1Array;
     public GameObject[] camera2Array;
+
+    public Material[] materialsFloor;
+    public Material[] materialsWall;
+    public Renderer rendWall;
+    public Renderer rendFloor;
     void Start()
     {
         instance = this;
     }
     public void init()
     {
-        
+      
+
         camera1 = camera1Array[ScoreCOntrol.mcurrentMode];
         camera2 = camera2Array[ScoreCOntrol.mcurrentMode];
         
         camera3 = GameManager.instance.playerInstance.playerCamera;
         indexCamera = 1;//khoi dau
         setCamera();
+    }
+    public void setMaterial()
+    {
+      //  Debug.Log("aaaa");
+        int index = ScoreCOntrol.mcurrentLevel % 4;
+        rendWall.material = materialsWall[index];
+        rendFloor.material = materialsFloor[index];
     }
     public void setCamera()
     {
@@ -55,6 +68,15 @@ public class CameraManager : MonoBehaviour
              camera2.SetActive(false);
              camera3.SetActive(true);
         }
+         if(indexCamera == 0 || indexCamera == 1)
+         {
+             GameManager.instance.playerInstance.cubeBoby.SetActive(true);
+             GameManager.instance.playerInstance.realBoby.SetActive(false);
+         }else
+         {
+             GameManager.instance.playerInstance.cubeBoby.SetActive(false);
+             GameManager.instance.playerInstance.realBoby.SetActive(true);
+         }
     }
 
 }

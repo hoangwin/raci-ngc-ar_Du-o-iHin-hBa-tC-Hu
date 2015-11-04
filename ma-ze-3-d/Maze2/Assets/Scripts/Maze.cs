@@ -11,7 +11,6 @@ public class Maze : MonoBehaviour
 
     public float generationStepDelay;
 
-
     public MazeWall wallPrefab;
 
     private MazeCell[,] cells;
@@ -27,6 +26,8 @@ public class Maze : MonoBehaviour
     public Vector2 coordinateEnd;
 
     public static Maze instance;
+
+
 
     public IntVector2 RandomCoordinates
     {

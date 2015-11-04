@@ -13,6 +13,8 @@ public class Player : MonoBehaviour {
     public Transform posCameraEnd;
     public MazeDirection directionKeyWating;
     private MazeCell targetCell;
+    public GameObject cubeBoby;//using when
+    public GameObject realBoby;//using when
 	public void SetLocation (MazeCell cell) {		
 	
        // anim.Play("WALK");//.SetBool("ISWALK", true);
@@ -42,7 +44,7 @@ public class Player : MonoBehaviour {
         
         transform.localPosition = tran;
     }
-	private void Move1(MazeDirection direction)
+	private void Move1(MazeDirection direction,bool playsound)
     {        
           MazeCell nextcell =  Maze.instance.getLongNextMazeCell(currentCell, direction);
           directionKeyWating = MazeDirection.None;// khong 
@@ -53,6 +55,11 @@ public class Player : MonoBehaviour {
               SetLocation(nextcell);
               targetCell = nextcell;
           }
+        if(playsound)
+        {
+            SoundEngine.playLoop(SoundEngine.instance.move);
+        }
+          
     }
     private void moveContinue(MazeDirection _direction)// khi dang di chuyen ma co nut nhan
     {
@@ -170,7 +177,7 @@ public class Player : MonoBehaviour {
        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || way == TJoyStick4Way.UP)
         {
             if (isCanmove)
-                Move1(MazeDirection.North);
+                Move1(MazeDirection.North,true);
             else
             {
                 //float distance = Vector3.Distance(transform.position, currentCell.transform.position);               
@@ -184,7 +191,7 @@ public class Player : MonoBehaviour {
        else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow) || way == TJoyStick4Way.RIGHT)
         {
             if (isCanmove)
-                Move1(MazeDirection.East);
+                Move1(MazeDirection.East, true);
                else
             {
                 //float distance = Vector3.Distance(transform.position, currentCell.transform.position);                
@@ -198,7 +205,7 @@ public class Player : MonoBehaviour {
        else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow) || way == TJoyStick4Way.DOWN)
         {
             if (isCanmove)
-                Move1(MazeDirection.South);
+                Move1(MazeDirection.South, true);
                else
             {
                 //float distance = Vector3.Distance(transform.position, currentCell.transform.position);                
@@ -212,7 +219,7 @@ public class Player : MonoBehaviour {
        else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow) || way == TJoyStick4Way.LEFT)
         {
             if (isCanmove)
-                Move1(MazeDirection.West);
+                Move1(MazeDirection.West, true);
                else
             {
                 //float distance = Vector3.Distance(transform.position, currentCell.transform.position);                
@@ -239,25 +246,29 @@ public class Player : MonoBehaviour {
         if (checkWin())
         {
             anim.Play("IDE");//.SetBool("ISWALK", true);
+            SoundEngine.stop();
         }
         else
         {
             if (directionKeyWating != MazeDirection.None)
             {
-                Move1(directionKeyWating);
+                Move1(directionKeyWating, false);
             }
             else
+            {
                 anim.Play("IDE");//.SetBool("ISWALK", true);
+                SoundEngine.stop();
+            }
         }
-
+        
     }
     private bool checkWin()
     {
 
         if (currentCell.coordinates.x == Maze.instance.coordinateEnd.x && currentCell.coordinates.z == Maze.instance.coordinateEnd.y)
         {
-            Debug.Log("WIN" + ScoreCOntrol.level +"," +ScoreCOntrol.mcurrentLevel);
-            
+         //   Debug.Log("WIN" + ScoreCOntrol.level +"," +ScoreCOntrol.mcurrentLevel);
+            SoundEngine.play(SoundEngine.instance.win);
             if (ScoreCOntrol.mcurrentLevel >= ScoreCOntrol.level.NUM)
             {
                 ScoreCOntrol.level.NUM++;
@@ -301,5 +312,6 @@ public class Player : MonoBehaviour {
         isCanmove = true;
         anim.Play("IDE");//.SetBool("ISWALK", true);
         GameManager.instance.setUI(GameManager.instance.panelUI);
+     
     }
 }

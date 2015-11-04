@@ -15,12 +15,14 @@ public class ButtonControl : MonoBehaviour {
 	}
     public void ButtonCameraPress()
     {
+        SoundEngine.play(SoundEngine.instance.click);
         CameraManager.instance.setCamera();
 
     }
 
     public void ButtonEasy()
     {
+        SoundEngine.play(SoundEngine.instance.click);
         ScoreCOntrol.mcurrentMode = 0;
         MainMenu.instance.panelUI.SetActive(false);
         MainMenu.instance.panelLevel.SetActive(true);
@@ -29,6 +31,7 @@ public class ButtonControl : MonoBehaviour {
 
     public void ButtonNormal()
     {
+        SoundEngine.play(SoundEngine.instance.click);
         ScoreCOntrol.mcurrentMode = 1;
         MainMenu.instance.panelUI.SetActive(false);
         MainMenu.instance.panelLevel.SetActive(true);
@@ -37,22 +40,26 @@ public class ButtonControl : MonoBehaviour {
 
     public void ButtonHard()
     {
+        SoundEngine.play(SoundEngine.instance.click);
         ScoreCOntrol.mcurrentMode = 2;
         MainMenu.instance.panelUI.SetActive(false);
         MainMenu.instance.panelLevel.SetActive(true);
         MainMenu.instance.initSelectLevel();
     }
     public void ButtonBackToMainmenu()
-    {     
+    {
+        SoundEngine.play(SoundEngine.instance.click);
         MainMenu.instance.panelUI.SetActive(true);
         MainMenu.instance.panelLevel.SetActive(false);
     }
     public void ButtonPause()
     {
+        SoundEngine.play(SoundEngine.instance.click);
         GameManager.instance.setUI(GameManager.instance.panelPAUSE);
     }
     public void ButtonSoundPress()
     {
+        Debug.Log("aa");
         SoundEngine.isSoundMusic = !SoundEngine.isSoundMusic;
         if (SoundEngine.isSoundMusic)
         {
@@ -89,24 +96,29 @@ public class ButtonControl : MonoBehaviour {
     }
     public void ButtonHome()
     {
+        SoundEngine.play(SoundEngine.instance.click);
         Application.LoadLevel("Menu");
     }
     public void ButtonRestart()
     {
+        SoundEngine.play(SoundEngine.instance.click);
         GameManager.instance.setUI(null);
         GameManager.instance.RestartGame();
     }
     public void ButtonReSume()
     {
+        SoundEngine.play(SoundEngine.instance.click);
         GameManager.instance.setUI(GameManager.instance.panelUI);
     }
     public void ButtonNext()
     {
+        SoundEngine.play(SoundEngine.instance.click);
         GameManager.instance.setUI(null);
         GameManager.instance.RestartGame();
     }
     public void ButtonShowHintList()
     {
+        SoundEngine.play(SoundEngine.instance.click);
         GameManager.instance.setHint(--GameManager.instance.hintCount);
        Maze.instance.showHintList();
     }

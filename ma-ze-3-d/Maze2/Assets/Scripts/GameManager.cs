@@ -5,14 +5,10 @@ using System.Collections;
 public class GameManager : MonoBehaviour {
 
 	public Maze mazePrefab;
-
 	public Player playerPrefab;
-
 	private Maze mazeInstance;
-
 	public Player playerInstance;
-    public static GameManager instance;
-    
+    public static GameManager instance;   
 
     public GameObject panelUI;
     public GameObject panelWIN;
@@ -28,6 +24,7 @@ public class GameManager : MonoBehaviour {
     public GameObject mazetemplate; //will delete when go game. it gor design
     public Platform[] platformPrefab;   
     public Platform platformInstance;
+
 	private void Start () {
         instance = this;
         setUI(null);
@@ -47,6 +44,7 @@ public class GameManager : MonoBehaviour {
 	private IEnumerator BeginGame () {
         hintCount = 3;
         setHint(hintCount);
+        CameraManager.instance.setMaterial();
 		mazeInstance = Instantiate(mazePrefab) as Maze;
 		yield return StartCoroutine(mazeInstance.Generate2());
      //   Debug.Log("aaaaaaaaaaaaaaaaaaaaaaaaaaaa");
