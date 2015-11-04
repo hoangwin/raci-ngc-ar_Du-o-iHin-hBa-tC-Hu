@@ -26,7 +26,7 @@ public class Maze : MonoBehaviour
     public Vector2 coordinateEnd;
 
     public static Maze instance;
-
+  
 
 
     public IntVector2 RandomCoordinates
@@ -81,6 +81,7 @@ public class Maze : MonoBehaviour
                 coordinates.x = j;
                 coordinates.z = i;
                 CreateCell(coordinates);
+                
             }
 
         }
@@ -163,7 +164,7 @@ public class Maze : MonoBehaviour
         return newCell;
     }
 
-
+   
     public MazeCell findCell(Vector3 pos)
     {
         IntVector2 coor;

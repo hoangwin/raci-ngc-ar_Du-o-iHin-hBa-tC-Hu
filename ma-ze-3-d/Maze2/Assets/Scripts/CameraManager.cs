@@ -39,8 +39,9 @@ public class CameraManager : MonoBehaviour
     }
     public void setMaterial()
     {
-      //  Debug.Log("aaaa");
+        Debug.Log("Level " + ScoreCOntrol.mcurrentLevel);
         int index = ScoreCOntrol.mcurrentLevel % 4;
+        Debug.Log("aaaa : " + index);
         rendWall.material = materialsWall[index];
         rendFloor.material = materialsFloor[index];
     }

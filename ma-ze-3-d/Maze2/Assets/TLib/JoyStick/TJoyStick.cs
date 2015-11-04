@@ -48,7 +48,7 @@ public class TJoyStick : MonoBehaviour
         DISTANCE = WIDTH * 0.4f * 0.01f * DISTANCE_PERCENT_MAX;
 
         Debug.Log(POSISTION);
-        Debug.Log(DISTANCE);
+        //Debug.Log(DISTANCE);
     }
 	void Update () 
     {

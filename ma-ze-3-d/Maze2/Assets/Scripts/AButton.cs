@@ -10,14 +10,14 @@ public class AButton : MonoBehaviour {
     public Image image;
     public Image star;
 	void Start () {
-        Index = int.Parse(text.text);
+       // Index = int.Parse(text.text);
         
 	}
 	
 	public void buttonPress()
     {
         SoundEngine.play(SoundEngine.instance.click);
-        ScoreCOntrol.mcurrentLevel = Index-1;
+        ScoreCOntrol.mcurrentLevel = Index;
         Debug.Log("index | " + Index);
         Application.LoadLevel("Scene");
     }

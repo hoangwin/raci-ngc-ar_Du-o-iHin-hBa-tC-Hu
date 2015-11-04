@@ -33,7 +33,20 @@ public class MainMenu : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (panelUI.activeSelf)
+            {
+                Application.Quit();
+            }
+            else if (panelLevel.activeSelf)
+            {
+                MainMenu.instance.panelUI.SetActive(true);
+                MainMenu.instance.panelLevel.SetActive(false);
+            }
+         
+
+        }
 	}
     public void initSelectLevel()
     {

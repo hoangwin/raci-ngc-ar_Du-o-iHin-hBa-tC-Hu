@@ -39,9 +39,21 @@ public class GameManager : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			RestartGame();
 		}
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (GameManager.instance.panelPAUSE.activeSelf)
+                GameManager.instance.setUI(GameManager.instance.panelUI);
+            else if (GameManager.instance.panelWIN.activeSelf)
+               Application.LoadLevel("Menu");
+            else if (GameManager.instance.panelUI.activeSelf)
+                GameManager.instance.setUI(GameManager.instance.panelPAUSE);
+
+        }
 	}
 
-	private IEnumerator BeginGame () {
+	private IEnumerator BeginGame () {       
+        if (ScoreCOntrol.mcurrentLevel > 20)
+            ScoreCOntrol.mcurrentLevel = 1;
         hintCount = 3;
         setHint(hintCount);
         CameraManager.instance.setMaterial();

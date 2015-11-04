@@ -59,7 +59,7 @@ public class ButtonControl : MonoBehaviour {
     }
     public void ButtonSoundPress()
     {
-        Debug.Log("aa");
+      //  Debug.Log("aa");
         SoundEngine.isSoundMusic = !SoundEngine.isSoundMusic;
         if (SoundEngine.isSoundMusic)
         {
@@ -122,4 +122,47 @@ public class ButtonControl : MonoBehaviour {
         GameManager.instance.setHint(--GameManager.instance.hintCount);
        Maze.instance.showHintList();
     }
+    public void ButtonRatePress()
+    {
+        SoundEngine.play(SoundEngine.instance.click);
+        //  SoundEngine.getInstance().PlayOneShot(SoundEngine.getInstance()._soundclick);
+#if UNITY_ANDROID
+        Application.OpenURL("market://details?id=com.saiyan.maze3d");
+#elif UNITY_WP8
+		WP8Statics.RateApp("");
+#elif UNITY_IOS
+        Application.OpenURL("https://itunes.apple.com/us/app/saiyan-maze/id1055564819?ls=1&mt=8");	
+		
+		//   IOsStatic.ShowAds(" ", " ");
+#endif
+
+    }
+    public static bool firstShowAdsAtBegin = false;
+    static public float timeShowAds = 0;
+    public static void ShowADS()
+    {
+        Debug.Log(timeShowAds);
+        //if (timeShowAds > 90 || !firstShowAdsAtBegin)
+        {
+            Debug.Log("Ads");
+            //Debug.Log("Ads1");
+            if (!firstShowAdsAtBegin)
+                firstShowAdsAtBegin = true;
+            timeShowAds = 0;
+#if UNITY_ANDROID
+            using (AndroidJavaClass jc = new AndroidJavaClass("com.saiyan.maze3d.UnityPlayerNativeActivity"))
+            {
+                jc.CallStatic<int>("ShowAds");
+            }
+
+#elif UNITY_WP8
+			
+			WP8Statics.ShowAds("");
+#elif UNITY_IOS
+			IOsStatic.ShowAds(" ", " ");
+#endif
+        }
+    }
+
+
 }

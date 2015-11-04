@@ -269,7 +269,7 @@ public class Player : MonoBehaviour {
         {
          //   Debug.Log("WIN" + ScoreCOntrol.level +"," +ScoreCOntrol.mcurrentLevel);
             SoundEngine.play(SoundEngine.instance.win);
-            if (ScoreCOntrol.mcurrentLevel >= ScoreCOntrol.level.NUM)
+            if (ScoreCOntrol.mcurrentLevel-1 >= ScoreCOntrol.level.NUM)
             {
                 ScoreCOntrol.level.NUM++;
                 ScoreCOntrol.level.Save();
@@ -279,11 +279,11 @@ public class Player : MonoBehaviour {
             GameManager.instance.starGameOver.sprite = GameManager.instance.sprBigStart[_Star-1];
             GameManager.instance.textGameOver.text = ScoreCOntrol.mcurrentLevel.ToString();
 
-            ScoreCOntrol.levelArray.Set(ScoreCOntrol.mcurrentLevel, _Star);
+            ScoreCOntrol.levelArray.Set(ScoreCOntrol.mcurrentLevel-1, _Star);
             ScoreCOntrol.levelArray.Save();
-            ScoreCOntrol.mcurrentLevel++;
-
-            GameManager.instance.setUI(GameManager.instance.panelWIN);
+            ScoreCOntrol.mcurrentLevel++;            
+            WaitAndShowEndGame();
+            ButtonControl.ShowADS();
             return true;
         }
         return false;
@@ -293,13 +293,21 @@ public class Player : MonoBehaviour {
         StartCoroutine(WaitAndBeginAnim(1.0F));
         
     }
-
+    public void WaitAndShowEndGame()
+    {
+        StartCoroutine(ShowBeginAnim(2.0F));
+    }
+    private IEnumerator  ShowBeginAnim(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        GameManager.instance.setUI(GameManager.instance.panelWIN);
+    }
     
     private IEnumerator  WaitAndBeginAnim(float waitTime)
     {
         isCanmove = false;
         yield return new WaitForSeconds(waitTime);
-        print("WaitAndPrint " + Time.time);
+        //print("WaitAndPrint " + Time.time);
         anim.Play("WALK");//.SetBool("ISWALK", true);
         GameManager.instance.setUI(null);
         iTween.MoveTo(gameObject, iTween.Hash("position", currentCell.transform.localPosition, "easetype", iTween.EaseType.linear, "time", 2.0f, "onComplete", "BeginStep1Completed"));
