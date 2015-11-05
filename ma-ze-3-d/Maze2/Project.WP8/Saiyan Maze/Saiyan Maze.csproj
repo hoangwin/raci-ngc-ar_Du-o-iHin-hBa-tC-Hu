@@ -119,7 +119,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\AppManifest.xml" />
+    <None Include="Properties\AppManifest.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
     </None>
@@ -183,7 +185,7 @@
     <Reference Include="MobFox.Ads">
       <HintPath>..\ads\MobFox-WP7-SDK-1.3.0\MobFox.Ads.dll</HintPath>
     </Reference>
-        <Reference Include="vservWindowsPhone">
+    <Reference Include="vservWindowsPhone">
       <HintPath>..\ads\VservWP8SDK\WP8SDK\vservWindowsPhone.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
