@@ -3,6 +3,7 @@
 public class ShellExplosion : MonoBehaviour
 {
     public LayerMask m_TankMask;//de kiem tra phai tank nam trpng ung no
+    public LayerMask m_BoxMask;//de kiem tra phai tank nam trpng ung no
     public ParticleSystem m_ExplosionParticles;       
     public AudioSource m_ExplosionAudio;              
     public float m_MaxDamage = 100f;                  
@@ -19,9 +20,10 @@ public class ShellExplosion : MonoBehaviour
 
     private void OnTriggerEnter (Collider other)
         {
+        
 			// Collect all the colliders in a sphere from the shell's current position to a radius of the explosion radius.
             Collider[] colliders = Physics.OverlapSphere (transform.position, m_ExplosionRadius, m_TankMask);
-
+            
             // Go through all the colliders...
             for (int i = 0; i < colliders.Length; i++)
             {
@@ -32,8 +34,8 @@ public class ShellExplosion : MonoBehaviour
                 if (!targetRigidbody)
                     continue;
 
-                // Add an explosion force.
-                targetRigidbody.AddExplosionForce (m_ExplosionForce, transform.position, m_ExplosionRadius);
+                // Add an explosion force.//here
+              //  targetRigidbody.AddExplosionForce (m_ExplosionForce, transform.position, m_ExplosionRadius);
 
                 // Find the TankHealth script associated with the rigidbody.
                 TankHealth targetHealth = targetRigidbody.GetComponent<TankHealth> ();
@@ -46,7 +48,28 @@ public class ShellExplosion : MonoBehaviour
                 float damage = CalculateDamage (targetRigidbody.position);
 
                 // Deal this damage to the tank.
+                damage = 20;
                 targetHealth.TakeDamage (damage);
+            }
+
+
+            Collider[] collidersBox = Physics.OverlapSphere(transform.position, m_ExplosionRadius +0.3f, m_BoxMask);
+
+            // Go through all the colliders...
+            for (int i = 0; i < collidersBox.Length; i++)
+            {
+                // ... and find their rigidbody.
+                Box box = collidersBox[i].GetComponent<Box>();
+
+                // If they don't have a rigidbody, go on to the next collider.
+                if (!box)
+                    continue;
+
+                // Add an explosion force.//here
+                //  targetRigidbody.AddExplosionForce (m_ExplosionForce, transform.position, m_ExplosionRadius);
+
+                // Find the TankHealth script associated with the rigidbody.
+                box.destroy();
             }
 
             // Unparent the particles from the shell.
