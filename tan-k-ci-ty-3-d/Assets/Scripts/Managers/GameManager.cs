@@ -82,7 +82,10 @@ using UnityEngine.UI;
             if (m_GameWinner != null)
             {
                 // If there is a game winner, restart the level.
-                Application.LoadLevel (Application.loadedLevel);
+             //   Application.LoadLevel (Application.loadedLevel);
+                Application.LoadLevel(0);
+                
+            //    SceneManager.LoadScene();
             }
             else
             {

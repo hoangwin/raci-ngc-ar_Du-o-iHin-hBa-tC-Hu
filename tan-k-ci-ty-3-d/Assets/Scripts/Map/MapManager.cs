@@ -67,7 +67,7 @@ public class MapManager : MonoBehaviour {
                     else if (c == '~')//nuoc
                     {
                         Quaternion rotation = Quaternion.Euler(0, 0, 0);
-                        Vector3 pos = new Vector3(j * _CELL_WIDTH, 1, -i * _CELL_HEIGHT);
+                        Vector3 pos = new Vector3(j * _CELL_WIDTH, 0.35f, -i * _CELL_HEIGHT);
                         GameObject obj = Instantiate(_waterPrefab, pos, rotation) as GameObject;
                         obj.transform.position = pos;
                     }

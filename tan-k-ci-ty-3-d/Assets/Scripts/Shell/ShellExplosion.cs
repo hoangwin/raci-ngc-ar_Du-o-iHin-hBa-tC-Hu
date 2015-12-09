@@ -6,7 +6,7 @@ public class ShellExplosion : MonoBehaviour
     public LayerMask m_BoxMask;//de kiem tra phai tank nam trpng ung no
     public ParticleSystem m_ExplosionParticles;       
     public AudioSource m_ExplosionAudio;              
-    public float m_MaxDamage = 100f;                  
+    public float m_damege = 1f;                  
     public float m_ExplosionForce = 1000f;            
     public float m_MaxLifeTime = 2f;                  
     public float m_ExplosionRadius = 5f;              
@@ -45,11 +45,8 @@ public class ShellExplosion : MonoBehaviour
                     continue;
 
                 // Calculate the amount of damage the target should take based on it's distance from the shell.
-                float damage = CalculateDamage (targetRigidbody.position);
 
-                // Deal this damage to the tank.
-                damage = 20;
-                targetHealth.TakeDamage (damage);
+                targetHealth.TakeDamage (m_damege);
             }
 
 
@@ -89,15 +86,5 @@ public class ShellExplosion : MonoBehaviour
         }
 
 
-    private float CalculateDamage(Vector3 targetPosition)
-    {
-        // Calculate the amount of damage a target should take based on it's position.
-
-        Vector3 explosionToTarget = targetPosition - transform.position;
-        float explosionDistance = explosionToTarget.magnitude;
-        float relativeDistance = (m_ExplosionRadius - explosionDistance)/m_ExplosionRadius;
-        float damage = relativeDistance * m_MaxDamage;
-        damage = Mathf.Max(0f, damage);
-        return damage;
-    }
+    
 }
