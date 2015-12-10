@@ -58,6 +58,7 @@
      <None Include="Assets\Resources\levels\1.txt" />
      <None Include="Assets\Resources\levels\10.txt" />
      <None Include="Assets\Prefabs\box\pack.txt" />
+     <None Include="Assets\InputGuide.txt" />
      <None Include="Assets\Prefabs\box\README.txt" />
      <None Include="Assets\Resources\levels\11.txt" />
  <Reference Include="UnityEngine.UI">
