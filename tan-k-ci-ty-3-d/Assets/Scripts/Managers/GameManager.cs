@@ -76,7 +76,7 @@ using UnityEngine.UI;
             yield return StartCoroutine (RoundPlaying());
 
             // Once execution has returned here, run the 'RoundEnding' coroutine, again don't return until it's finished.
-            yield return StartCoroutine (RoundEnding());
+        //here    yield return StartCoroutine (RoundEnding());
 
             // This code is not run until 'RoundEnding' has finished.  At which point, check if a game winner has been found.
             if (m_GameWinner != null)
@@ -123,7 +123,8 @@ using UnityEngine.UI;
             m_MessageText.text = string.Empty;
 
             // While there is not one tank left...
-            while (!OneTankLeft())
+      //here      while (!OneTankLeft())
+            while(true)
             {
                 // ... return on the next frame.
                 yield return null;

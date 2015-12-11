@@ -16,7 +16,7 @@ public class ShellExplosion : MonoBehaviour
     {
         Destroy(gameObject, m_MaxLifeTime);
     }
-
+   
 
     private void OnTriggerEnter (Collider other)
         {
@@ -50,9 +50,20 @@ public class ShellExplosion : MonoBehaviour
             }
 
 
-            Collider[] collidersBox = Physics.OverlapSphere(transform.position, m_ExplosionRadius +0.3f, m_BoxMask);
+            //Collider[] collidersBox = Physics.OverlapSphere(transform.position, m_ExplosionRadius +0.3f, m_BoxMask);
+            //Collider[] collidersBox = Physics.OverlapBox(transform.position, new Vector3( m_ExplosionRadius,0.5f,0.5f), m_BoxMask);
+            Vector3 vel = GetComponent<Rigidbody>().velocity;
+            Collider[] collidersBox =null;
+            if(vel.z > 20 || vel.z <-20)
+                collidersBox = Physics.OverlapBox(other.gameObject.transform.position, new Vector3(1.0f, 0.2f, 0.2f), Quaternion.Euler(Vector3.zero), m_BoxMask);
+            else if (vel.x > 20 || vel.x < -20)
+                collidersBox = Physics.OverlapBox(other.gameObject.transform.position, new Vector3(0.2f, 0.2f, 1.0f), Quaternion.Euler(Vector3.zero), m_BoxMask);
 
+
+          //  Debug.Log("aaaa:" + vel);
             // Go through all the colliders...
+        if(collidersBox!= null)
+        {
             for (int i = 0; i < collidersBox.Length; i++)
             {
                 // ... and find their rigidbody.
@@ -68,7 +79,7 @@ public class ShellExplosion : MonoBehaviour
                 // Find the TankHealth script associated with the rigidbody.
                 box.destroy();
             }
-
+        }
             // Unparent the particles from the shell.
             m_ExplosionParticles.transform.parent = null;
 
@@ -82,6 +93,7 @@ public class ShellExplosion : MonoBehaviour
             Destroy (m_ExplosionParticles.gameObject, m_ExplosionParticles.duration);
 
             // Destroy the shell.
+        
             Destroy (gameObject);
         }
 

@@ -56,7 +56,7 @@ public class TankMovement : MonoBehaviour
         m_OriginalPitch = m_MovementAudio.pitch;
     }
 
-
+                
     private void Update()
     {
         if (m_PlayerNumber == 1 || m_PlayerNumber ==2)
@@ -157,7 +157,7 @@ public class TankMovement : MonoBehaviour
         {
             if (!checkCanMove())//khi khong di chuyen dc nua thi chuyen huong
             {
-                Debug.Log("Can Chuyen Huong");
+                //Debug.Log("Can Chuyen Huong");
                 StopAllCoroutines();
                 m_timeChangeDirection = 0f;
                 StartCoroutine(ChangDirectionMove());
@@ -186,6 +186,7 @@ public class TankMovement : MonoBehaviour
             Quaternion turnRotation = Quaternion.Euler(0f, -90, 0f);
             // Apply this rotation to the rigidbody's rotation.
             m_Rigidbody.rotation = turnRotation;// (m_Rigidbody.rotation * turnRotation);
+        //    Debug.Log("BB:" + movement);
         }
         else if (m_MovementInputValueX > 0)
         {
@@ -194,14 +195,22 @@ public class TankMovement : MonoBehaviour
             // Apply this rotation to the rigidbody's rotation.
             m_Rigidbody.rotation = turnRotation;// (m_Rigidbody.rotation * turnRotation);
             movement = transform.forward * m_MovementInputValueX * m_Speed * Time.deltaTime;
+          //  Debug.Log("AA:" + movement);
         }
 
             //Vector3 movement = transform. * m_TurnInputValue * m_Speed * Time.deltaTime;
 
             // Apply this movement to the rigidbody's position.
+            if (m_MovementInputValueX == 0 && m_MovementInputValueY==0)
+                FixPosition(true,true);
+            else if (m_MovementInputValueX == 0)
+                FixPosition(false, true);
+            else if (m_MovementInputValueY == 0) 
+                FixPosition(true, false);
+
             m_LastPostion = m_Rigidbody.transform.position;
             m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
-       
+
     }
     void MoveRandom()
     {
@@ -264,6 +273,37 @@ public class TankMovement : MonoBehaviour
             return false;
         return true;
     }
+
+    void FixPosition(bool fixRow, bool FixCol)//fix row nghia la row cho dung
+    {
+          //if (true) return;
+        //Vector3 pos = new Vector3(j * _CELL_WIDTH, 1, -i * _CELL_HEIGHT);
+        if (fixRow && FixCol)
+        {
+            int cellROW = (int)(transform.position.z / (-MapManager._CELL_HEIGHT));
+            int cellCOL = (int)(transform.position.x / (MapManager._CELL_WIDTH));
+            //   transform.position = new Vector3(cellCOL * MapManager._CELL_WIDTH + MapManager._CELL_WIDTH / 2, 0, cellROW * (-MapManager._CELL_HEIGHT) - MapManager._CELL_HEIGHT / 2);
+            //  Debug.Log(1);
+        }
+        else if (fixRow)
+        {
+            int cellROW = (int)(transform.position.z / (-MapManager._CELL_HEIGHT));
+            float t = -cellROW * MapManager._CELL_HEIGHT - (MapManager._CELL_HEIGHT / 2);           
+            transform.position = new Vector3(transform.position.x, 0, t);
+            //Debug.Log(3);
+            //   Debug.Log(cellROW);// * (-MapManager._CELL_HEIGHT) - (MapManager._CELL_HEIGHT / 2f));
+        }
+        else if (FixCol)
+        {
+            int cellCOL = (int)(transform.position.x / (MapManager._CELL_WIDTH));
+            float t = cellCOL * MapManager._CELL_WIDTH + MapManager._CELL_WIDTH / 2;            
+            transform.position = new Vector3(t, 0, transform.position.z);
+
+        }
+    }
+  
+
+   
     //void OnCollisionEnter(Collision collision)
     //{
        // Debug.Log("Enter Collider");
