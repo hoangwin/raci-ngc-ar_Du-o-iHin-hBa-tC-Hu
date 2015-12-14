@@ -20,7 +20,8 @@ public class TankMovement : MonoBehaviour
 
     private float m_timeChangeDirection;
     private Vector3 m_LastPostion;
-    
+    ArrayList m_ListForRandom = new ArrayList();
+
     private void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
@@ -158,9 +159,9 @@ public class TankMovement : MonoBehaviour
             if (!checkCanMove())//khi khong di chuyen dc nua thi chuyen huong
             {
                 //Debug.Log("Can Chuyen Huong");
-                StopAllCoroutines();
-                m_timeChangeDirection = 0f;
-                StartCoroutine(ChangDirectionMove());
+                //StopAllCoroutines();
+               // m_timeChangeDirection = 0f;
+               // StartCoroutine(ChangDirectionMove());
             }
         }
         // Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
@@ -230,27 +231,67 @@ public class TankMovement : MonoBehaviour
         m_timeChangeDirection = Random.Range(2f, 5f);
             // If there isn't a winner yet, restart this coroutine so the loop continues.
             // Note that this coroutine doesn't yield.  This means that the current version of the GameLoop will end.
-        Debug.Log("Change Direction");
-        int i = Random.Range(0,4); 
-        if(i ==0)
+      
+        int cellROW = Mathf.Abs( (int)(transform.position.z / (-MapManager._CELL_HEIGHT)));
+        int cellCOL = Mathf.Abs((int)(transform.position.x / (MapManager._CELL_WIDTH)));
+        //tiem kiem 4 thang tiep theo de coi co se di duoc dau
+        //if(cellCOL)
+        //MapManager._arrayMap[]
+        m_ListForRandom.Clear();
+
+        if (cellROW - 1 >= 0 && MapManager._arrayMap[cellCOL, cellROW - 1] == Box.Type.NONE && MapManager._arrayMap[cellCOL + 1, cellROW - 1] == Box.Type.NONE)
         {
-            m_MovementInputValueX = 1;
-            m_MovementInputValueY = 0;
+            m_ListForRandom.Add(1);
         }
-        else if (i == 1)
+        if (cellCOL + 1 < MapManager._CELL_WIDTH && MapManager._arrayMap[cellCOL + 1, cellROW] == Box.Type.NONE && MapManager._arrayMap[cellCOL + 1, cellROW +1] == Box.Type.NONE)
         {
-            m_MovementInputValueX = 0;
-            m_MovementInputValueY = 1;
+            m_ListForRandom.Add(2);
+           
         }
-        else if (i == 2)
+        if (cellROW + 1 < MapManager._CELL_HEIGHT && MapManager._arrayMap[cellCOL, cellROW + 1] == Box.Type.NONE && MapManager._arrayMap[cellCOL+1, cellROW + 1] == Box.Type.NONE)
         {
-            m_MovementInputValueX = 0;
-            m_MovementInputValueY = -1;
+            m_ListForRandom.Add(3);
+            m_ListForRandom.Add(3);
+           
         }
-        else if (i == 3)
+        if (cellCOL - 1 >= 0 && MapManager._arrayMap[cellCOL - 1, cellROW] == Box.Type.NONE &&  MapManager._arrayMap[cellCOL - 1, cellROW +1] == Box.Type.NONE)
         {
-            m_MovementInputValueX = -1;
-            m_MovementInputValueY = 0;
+            m_ListForRandom.Add(4);
+            
+        }
+        if (m_ListForRandom.Count < 1)
+        {
+
+
+        }
+        else
+        {
+            int i = Random.Range(0, m_ListForRandom.Count);
+           // Debug.Log("ii " + i);
+          //  Debug.Log("m_ListForRandom " + m_ListForRandom.Count);
+       //     Debug.Log("direct " + (int)(m_ListForRandom[i]));
+            if ((int)(m_ListForRandom[i]) == 1)
+            {
+                m_MovementInputValueX = 0;
+                m_MovementInputValueY = 1;
+            }
+            else if ((int)(m_ListForRandom[i]) == 2)
+            {
+                m_MovementInputValueX = 1;
+                m_MovementInputValueY = 0;
+            }
+            else if ((int)(m_ListForRandom[i]) == 3)
+            {
+                m_MovementInputValueX = 0;
+                m_MovementInputValueY = -1;
+            }
+            else if ((int)(m_ListForRandom[i]) == 4)
+            {
+                m_MovementInputValueX = -1;
+                m_MovementInputValueY = 0;
+            }
+
+            
         }
         StartCoroutine(ChangDirectionMove());
       
@@ -278,14 +319,7 @@ public class TankMovement : MonoBehaviour
     {
           //if (true) return;
         //Vector3 pos = new Vector3(j * _CELL_WIDTH, 1, -i * _CELL_HEIGHT);
-        if (fixRow && FixCol)
-        {
-            int cellROW = (int)(transform.position.z / (-MapManager._CELL_HEIGHT));
-            int cellCOL = (int)(transform.position.x / (MapManager._CELL_WIDTH));
-            //   transform.position = new Vector3(cellCOL * MapManager._CELL_WIDTH + MapManager._CELL_WIDTH / 2, 0, cellROW * (-MapManager._CELL_HEIGHT) - MapManager._CELL_HEIGHT / 2);
-            //  Debug.Log(1);
-        }
-        else if (fixRow)
+       if (fixRow)
         {
             int cellROW = (int)(transform.position.z / (-MapManager._CELL_HEIGHT));
             float t = -cellROW * MapManager._CELL_HEIGHT - (MapManager._CELL_HEIGHT / 2);           
@@ -300,6 +334,7 @@ public class TankMovement : MonoBehaviour
             transform.position = new Vector3(t, 0, transform.position.z);
 
         }
+       //Debug.Log(transform.position.x / (MapManager._CELL_WIDTH) +"," +transform.position.z / (-MapManager._CELL_HEIGHT));       
     }
   
 

@@ -10,6 +10,7 @@ public class Box : MonoBehaviour {
     //public GameObject m_ChildBox_BOTTOMRIGHT;
     public enum Type
     {
+        NONE,
         WALL,
         ROCK,
         TREE,

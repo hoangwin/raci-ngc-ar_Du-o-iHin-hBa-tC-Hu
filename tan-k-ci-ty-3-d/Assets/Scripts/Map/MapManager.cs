@@ -7,8 +7,8 @@ public class MapManager : MonoBehaviour {
     public static int _MAP_SIZE_HEIGHT = 26;
     public static int _CELL_WIDTH = 2;
     public static int _CELL_HEIGHT = 2;
-    
-    private int[,] _arrayMap = new int[_MAP_SIZE_WIDTH, _MAP_SIZE_HEIGHT];
+
+    public static Box.Type[,] _arrayMap = new Box.Type[_MAP_SIZE_WIDTH, _MAP_SIZE_HEIGHT];
     public GameObject _wallPrefab;
     public GameObject _blockPrefab;
     public GameObject _rockPrefab;
@@ -40,7 +40,7 @@ public class MapManager : MonoBehaviour {
             {
                 if (i >= 0 && i < _MAP_SIZE_HEIGHT && j >= 0 && j < _MAP_SIZE_WIDTH)
                 {
-                    _arrayMap[i, j] = 0;
+                    _arrayMap[i, j] = Box.Type.NONE;
                     char c = strarray[i][j];
 
                     if (c == '#')//gach
@@ -49,6 +49,8 @@ public class MapManager : MonoBehaviour {
                         Vector3 pos = new Vector3(j * _CELL_WIDTH, 1, -i * _CELL_HEIGHT);
                         GameObject obj = Instantiate(_wallPrefab, pos, rotation) as GameObject;
                         obj.transform.position = pos;
+                        obj.GetComponent<SuperBox>().setRowCol(j, i);
+                        _arrayMap[i, j] = Box.Type.WALL;
                     }
                     else if (c == '@')//da
                     {
@@ -56,6 +58,9 @@ public class MapManager : MonoBehaviour {
                         Vector3 pos = new Vector3(j * _CELL_WIDTH, 1, -i * _CELL_HEIGHT);
                         GameObject obj = Instantiate(_rockPrefab, pos, rotation) as GameObject;
                         obj.transform.position = pos;
+                        obj.GetComponent<SuperBox>().setRowCol(j, i);
+                        _arrayMap[i, j] = Box.Type.ROCK;
+
                     }
                     else if (c == '%')//cay
                     {
@@ -63,6 +68,7 @@ public class MapManager : MonoBehaviour {
                         Vector3 pos = new Vector3(j * _CELL_WIDTH, 1, -i * _CELL_HEIGHT);
                         GameObject obj = Instantiate(_treePrefab, pos, rotation) as GameObject;
                         obj.transform.position = pos;
+                        
                     }
                     else if (c == '~')//nuoc
                     {
@@ -70,6 +76,7 @@ public class MapManager : MonoBehaviour {
                         Vector3 pos = new Vector3(j * _CELL_WIDTH, 0.35f, -i * _CELL_HEIGHT);
                         GameObject obj = Instantiate(_waterPrefab, pos, rotation) as GameObject;
                         obj.transform.position = pos;
+                        _arrayMap[i, j] = Box.Type.WATER;
                     }
                     
                 }

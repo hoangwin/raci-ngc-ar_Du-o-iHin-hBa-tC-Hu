@@ -51,7 +51,7 @@ public class TankShooting : MonoBehaviour
             // Otherwise, if the fire button has just started being pressed...
             if (Input.GetButtonDown(m_FireButton) && (m_ShellInstance == null))
             {
-                Fire();
+                Fire("ShellOfPlayer");//khi player 1 ban
                 // ... reset the fired flag and reset the launch force.
                 
 
@@ -66,7 +66,7 @@ public class TankShooting : MonoBehaviour
     }
 
 
-    private void Fire()
+    private void Fire(string tag)
     {
         // Set the fired flag so only Fire is only called once.
         m_Fired = true;
@@ -75,10 +75,10 @@ public class TankShooting : MonoBehaviour
         // Create an instance of the shell and store a reference to it's rigidbody.
         Rigidbody shellInstance =
             Instantiate(m_Shell, m_FireTransform.position, m_FireTransform.rotation) as Rigidbody;
+        shellInstance.gameObject.tag = tag;
         m_ShellInstance = shellInstance.gameObject;
         // Set the shell's velocity to the launch force in the fire position's forward direction.
-        shellInstance.velocity = m_CurrentLaunchForce * m_FireTransform.forward; ;
-
+        shellInstance.velocity = m_CurrentLaunchForce * m_FireTransform.forward;        
         // Change the clip to the firing clip and play it.
         m_ShootingAudio.clip = m_FireClip;
         m_ShootingAudio.Play();
@@ -90,7 +90,7 @@ public class TankShooting : MonoBehaviour
     private IEnumerator AutoFire()
     {
         yield return new WaitForSeconds(2);
-        Fire();
+        Fire("ShellOfEnemy");//khi auto ban
         StartCoroutine(AutoFire());
     }
     //StartCoroutine(ChangDirectionMove());
