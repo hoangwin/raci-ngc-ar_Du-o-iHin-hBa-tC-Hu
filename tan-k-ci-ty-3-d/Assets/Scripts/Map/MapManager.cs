@@ -51,6 +51,7 @@ public class MapManager : MonoBehaviour {
                         obj.transform.position = pos;
                         obj.GetComponent<SuperBox>().setRowCol(j, i);
                         _arrayMap[i, j] = Box.Type.WALL;
+                        obj.transform.parent = this.transform;
                     }
                     else if (c == '@')//da
                     {
@@ -60,7 +61,7 @@ public class MapManager : MonoBehaviour {
                         obj.transform.position = pos;
                         obj.GetComponent<SuperBox>().setRowCol(j, i);
                         _arrayMap[i, j] = Box.Type.ROCK;
-
+                        obj.transform.parent = this.transform;
                     }
                     else if (c == '%')//cay
                     {
@@ -68,7 +69,7 @@ public class MapManager : MonoBehaviour {
                         Vector3 pos = new Vector3(j * _CELL_WIDTH, 1, -i * _CELL_HEIGHT);
                         GameObject obj = Instantiate(_treePrefab, pos, rotation) as GameObject;
                         obj.transform.position = pos;
-                        
+                        obj.transform.parent = this.transform;
                     }
                     else if (c == '~')//nuoc
                     {
@@ -77,6 +78,7 @@ public class MapManager : MonoBehaviour {
                         GameObject obj = Instantiate(_waterPrefab, pos, rotation) as GameObject;
                         obj.transform.position = pos;
                         _arrayMap[i, j] = Box.Type.WATER;
+                        obj.transform.parent = this.transform;
                     }
                     
                 }
@@ -88,6 +90,7 @@ public class MapManager : MonoBehaviour {
                     Vector3 pos = new Vector3(j * _CELL_WIDTH, 1, -i * _CELL_HEIGHT);
                     GameObject obj = Instantiate(_blockPrefab, pos, rotation) as GameObject;
                     obj.transform.position = pos;
+                    obj.transform.parent = this.transform;
                 }
 
             }

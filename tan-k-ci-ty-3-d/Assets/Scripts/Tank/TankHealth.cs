@@ -54,5 +54,6 @@ public class TankHealth : MonoBehaviour
         m_ExplosionParticles.Play();
         m_ExplosionAudio.Play();
         gameObject.SetActive(false);
+        GameManager.m_TankCountLive--;
     }
 }

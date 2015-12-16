@@ -35,7 +35,14 @@ using UnityEngine;
             m_Shooting.m_PlayerNumber = m_PlayerNumber;
 
             // Create a string using the correct color that says 'PLAYER 1' etc based on the tank's color and the player's number.
-            m_ColoredPlayerText = "<color=#" + ColorUtility.ToHtmlStringRGB(m_PlayerColor) + ">PLAYER " + m_PlayerNumber + "</color>";
+            if (m_PlayerNumber != 0)
+            {
+                m_ColoredPlayerText = "<color=#" + ColorUtility.ToHtmlStringRGB(m_PlayerColor) + ">PLAYER " + m_PlayerNumber + "</color>";
+            }
+            else
+            {                
+                m_ColoredPlayerText = "<color=#" + ColorUtility.ToHtmlStringRGB(Color.grey) + ">ENEMY</color>";
+            }
 
             // Get all of the renderers of the tank.
             MeshRenderer[] renderers = m_Instance.GetComponentsInChildren<MeshRenderer> ();
@@ -44,7 +51,10 @@ using UnityEngine;
             for (int i = 0; i < renderers.Length; i++)
             {
                 // ... set their material color to the color specific to this tank.
-                renderers[i].material.color = m_PlayerColor;
+                if (m_PlayerNumber != 0)
+                    renderers[i].material.color = m_PlayerColor;
+                else
+                    renderers[i].material.color = Color.grey;
             }
         }
 

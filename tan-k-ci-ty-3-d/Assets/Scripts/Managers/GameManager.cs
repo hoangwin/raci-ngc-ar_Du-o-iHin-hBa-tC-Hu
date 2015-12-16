@@ -12,6 +12,7 @@ using UnityEngine.UI;
         public Text m_MessageText;                  // Reference to the overlay Text to display winning text, etc.
         public GameObject m_TankPrefab;             // Reference to the prefab the players will control.
         public TankManager[] m_Tanks;               // A collection of managers for enabling and disabling different aspects of the tanks.
+        public TankManager[] m_TanksEnemy;               // A collection of managers for enabling and disabling different aspects of the tanks.
 
         
         private int m_RoundNumber;                  // Which round the game is currently on.
@@ -19,7 +20,10 @@ using UnityEngine.UI;
         private WaitForSeconds m_EndWait;           // Used to have a delay whilst the round or game ends.
         private TankManager m_RoundWinner;          // Reference to the winner of the current round.  Used to make an announcement of who won.
         private TankManager m_GameWinner;           // Reference to the winner of the game.  Used to make an announcement of who won.
-
+        
+        public Transform[] m_PositionBegin;
+        public static int m_TankCount = 0;
+        public static int m_TankCountLive = 0;
 
         private void Start()
         {
@@ -32,6 +36,7 @@ using UnityEngine.UI;
 
             // Once the tanks have been created and the camera is using them as targets, start the game.
             StartCoroutine (GameLoop ());
+            StartCoroutine(CreateTank());
         }
 
 
@@ -48,7 +53,22 @@ using UnityEngine.UI;
                 m_Tanks[i].m_Instance.tag = "TankPlayer";
             }
         }
+        public IEnumerator CreateTank()
+        {
+            yield return 1f;
+            if (m_TankCountLive < 4 && m_TankCount<20)
+            {
 
+                m_TanksEnemy[m_TankCount].m_Instance =
+                      Instantiate(m_TankPrefab, m_PositionBegin[m_TankCount % 3].position, m_PositionBegin[m_TankCount % 3].rotation) as GameObject;
+                m_TanksEnemy[m_TankCount].m_PlayerNumber = 0;
+                m_TanksEnemy[m_TankCount].Setup();
+               m_TanksEnemy[m_TankCount].m_Instance.tag = "TankEnemy";
+               m_TankCount++;
+               m_TankCountLive++;
+            }
+            StartCoroutine(CreateTank());
+        }
 
         private void SetCameraTargets()
         {
