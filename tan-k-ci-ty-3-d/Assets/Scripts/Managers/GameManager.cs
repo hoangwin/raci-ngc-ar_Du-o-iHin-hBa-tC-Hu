@@ -24,21 +24,28 @@ using UnityEngine.UI;
         public Transform[] m_PositionBegin;
         public static int m_TankCount = 0;
         public static int m_TankCountLive = 0;
+        public static GameManager m_Instancce;
+        public static int m_Mode;
 
         private void Start()
         {
+            m_Instancce = this;            
+        }
+        public void initGame(int _mode)
+        {
+            m_Mode = _mode;
             // Create the delays so they only have to be made once.
-            m_StartWait = new WaitForSeconds (m_StartDelay);
-            m_EndWait = new WaitForSeconds (m_EndDelay);
+            MapManager.m_Instance.initLevel(1);
+            m_StartWait = new WaitForSeconds(m_StartDelay);
+            m_EndWait = new WaitForSeconds(m_EndDelay);
 
             SpawnAllTanks();
             SetCameraTargets();
 
             // Once the tanks have been created and the camera is using them as targets, start the game.
-            StartCoroutine (GameLoop ());
+            StartCoroutine(GameLoop());
             StartCoroutine(CreateTank());
         }
-
 
         private void SpawnAllTanks()
         {

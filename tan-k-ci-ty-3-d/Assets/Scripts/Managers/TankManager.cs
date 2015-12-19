@@ -28,8 +28,8 @@ using UnityEngine;
             // Get references to the components.
             m_Movement = m_Instance.GetComponent<TankMovement> ();
             m_Shooting = m_Instance.GetComponent<TankShooting> ();
-            
 
+            m_Instance.GetComponent<TankHealth>().m_PlayerNumber =m_PlayerNumber;
             // Set the player numbers to be consistent across the scripts.
             m_Movement.m_PlayerNumber = m_PlayerNumber;
             m_Shooting.m_PlayerNumber = m_PlayerNumber;

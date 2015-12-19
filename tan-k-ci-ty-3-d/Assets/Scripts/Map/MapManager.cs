@@ -14,12 +14,12 @@ public class MapManager : MonoBehaviour {
     public GameObject _rockPrefab;
     public GameObject _treePrefab;
     public GameObject _waterPrefab;
-
+    public static MapManager m_Instance;
 	// Use this for initialization
 	void Start () {
+
+        m_Instance = this;
         
-        
-        initLevel(1);
 
 	}
 	

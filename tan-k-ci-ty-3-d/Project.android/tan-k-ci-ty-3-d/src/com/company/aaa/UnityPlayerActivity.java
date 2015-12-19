@@ -64,47 +64,47 @@ public class UnityPlayerActivity extends Activity implements InterstitialAdListe
 		ShowStarAppFull();
 	}
 public void showStarAppBanner()
-{	
-	Banner startAppBanner = new Banner(getBaseContext(), new BannerListener() {
-	    @Override
-	    public void onReceiveAd(View banner) {
-	    	startAppAd.showAd(); 
-	    }
-	    @Override
-	    public void onFailedToReceiveAd(View banner) {
-	    }
-	    @Override
-	    public void onClick(View banner) {
-	    }
-	});
-	
-
-	layout.addView(startAppBanner,adsParams);
-	//startAppAd.showAd(); // show the ad
-	//	startAppAd.loadAd(); // load the next ad
-		
-}
-
-	
-	public void ShowStarAppFull()
 	{
-		
+		Banner startAppBanner = new Banner(getBaseContext(), new BannerListener() {
+			@Override
+			public void onReceiveAd(View banner) {
+			//	startAppAd.showAd();
+			}
+			@Override
+			public void onFailedToReceiveAd(View banner) {
+			}
+			@Override
+			public void onClick(View banner) {
+			}
+		});
+
+
+		layout.addView(startAppBanner,adsParams);
+		//startAppAd.showAd(); // show the ad
+		//	startAppAd.loadAd(); // load the next ad
+
+	}
+	
+		public void ShowStarAppFull()
+	{
+
 		startAppAd.loadAd (new AdEventListener() {
-		    
+
 			@Override
 			public void onFailedToReceiveAd(com.startapp.android.publish.Ad arg0) {
 				// TODO Auto-generated method stub
-			Log.d("Startapp,eror","eror");	
+				Log.d("Startapp,eror","eror");
 			}
 			@Override
 			public void onReceiveAd(com.startapp.android.publish.Ad arg0) {
 				// TODO Auto-generated method stub
-				startAppAd.showAd(); // show the ad		
-				
+
+
 			}
 		});
-    	        	
-		
+		startAppAd.showAd(); // show the ad
+
+
 	}
 
 	private void loadInterstitialAd(){

@@ -9,9 +9,10 @@ public class TankHealth : MonoBehaviour
     
     private AudioSource m_ExplosionAudio;          
     private ParticleSystem m_ExplosionParticles;   
-    private float m_CurrentHealth;  
-    private bool m_Dead;            
-
+    private float m_CurrentHealth;
+    public float m_CurrentLive;  
+    private bool m_Dead;
+    public int m_PlayerNumber = 1;
 
     private void Awake()
     {
@@ -54,6 +55,15 @@ public class TankHealth : MonoBehaviour
         m_ExplosionParticles.Play();
         m_ExplosionAudio.Play();
         gameObject.SetActive(false);
-        GameManager.m_TankCountLive--;
+        if (m_PlayerNumber == 0)
+            GameManager.m_TankCountLive--;
+        else
+        {
+            m_CurrentLive--;
+            if (m_CurrentLive > 0)
+                ;  //here  ;
+        }
+
     }
+
 }

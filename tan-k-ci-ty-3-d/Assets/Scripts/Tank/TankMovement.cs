@@ -61,7 +61,7 @@ public class TankMovement : MonoBehaviour
     private void Update()
     {
         if (m_PlayerNumber == 1 || m_PlayerNumber ==2)
-        updatePlayerInput();
+             updatePlayerInput();
       
     }
     void updatePlayerInput()
@@ -110,6 +110,11 @@ public class TankMovement : MonoBehaviour
    
     private void EngineAudio()
     {
+        if (m_PlayerNumber == 0)
+        {
+            m_MovementAudio.Stop();
+            return;
+        }
         // Play the correct audio clip based on whether or not the tank is moving and what audio is currently playing.
         if (Mathf.Abs(m_MovementInputValueY) < 0.1f && Mathf.Abs(m_MovementInputValueX) < 0.1f)
         {
