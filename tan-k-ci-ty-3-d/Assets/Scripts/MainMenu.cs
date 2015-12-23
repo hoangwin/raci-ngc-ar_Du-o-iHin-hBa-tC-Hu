@@ -14,6 +14,9 @@ public class MainMenu : MonoBehaviour {
 	// Update is called once per frame
     
 	void Update () {
+        if (TransitEffect.m_Instance.m_isEffecting)
+            return;
+
         if (Input.GetButtonDown("Down") || Input.GetButtonDown("Right"))
         {         
             m_Index++;
@@ -31,10 +34,8 @@ public class MainMenu : MonoBehaviour {
         if (Input.GetButtonDown("Enter"))
         {
             if(m_Index == 0 || m_Index ==1)
-            
-            
-         
-            TransitEffect.m_Instance.TranSitBlack();
+                TransitEffect.m_Instance.TranSitBlack();
+            GameManager.m_Mode = m_Index;
         }
 	
 	}

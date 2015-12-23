@@ -5,11 +5,14 @@ public class ShellExplosion : MonoBehaviour
     public LayerMask m_TankMask;//de kiem tra phai tank nam trpng ung no
     public LayerMask m_BoxMask;//de kiem tra phai tank nam trpng ung no
     public ParticleSystem m_ExplosionParticles;       
-    public AudioSource m_ExplosionAudio;              
-    public float m_damege = 1f;                  
+    public AudioSource m_ExplosionAudio;
+    
+    public float m_damege = 0f;                  
     public float m_ExplosionForce = 1000f;            
     public float m_MaxLifeTime = 2f;                  
     public float m_ExplosionRadius = 5f;
+    public int m_PlayerNumber;
+    public int m_PlayerType;
 
     private void Start()
     {
@@ -47,7 +50,8 @@ public class ShellExplosion : MonoBehaviour
             TankHealth targetHealth = targetRigidbody.GetComponent<TankHealth>();
             if (!targetHealth)
                 continue;
-            targetHealth.TakeDamage(m_damege);
+
+            targetHealth.TakeDamage(m_damege, m_PlayerNumber);
 
         }
 
@@ -78,6 +82,7 @@ public class ShellExplosion : MonoBehaviour
         m_ExplosionAudio.Play();
 
         // Once the particles have finished, destroy the gameobject they are on.
+       // Debug.Log("destroy  :"+ m_ExplosionParticles.duration);
         Destroy(m_ExplosionParticles.gameObject, m_ExplosionParticles.duration);
 
         // Destroy the shell.

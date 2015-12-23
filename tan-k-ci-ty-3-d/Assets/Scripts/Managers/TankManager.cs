@@ -15,25 +15,66 @@ using UnityEngine;
         [HideInInspector] public int m_PlayerNumber;            // This specifies which player this the manager for.
         [HideInInspector] public string m_ColoredPlayerText;    // A string that represents the player with their number colored to match their tank.
         [HideInInspector] public GameObject m_Instance;         // A reference to the instance of the tank when it is created.
-        [HideInInspector] public int m_Wins;                    // The number of wins this player has so far.
+        [HideInInspector] public TankManager m_InstanceScript;    
+        //[HideInInspector] public int m_Wins;                    // The number of wins this player has so far.
         
 
         private TankMovement m_Movement;                        // Reference to tank's movement script, used to disable and enable control.
         private TankShooting m_Shooting;                        // Reference to tank's shooting script, used to disable and enable control.
+        private TankHealth m_Health;                        // Reference to tank's shooting script, used to disable and enable control.
         
 
-
-        public void Setup ()
+        public void Setup (int type)
         {
             // Get references to the components.
             m_Movement = m_Instance.GetComponent<TankMovement> ();
             m_Shooting = m_Instance.GetComponent<TankShooting> ();
-
-            m_Instance.GetComponent<TankHealth>().m_PlayerNumber =m_PlayerNumber;
+            m_Health = m_Instance.GetComponent<TankHealth>();
+          
             // Set the player numbers to be consistent across the scripts.
             m_Movement.m_PlayerNumber = m_PlayerNumber;
             m_Shooting.m_PlayerNumber = m_PlayerNumber;
+            m_Health.m_PlayerNumber = m_PlayerNumber;
 
+            m_Movement.m_PlayerType = type;
+            m_Shooting.m_PlayerType = type;
+            m_Health.m_PlayerType = type;
+
+            if (m_PlayerNumber == 1 || m_PlayerNumber == 2)
+            {
+                m_Shooting.m_CurrentFireDame = 1;
+                m_Shooting.m_CurrentFireSpeed = 30;
+                m_Movement.m_Speed = 12;
+            }
+            else  if (m_Movement.m_PlayerType == 0)
+            {
+                m_Shooting.m_CurrentFireDame = 1;
+                m_Shooting.m_CurrentFireSpeed = 20;
+                m_Movement.m_Speed = 10;
+            }
+            else if (m_Movement.m_PlayerType == 1)
+            {
+                m_Shooting.m_CurrentFireDame = 1;
+                m_Shooting.m_CurrentFireSpeed = 30;
+                m_Movement.m_Speed = 14;
+            }
+            else if (m_Movement.m_PlayerType == 2)
+            {
+                m_Shooting.m_CurrentFireDame = 1;
+                m_Shooting.m_CurrentFireSpeed = 40;
+                m_Movement.m_Speed = 12;
+            }
+            else if (m_Movement.m_PlayerType == 3)
+            {
+                m_Shooting.m_CurrentFireDame = 1;
+                m_Shooting.m_CurrentFireSpeed = 40;
+                m_Movement.m_Speed = 12;
+            }
+
+            
+
+
+            m_Health.m_CurrentLive = 3;
             // Create a string using the correct color that says 'PLAYER 1' etc based on the tank's color and the player's number.
             if (m_PlayerNumber != 0)
             {
@@ -82,9 +123,13 @@ using UnityEngine;
         {
             m_Instance.transform.position = m_SpawnPoint.position;
             m_Instance.transform.rotation = m_SpawnPoint.rotation;
-
-            m_Instance.SetActive (false);
             m_Instance.SetActive (true);
+        }
+        public bool checkDeadALL()
+        {
+            if (m_Health !=null && m_Health.m_CurrentLive > 0)
+                return false;
+            return true;
         }
     
 }

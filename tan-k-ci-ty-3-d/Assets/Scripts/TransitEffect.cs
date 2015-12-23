@@ -13,10 +13,12 @@ public class TransitEffect : MonoBehaviour {
     public GameObject m_PanelIngame;
     public GameObject m_PanelSelectLevel;
     public GameObject m_PanelConstruction;
+    public bool m_isEffecting = false;
 	void Start () {
         m_Instance = this;
         m_ColorTranparent = m_Image.color;
         ActivePanel(m_PanelMainMenu);
+        m_isEffecting = false;
 	}
    
 	// Update is called once per frame
@@ -25,7 +27,7 @@ public class TransitEffect : MonoBehaviour {
 	}
     public void TranSitBlack()
     {
-
+        m_isEffecting = true;
         //Hashtable tweenParams = new Hashtable();
         // tweenParams.Add("from", targetSpriteRenderer.color);
         // tweenParams.Add("to", targetColor);
@@ -45,16 +47,29 @@ public class TransitEffect : MonoBehaviour {
     public void TranSitTranparent()
     {        
         ActivePanel(m_PanelIngame);
-        GameManager.m_Instancce.initGame(1);
+        GameManager.m_Instancce.initGame();
 
         iTween.ValueTo(gameObject, iTween.Hash("from", Color.black, "to", m_ColorTranparent, "time", 2f, "onupdate", "OnColorUpdated", "oncomplete", "TranSitAllCompleted"));
     }
     public void TranSitAllCompleted()
     {
-
+        m_isEffecting = false;
     }
 
-
+    public void DeplayGameOver()
+    {
+        StartCoroutine(TransitEffect.m_Instance.DeplayGameOverWait());
+    }
+     
+    private IEnumerator DeplayGameOverWait()
+    {
+        yield return new WaitForSeconds(3);
+        TransitEffect.m_Instance.ActivePanel(TransitEffect.m_Instance.m_PanelGameOver);
+        GameOver.setInit();
+        StartCoroutine(GameOver.m_Instance.ShowScoreInfo());
+        Debug.Log(ScoreManager.m_Player1Score[0]+ ","+ScoreManager.m_Player1Score[1]+ "," +ScoreManager.m_Player1Score[2]+ "," + ScoreManager.m_Player1Score[3]);
+        
+    }
 
     public void ActivePanel(GameObject _pannel)
     {
@@ -85,4 +100,5 @@ public class TransitEffect : MonoBehaviour {
 
 
     }
+
 }

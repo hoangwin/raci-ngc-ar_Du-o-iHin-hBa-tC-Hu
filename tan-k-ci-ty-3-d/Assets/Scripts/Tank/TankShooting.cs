@@ -5,18 +5,21 @@ using System.Collections;
 public class TankShooting : MonoBehaviour
 {
     public int m_PlayerNumber = 1;              // Used to identify the different players.
+    public int m_PlayerType = 1;//0,1,2,3//loi thuong noi nhanh,loai khochet,loai?
     public Rigidbody m_Shell;                   // Prefab of the shell.
     public Transform m_FireTransform;           // A child of the tank where the shells are spawned.    
     public AudioSource m_ShootingAudio;         // Reference to the audio source used to play the shooting audio. NB: different to the movement audio source.
     
     public AudioClip m_FireClip;                // Audio that plays when each shot is fired.
-        public float m_MaxLaunchForce = 30f;        // The force given to the shell if the fire button is held for the max charge time.
+    public float m_FireSpeedNormal = 30f;       // The force given to the shell if the fire button is held for the max charge time.
     
 
     private string m_FireButton;                // The input axis that is used for launching shells.    
-        private float m_CurrentLaunchForce;         // The force that will be given to the shell when the fire button is released.
-    private bool m_Fired;                       // Whether or not the shell has been launched with this button press.
-    private float timeFired = 0;
+    
+    public float m_CurrentFireSpeed;         // The force that will be given to the shell when the fire button is released.
+    public float m_CurrentFireDame;         // The force that will be given to the shell when the fire button is released.
+    
+    
     private GameObject m_ShellInstance;
 
     private void OnEnable()
@@ -30,7 +33,7 @@ public class TankShooting : MonoBehaviour
     {
         // The fire axis is based on the player number.
         m_FireButton = "Fire1";// +m_PlayerNumber;
-
+       
         // The rate that the launch force charges up is the range of possible forces by the max charge time.
 
         if(m_PlayerNumber ==0)
@@ -69,16 +72,20 @@ public class TankShooting : MonoBehaviour
     private void Fire(string tag)
     {
         // Set the fired flag so only Fire is only called once.
-        m_Fired = true;
-        timeFired = 0;
-        m_CurrentLaunchForce = m_MaxLaunchForce;
+         // The force given to the shell if the fire button is held for the max charge time.
+
         // Create an instance of the shell and store a reference to it's rigidbody.
         Rigidbody shellInstance =
             Instantiate(m_Shell, m_FireTransform.position, m_FireTransform.rotation) as Rigidbody;
         shellInstance.gameObject.tag = tag;
+
+        shellInstance.gameObject.GetComponent<ShellExplosion>().m_PlayerNumber = m_PlayerNumber;
+        shellInstance.gameObject.GetComponent<ShellExplosion>().m_PlayerType = m_PlayerType;
+
+
         m_ShellInstance = shellInstance.gameObject;
         // Set the shell's velocity to the launch force in the fire position's forward direction.
-        shellInstance.velocity = m_CurrentLaunchForce * m_FireTransform.forward;        
+        shellInstance.velocity = m_CurrentFireSpeed * m_FireTransform.forward;        
         // Change the clip to the firing clip and play it.
         m_ShootingAudio.clip = m_FireClip;
         m_ShootingAudio.Play();
