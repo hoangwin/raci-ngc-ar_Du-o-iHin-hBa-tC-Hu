@@ -8,7 +8,7 @@ public class MapManager : MonoBehaviour {
     public static int _CELL_WIDTH = 2;
     public static int _CELL_HEIGHT = 2;
 
-    public static Box.Type[,] _arrayMap = new Box.Type[_MAP_SIZE_WIDTH, _MAP_SIZE_HEIGHT];
+    public static Box.Type[,] _arrayMap = new Box.Type[_MAP_SIZE_HEIGHT, _MAP_SIZE_WIDTH];
     public GameObject _wallPrefab;
     public GameObject _blockPrefab;
     public GameObject _rockPrefab;
@@ -46,7 +46,7 @@ public class MapManager : MonoBehaviour {
                     if (c == '#')//gach
                     {
                         Quaternion rotation = Quaternion.Euler(0, 0, 0);
-                        Vector3 pos = new Vector3(j * _CELL_WIDTH, 1, -i * _CELL_HEIGHT);
+                        Vector3 pos = new Vector3(j * _CELL_HEIGHT, 1, -i * _CELL_WIDTH);
                         GameObject obj = Instantiate(_wallPrefab, pos, rotation) as GameObject;
                         obj.transform.position = pos;
                         obj.GetComponent<SuperBox>().setRowCol(j, i);
@@ -56,7 +56,7 @@ public class MapManager : MonoBehaviour {
                     else if (c == '@')//da
                     {
                         Quaternion rotation = Quaternion.Euler(0, 0, 0);
-                        Vector3 pos = new Vector3(j * _CELL_WIDTH, 1, -i * _CELL_HEIGHT);
+                        Vector3 pos = new Vector3(j * _CELL_HEIGHT, 1, -i * _CELL_WIDTH);
                         GameObject obj = Instantiate(_rockPrefab, pos, rotation) as GameObject;
                         obj.transform.position = pos;
                         obj.GetComponent<SuperBox>().setRowCol(j, i);
@@ -66,7 +66,7 @@ public class MapManager : MonoBehaviour {
                     else if (c == '%')//cay
                     {
                         Quaternion rotation = Quaternion.Euler(0, 0, 0);
-                        Vector3 pos = new Vector3(j * _CELL_WIDTH, 1, -i * _CELL_HEIGHT);
+                        Vector3 pos = new Vector3(j * _CELL_HEIGHT, 1, -i * _CELL_WIDTH);
                         GameObject obj = Instantiate(_treePrefab, pos, rotation) as GameObject;
                         obj.transform.position = pos;
                         obj.transform.parent = this.transform;
@@ -74,7 +74,7 @@ public class MapManager : MonoBehaviour {
                     else if (c == '~')//nuoc
                     {
                         Quaternion rotation = Quaternion.Euler(0, 0, 0);
-                        Vector3 pos = new Vector3(j * _CELL_WIDTH, 0.35f, -i * _CELL_HEIGHT);
+                        Vector3 pos = new Vector3(j * _CELL_HEIGHT, 0.35f, -i * _CELL_WIDTH);
                         GameObject obj = Instantiate(_waterPrefab, pos, rotation) as GameObject;
                         obj.transform.position = pos;
                         _arrayMap[i, j] = Box.Type.WATER;

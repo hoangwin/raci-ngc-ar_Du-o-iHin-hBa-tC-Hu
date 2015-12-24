@@ -19,15 +19,14 @@ public class TankMovement : MonoBehaviour
     private float m_MovementInputValueX;        
     private float m_OriginalPitch;
 
-    private float m_timeChangeDirection;
+    
     private Vector3 m_LastPostion;
     ArrayList m_ListForRandom = new ArrayList();
+    float m_TimeChangeDirection;
 
     private void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
-        m_timeChangeDirection = 1;
-       
     }
 
 
@@ -47,6 +46,7 @@ public class TankMovement : MonoBehaviour
 
     private void Start()
     {
+        m_TimeChangeDirection = 0;
         m_MovementAxisName = "Vertical" + m_PlayerNumber;
         m_TurnAxisName = "Horizontal" + m_PlayerNumber;
         //for test
@@ -57,6 +57,7 @@ public class TankMovement : MonoBehaviour
         m_OriginalPitch = m_MovementAudio.pitch;
 		 if (m_PlayerNumber == 0)
             ChangDirectionMove();
+         
     }
 
                 
@@ -64,7 +65,12 @@ public class TankMovement : MonoBehaviour
     {
         if (m_PlayerNumber == 1 || m_PlayerNumber ==2)
              updatePlayerInput();
-      
+        m_TimeChangeDirection +=Time.deltaTime;
+        if (m_TimeChangeDirection > 1)
+        {
+            m_TimeChangeDirection = 0;
+            getNumDirectCanMove();
+        }
     }
     void updatePlayerInput()
     {
@@ -209,7 +215,7 @@ public class TankMovement : MonoBehaviour
         //Vector3 movement = transform. * m_TurnInputValue * m_Speed * Time.deltaTime;
 
         // Apply this movement to the rigidbody's position.
-        if (m_PlayerNumber == 0)
+      //  if (m_PlayerNumber == 0)
         {
             if (m_MovementInputValueX == 0 && m_MovementInputValueY == 0)
                 FixPosition(true, true);
@@ -218,9 +224,12 @@ public class TankMovement : MonoBehaviour
             else if (m_MovementInputValueY == 0)
                 FixPosition(true, false);
         }
-            m_LastPostion = m_Rigidbody.transform.position;
-            m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
-        
+        if (m_PlayerNumber ==0 &&  m_LastPostion.Equals(m_Rigidbody.transform.position))
+            ChangDirectionMove();
+
+        m_LastPostion = m_Rigidbody.transform.position;
+        m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
+
 
     }
     void MoveRandom()
@@ -235,11 +244,62 @@ public class TankMovement : MonoBehaviour
 
        // }
     }
+    private void getNumDirectCanMove()
+    {
+		if (m_PlayerNumber != 0)
+			return;
+			
+        int cellROW = Mathf.Abs( (int)(transform.position.z / (-MapManager._CELL_HEIGHT)));
+        int cellCOL = Mathf.Abs((int)(transform.position.x / (MapManager._CELL_WIDTH)));
+        if(m_PlayerNumber ==1)
+        Debug.Log(cellROW + "," + cellCOL);
+        //tiem kiem 4 thang tiep theo de coi co se di duoc dau
+        //if(cellCOL)
+        //MapManager._arrayMap[]
+        m_ListForRandom.Clear();
+
+        if (cellROW - 1 >= 0 && MapManager._arrayMap[cellROW - 1, cellCOL] == Box.Type.NONE && MapManager._arrayMap[cellROW - 1, cellCOL + 1] == Box.Type.NONE)
+        {
+          //  if (m_PlayerNumber == 1)
+          //  Debug.Log("1111111");
+            m_ListForRandom.Add(1);
+        }
+		if (cellCOL + 2 < MapManager._MAP_SIZE_WIDTH && MapManager._arrayMap[cellROW, cellCOL + 2] == Box.Type.NONE && MapManager._arrayMap[ cellROW + 1,cellCOL + 2] == Box.Type.NONE)
+        {
+          //  if (m_PlayerNumber == 1)
+          //  Debug.Log("222222222");
+            m_ListForRandom.Add(2);
+           
+        }
+		if (cellROW + 2 < MapManager._MAP_SIZE_HEIGHT && MapManager._arrayMap[cellROW + 2,cellCOL] == Box.Type.NONE && MapManager._arrayMap[cellROW + 2,cellCOL+1] == Box.Type.NONE)
+        {
+          //  if (m_PlayerNumber == 1)
+          //      Debug.Log("3333333333333");
+            m_ListForRandom.Add(3);
+           
+        }
+        if (cellCOL - 1 >= 0 && MapManager._arrayMap[cellROW, cellCOL - 1] == Box.Type.NONE && MapManager._arrayMap[cellROW + 1, cellCOL - 1] == Box.Type.NONE)
+        {
+          //  if (m_PlayerNumber == 1)
+          //      Debug.Log("444444444444");
+            m_ListForRandom.Add(4);
+            
+        }
+
+      //  if(m_PlayerNumber ==1)
+      //      Debug.Log(m_ListForRandom.Count);
+         if (m_ListForRandom.Count > 2 )
+         {
+            int i = Random.Range(0, 8);
+            if (i < 3)
+                ChangDirectionMove();
+         }
+    }
     private void ChangDirectionMove()
     {
 
-        Debug.Log("aaaaaaaaaaaaaaa");
-        m_timeChangeDirection = Random.Range(2f, 5f);
+      //  Debug.Log("aaaaaaaaaaaaaaa");
+        
         // If there isn't a winner yet, restart this coroutine so the loop continues.
             // Note that this coroutine doesn't yield.  This means that the current version of the GameLoop will end.
       
@@ -250,31 +310,34 @@ public class TankMovement : MonoBehaviour
         //MapManager._arrayMap[]
         m_ListForRandom.Clear();
 
-        if (cellROW - 1 >= 0 && MapManager._arrayMap[cellCOL, cellROW - 1] == Box.Type.NONE && MapManager._arrayMap[cellCOL + 1, cellROW - 1] == Box.Type.NONE)
-        {
-            m_ListForRandom.Add(1);
-        }
-        if (cellCOL + 1 < MapManager._CELL_WIDTH && MapManager._arrayMap[cellCOL + 1, cellROW] == Box.Type.NONE && MapManager._arrayMap[cellCOL + 1, cellROW +1] == Box.Type.NONE)
-        {
-            m_ListForRandom.Add(2);
-           
-        }
-        if (cellROW + 1 < MapManager._CELL_HEIGHT && MapManager._arrayMap[cellCOL, cellROW + 1] == Box.Type.NONE && MapManager._arrayMap[cellCOL+1, cellROW + 1] == Box.Type.NONE)
-        {
-            m_ListForRandom.Add(3);
-            m_ListForRandom.Add(3);
-           
-        }
-        if (cellCOL - 1 >= 0 && MapManager._arrayMap[cellCOL - 1, cellROW] == Box.Type.NONE &&  MapManager._arrayMap[cellCOL - 1, cellROW +1] == Box.Type.NONE)
-        {
-            m_ListForRandom.Add(4);
-            
-        }
+		if (cellROW - 1 >= 0 && MapManager._arrayMap[cellROW - 1, cellCOL] == Box.Type.NONE && MapManager._arrayMap[cellROW - 1, cellCOL + 1] == Box.Type.NONE)
+		{
+			
+			m_ListForRandom.Add(1);
+		}
+		if (cellCOL + 2 < MapManager._MAP_SIZE_WIDTH && MapManager._arrayMap[cellROW, cellCOL + 2] == Box.Type.NONE && MapManager._arrayMap[ cellROW + 1,cellCOL + 2] == Box.Type.NONE)
+		{
+			m_ListForRandom.Add(2);
+
+		}
+		if (cellROW + 2 < MapManager._MAP_SIZE_HEIGHT && MapManager._arrayMap[cellROW + 2,cellCOL] == Box.Type.NONE && MapManager._arrayMap[cellROW + 2,cellCOL+1] == Box.Type.NONE)
+		{
+			
+			m_ListForRandom.Add(3);
+			m_ListForRandom.Add(3);
+
+		}
+		if (cellCOL - 1 >= 0 && MapManager._arrayMap[cellROW, cellCOL - 1] == Box.Type.NONE && MapManager._arrayMap[cellROW + 1, cellCOL - 1] == Box.Type.NONE)
+		{
+			
+			m_ListForRandom.Add(4);
+
+		}
       
          if (m_ListForRandom.Count > 0 )
          {
             int i = Random.Range(0, m_ListForRandom.Count);
-            Debug.Log("ii " + i);
+           // Debug.Log("ii " + i);
           //  Debug.Log("m_ListForRandom " + m_ListForRandom.Count);
        //     Debug.Log("direct " + (int)(m_ListForRandom[i]));
             if ((int)(m_ListForRandom[i]) == 1)
@@ -346,12 +409,17 @@ public class TankMovement : MonoBehaviour
   
 
    
-    //void OnCollisionEnter(Collision collision)
-    //{
+    void OnCollisionEnter(Collision collision)
+    {
        // Debug.Log("Enter Collider");
        // StopAllCoroutines();
       //  m_timeChangeDirection = 03f;
-      //  StartCoroutine(ChangDirectionMove());
-    //}
+        if (m_PlayerNumber == 0)
+        {
+
+            ChangDirectionMove();
+
+        }
+    }
     
 }

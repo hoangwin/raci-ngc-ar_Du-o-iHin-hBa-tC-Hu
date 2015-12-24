@@ -20,9 +20,8 @@ public class SuperBox : MonoBehaviour {
         m_CountChildBox--;
         if (m_CountChildBox == 0)
         {
-            Destroy(this.gameObject);
-            
-            MapManager._arrayMap[m_Col, m_Row] = Box.Type.NONE;
+            Destroy(this.gameObject);            
+            MapManager._arrayMap[m_Row,m_Col] = Box.Type.NONE;
          //   Debug.Log(MapManager._arrayMap);
         }
     }
