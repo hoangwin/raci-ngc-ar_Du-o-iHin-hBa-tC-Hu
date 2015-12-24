@@ -49,7 +49,7 @@ using UnityEngine;
             else  if (m_Movement.m_PlayerType == 0)
             {
                 m_Shooting.m_CurrentFireDame = 1;
-                m_Shooting.m_CurrentFireSpeed = 20;
+                m_Shooting.m_CurrentFireSpeed = 25;
                 m_Movement.m_Speed = 10;
             }
             else if (m_Movement.m_PlayerType == 1)

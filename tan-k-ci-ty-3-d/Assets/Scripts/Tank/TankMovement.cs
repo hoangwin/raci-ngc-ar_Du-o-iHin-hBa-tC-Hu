@@ -26,9 +26,8 @@ public class TankMovement : MonoBehaviour
     private void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
-        m_timeChangeDirection = 4;
-        if (m_PlayerNumber == 0)
-            StartCoroutine(ChangDirectionMove());
+        m_timeChangeDirection = 1;
+       
     }
 
 
@@ -56,6 +55,8 @@ public class TankMovement : MonoBehaviour
         //for test
 
         m_OriginalPitch = m_MovementAudio.pitch;
+		 if (m_PlayerNumber == 0)
+            ChangDirectionMove();
     }
 
                 
@@ -166,8 +167,8 @@ public class TankMovement : MonoBehaviour
             {
                 //Debug.Log("Can Chuyen Huong");
                 //StopAllCoroutines();
-               // m_timeChangeDirection = 0f;
-               // StartCoroutine(ChangDirectionMove());
+                // m_timeChangeDirection = 0f;
+                // StartCoroutine(ChangDirectionMove());
             }
         }
         // Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
@@ -181,7 +182,7 @@ public class TankMovement : MonoBehaviour
         }
         else if (m_MovementInputValueY > 0)
         {
-           
+
             Quaternion turnRotation = Quaternion.Euler(0f, 0, 0f);
             // Apply this rotation to the rigidbody's rotation.
             m_Rigidbody.rotation = turnRotation;// (m_Rigidbody.rotation * turnRotation);
@@ -193,7 +194,7 @@ public class TankMovement : MonoBehaviour
             Quaternion turnRotation = Quaternion.Euler(0f, -90, 0f);
             // Apply this rotation to the rigidbody's rotation.
             m_Rigidbody.rotation = turnRotation;// (m_Rigidbody.rotation * turnRotation);
-        //    Debug.Log("BB:" + movement);
+            //    Debug.Log("BB:" + movement);
         }
         else if (m_MovementInputValueX > 0)
         {
@@ -202,21 +203,24 @@ public class TankMovement : MonoBehaviour
             // Apply this rotation to the rigidbody's rotation.
             m_Rigidbody.rotation = turnRotation;// (m_Rigidbody.rotation * turnRotation);
             movement = transform.forward * m_MovementInputValueX * m_Speed * Time.deltaTime;
-          //  Debug.Log("AA:" + movement);
+            //  Debug.Log("AA:" + movement);
         }
 
-            //Vector3 movement = transform. * m_TurnInputValue * m_Speed * Time.deltaTime;
+        //Vector3 movement = transform. * m_TurnInputValue * m_Speed * Time.deltaTime;
 
-            // Apply this movement to the rigidbody's position.
-            if (m_MovementInputValueX == 0 && m_MovementInputValueY==0)
-                FixPosition(true,true);
+        // Apply this movement to the rigidbody's position.
+        if (m_PlayerNumber == 0)
+        {
+            if (m_MovementInputValueX == 0 && m_MovementInputValueY == 0)
+                FixPosition(true, true);
             else if (m_MovementInputValueX == 0)
                 FixPosition(false, true);
-            else if (m_MovementInputValueY == 0) 
+            else if (m_MovementInputValueY == 0)
                 FixPosition(true, false);
-
+        }
             m_LastPostion = m_Rigidbody.transform.position;
             m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
+        
 
     }
     void MoveRandom()
@@ -231,11 +235,12 @@ public class TankMovement : MonoBehaviour
 
        // }
     }
-    private IEnumerator ChangDirectionMove()
+    private void ChangDirectionMove()
     {
-        yield return new WaitForSeconds(m_timeChangeDirection);
+
+        Debug.Log("aaaaaaaaaaaaaaa");
         m_timeChangeDirection = Random.Range(2f, 5f);
-            // If there isn't a winner yet, restart this coroutine so the loop continues.
+        // If there isn't a winner yet, restart this coroutine so the loop continues.
             // Note that this coroutine doesn't yield.  This means that the current version of the GameLoop will end.
       
         int cellROW = Mathf.Abs( (int)(transform.position.z / (-MapManager._CELL_HEIGHT)));
@@ -265,15 +270,11 @@ public class TankMovement : MonoBehaviour
             m_ListForRandom.Add(4);
             
         }
-        if (m_ListForRandom.Count < 1)
-        {
-
-
-        }
-        else
-        {
+      
+         if (m_ListForRandom.Count > 0 )
+         {
             int i = Random.Range(0, m_ListForRandom.Count);
-           // Debug.Log("ii " + i);
+            Debug.Log("ii " + i);
           //  Debug.Log("m_ListForRandom " + m_ListForRandom.Count);
        //     Debug.Log("direct " + (int)(m_ListForRandom[i]));
             if ((int)(m_ListForRandom[i]) == 1)
@@ -299,7 +300,7 @@ public class TankMovement : MonoBehaviour
 
             
         }
-        StartCoroutine(ChangDirectionMove());
+       
       
     }
 

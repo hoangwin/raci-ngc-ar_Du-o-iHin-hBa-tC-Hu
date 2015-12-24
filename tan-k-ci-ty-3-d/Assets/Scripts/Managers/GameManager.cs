@@ -21,6 +21,7 @@ using UnityEngine.UI;
         public static GameManager m_Instancce;
         public static int m_Mode;
         public static int m_MAX_Player_Count = 1;
+        public static bool m_isWaitingCreaTank = false;
 
         private void Start()
         {
@@ -39,8 +40,8 @@ using UnityEngine.UI;
             SetCameraTargets();
 
             // Once the tanks have been created and the camera is using them as targets, start the game.
-            StartCoroutine(GameLoop());
-            StartCoroutine(CreateTank());
+            StartCoroutine(RoundWaitingStaring());
+
         }
 
         private void SpawnAllTanks()
@@ -59,21 +60,24 @@ using UnityEngine.UI;
         }
         public IEnumerator CreateTank()//enemy
         {
-            yield return 1f;
-            if (m_TankCountLive < 4 && m_TankCount<=20)
-            {
-                int index = Random.Range(0, 4);
-                m_TanksEnemy[m_TankCount].m_Instance =
-                      Instantiate(m_TankPrefab[index], m_PositionBegin[m_TankCount % 3].position, m_PositionBegin[m_TankCount % 3].rotation) as GameObject;
-                m_TanksEnemy[m_TankCount].m_PlayerNumber = 0;
-                m_TanksEnemy[m_TankCount].Setup(index);//here
-               m_TanksEnemy[m_TankCount].m_Instance.tag = "TankEnemy";
-               m_TankCount++;
-               m_TankCountLive++;
-            }
-            StartCoroutine(CreateTank());
+            m_isWaitingCreaTank = true;
+            yield return new WaitForSeconds(3);
+            int index = Random.Range(0, 4);
+            m_TanksEnemy[m_TankCount].m_Instance =
+                  Instantiate(m_TankPrefab[index], m_PositionBegin[m_TankCount % 3].position, m_PositionBegin[m_TankCount % 3].rotation) as GameObject;
+            m_TanksEnemy[m_TankCount].m_PlayerNumber = 0;
+            m_TanksEnemy[m_TankCount].Setup(index);//here
+            m_TanksEnemy[m_TankCount].m_Instance.tag = "TankEnemy";
+            m_TankCount++;
+            m_TankCountLive++;
+            m_isWaitingCreaTank = false;
         }
-
+        public void Update()
+        {
+            if (m_TankCountLive < 4 && m_TankCount <= 20 && !m_isWaitingCreaTank)
+                StartCoroutine(CreateTank());
+           // Debug.Log("aaaaaaaaa");
+        }
         private void SetCameraTargets()
         {
             // Create a collection of transforms the same size as the number of tanks.
@@ -92,24 +96,7 @@ using UnityEngine.UI;
 
 
         // This is called from start and will run each phase of the game one after another.
-        private IEnumerator GameLoop ()
-        {
-            // Start off by running the 'RoundStarting' coroutine but don't return until it's finished.
-            RoundStarting ();
-
-            // Once the 'RoundStarting' coroutine is finished, run the 'RoundPlaying' coroutine but don't return until it's finished.
-            yield return StartCoroutine (RoundPlaying());
-
-            // Once execution has returned here, run the 'RoundEnding' coroutine, again don't return until it's finished.
-        //here    yield return StartCoroutine (RoundEnding());
-
-            // This code is not run until 'RoundEnding' has finished.  At which point, check if a game winner has been found.
-          
-                // If there isn't a winner yet, restart this coroutine so the loop continues.
-                // Note that this coroutine doesn't yield.  This means that the current version of the GameLoop will end.
-                StartCoroutine (GameLoop ());
-          
-        }
+       
 
 
         private void RoundStarting ()
@@ -128,21 +115,18 @@ using UnityEngine.UI;
         }
 
 
-        private IEnumerator RoundPlaying ()
+        private IEnumerator RoundWaitingStaring ()
         {
+		
             // As soon as the round begins playing let the players control the tanks.
-           
-
+           yield return new WaitForSeconds(3);
+RoundStarting();
             // Clear the text from the screen.
             m_MessageText.text = string.Empty;
 
             // While there is not one tank left...
       //here      while (!OneTankLeft())
-            while(true)
-            {
-                // ... return on the next frame.
-                yield return null;
-            }
+          
         }
         public bool checkLose()
         {
