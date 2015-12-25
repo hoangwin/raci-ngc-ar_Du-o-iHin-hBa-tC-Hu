@@ -19,19 +19,26 @@ public class GameOver : MonoBehaviour {
 	void Start () {
         m_Instance = this;
 	}
-	public static void setInit()
+    public static void setInit()
     {
+      
         if (m_Instance == null)
             m_Instance = TransitEffect.m_Instance.m_PanelGameOver.GetComponent<GameOver>();
+
         if (m_isWin)
         {
+            m_Instance.m_Index = 0;
+            m_Instance.m_TankImagePostion.position = m_Instance.m_Postion[0].position;// new Vector3(m_TankImagePostion.position.x, m_Postion[m_Index].position.y, m_TankImagePostion.position.z);
             m_Instance.m_Title.sprite = m_Instance.m_ImageCompleted;
         }
         else
         {
+            m_Instance.m_Index = 1;
+            m_Instance.m_Postion[0].gameObject.SetActive(false);
+            m_Instance.m_TankImagePostion.position = m_Instance.m_Postion[1].position;
             m_Instance.m_Title.sprite = m_Instance.m_ImageGameOver;
         }
-        
+
     }
 	// Update is called once per frame
 	void Update () {
@@ -41,22 +48,51 @@ public class GameOver : MonoBehaviour {
         {
             m_Index++;
             if (m_Index == 3)
-                m_Index = 0;
+            {
+                if (m_isWin)
+                    m_Index = 0;
+                else
+                    m_Index = 1;
+            }
             //m_TankImagePostion = m_Postion[m_Index];
             m_TankImagePostion.position = m_Postion[m_Index].position;// new Vector3(m_TankImagePostion.position.x, m_Postion[m_Index].position.y, m_TankImagePostion.position.z);
         }
         if (Input.GetButtonDown("Up") || Input.GetButtonDown("Left"))
         {
             m_Index--;
-            if (m_Index == -1)
-                m_Index = 2;
+            if (m_isWin)
+            {
+                if (m_Index == -1)
+                {
+
+                    m_Index = 2;
+                }
+            }
+            else
+            {
+                if (m_Index == 0)
+                {
+
+                    m_Index = 2;
+                }
+            }
             m_TankImagePostion.position = m_Postion[m_Index].position;// new Vector3(m_TankImagePostion.position.x, m_Postion[m_Index].position.y, m_TankImagePostion.position.z);
             //m_TankImagePostion = m_Postion[m_Index];
         }
         if (Input.GetButtonDown("Enter"))
         {
             if (m_Index == 0 || m_Index == 1)
-                TransitEffect.m_Instance.TranSitBlack();
+            {
+                if (m_Index == 0)
+                    ScoreManager.m_CurrentLevel++;
+                if (ScoreManager.m_CurrentLevel > 35)
+                    ScoreManager.m_CurrentLevel = 1;
+                TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.GAMEPLAY);
+            }
+            if(m_Index ==2)
+            {
+                TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.MAIN_MENU);
+            }
         }
 	}
     public IEnumerator ShowScoreInfo()

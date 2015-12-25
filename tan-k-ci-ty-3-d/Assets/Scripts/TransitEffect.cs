@@ -14,6 +14,13 @@ public class TransitEffect : MonoBehaviour {
     public GameObject m_PanelSelectLevel;
     public GameObject m_PanelConstruction;
     public bool m_isEffecting = false;
+    TYPE_TRANSIT m_TypeTransit;
+    public enum TYPE_TRANSIT
+    {
+        MAIN_MENU,
+        GAMEOVER,
+        GAMEPLAY
+    }
 	void Start () {
         m_Instance = this;
         m_ColorTranparent = m_Image.color;
@@ -25,15 +32,10 @@ public class TransitEffect : MonoBehaviour {
 	void Update11111 () {
 	
 	}
-    public void TranSitBlack()
+    public void TranSitBlack(TYPE_TRANSIT type)
     {
+        m_TypeTransit = type;
         m_isEffecting = true;
-        //Hashtable tweenParams = new Hashtable();
-        // tweenParams.Add("from", targetSpriteRenderer.color);
-        // tweenParams.Add("to", targetColor);
-        // tweenParams.Add("time", tweenDuration);
-        // tweenParams.Add("onupdate", "OnColorUpdated");
-
         iTween.ValueTo(gameObject, iTween.Hash("from", m_ColorTranparent, "to", Color.black, "time", 1f, "onupdate", "OnColorUpdated", "oncomplete", "TranSitTranparent"));
         // iTween.MoveBy(gameObject, iTween.Hash("x", 2, "easeType", "easeInOutExpo", "loopType", "pingPong", "delay", .1));
         //,"oncomplete","TranSitTranparent"
@@ -45,10 +47,18 @@ public class TransitEffect : MonoBehaviour {
     
     }
     public void TranSitTranparent()
-    {        
-        ActivePanel(m_PanelIngame);
-        GameManager.m_Instancce.initGame();
-
+    {
+        if (m_TypeTransit == TYPE_TRANSIT.GAMEPLAY)
+        {
+            ActivePanel(m_PanelIngame);
+            GameManager.m_Instancce.initGame();
+        }
+        else if (m_TypeTransit == TYPE_TRANSIT.MAIN_MENU)
+        {
+            GameManager.m_IsPlaying = false;
+            ActivePanel(m_PanelMainMenu);
+            GameManager.m_Instancce.DestroyAllGame();
+        }
         iTween.ValueTo(gameObject, iTween.Hash("from", Color.black, "to", m_ColorTranparent, "time", 2f, "onupdate", "OnColorUpdated", "oncomplete", "TranSitAllCompleted"));
     }
     public void TranSitAllCompleted()
@@ -56,8 +66,9 @@ public class TransitEffect : MonoBehaviour {
         m_isEffecting = false;
     }
 
-    public void DeplayGameOver()
+    public void BeginGameOver()
     {
+        MapManager.m_Instance.StopAllCoroutines();
         StartCoroutine(TransitEffect.m_Instance.DeplayGameOverWait());
     }
      
@@ -67,8 +78,7 @@ public class TransitEffect : MonoBehaviour {
         TransitEffect.m_Instance.ActivePanel(TransitEffect.m_Instance.m_PanelGameOver);
         GameOver.setInit();
         StartCoroutine(GameOver.m_Instance.ShowScoreInfo());
-        Debug.Log(ScoreManager.m_Player1Score[0]+ ","+ScoreManager.m_Player1Score[1]+ "," +ScoreManager.m_Player1Score[2]+ "," + ScoreManager.m_Player1Score[3]);
-        
+        Debug.Log(ScoreManager.m_Player1Score[0]+ ","+ScoreManager.m_Player1Score[1]+ "," +ScoreManager.m_Player1Score[2]+ "," + ScoreManager.m_Player1Score[3]);        
     }
 
     public void ActivePanel(GameObject _pannel)
@@ -97,8 +107,6 @@ public class TransitEffect : MonoBehaviour {
             m_PanelConstruction.SetActive(true);
         else
             m_PanelConstruction.SetActive(false);
-
-
     }
 
 }

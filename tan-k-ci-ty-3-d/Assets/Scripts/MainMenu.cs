@@ -20,7 +20,7 @@ public class MainMenu : MonoBehaviour {
         if (Input.GetButtonDown("Down") || Input.GetButtonDown("Right"))
         {         
             m_Index++;
-            if(m_Index ==3)
+            if(m_Index ==2)
                 m_Index =0;
             m_TankImagePostion.position = new Vector3(m_TankImagePostion.position.x, m_Postion[m_Index].position.y, m_TankImagePostion.position.z);
         }
@@ -28,14 +28,15 @@ public class MainMenu : MonoBehaviour {
         {            
             m_Index--;
             if(m_Index == -1)
-                m_Index =2;
+                m_Index =1;
             m_TankImagePostion.position = new Vector3(m_TankImagePostion.position.x, m_Postion[m_Index].position.y, m_TankImagePostion.position.z);
         }
         if (Input.GetButtonDown("Enter"))
         {
             if(m_Index == 0 || m_Index ==1)
-                TransitEffect.m_Instance.TranSitBlack();
+                TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.GAMEPLAY);
             GameManager.m_Mode = m_Index;
+            ScoreManager.m_CurrentLevel = 1;
         }
 	
 	}

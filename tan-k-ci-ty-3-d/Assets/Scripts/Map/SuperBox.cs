@@ -25,9 +25,23 @@ public class SuperBox : MonoBehaviour {
          //   Debug.Log(MapManager._arrayMap);
         }
     }
-
-	// Update is called once per frame
-	void Update () {
+    public void destroyEargle()
+    {
+        Quaternion turnRotation = Quaternion.Euler(0f, 0, 45f);
+        // Apply this rotation to the rigidbody's rotation.
+        transform.rotation = turnRotation;// (m_Rigidbody.rotation * turnRotation);
+        GameOver.m_isWin = false;
+        // TransitEffect.m_Instance.
+        TransitEffect.m_Instance.BeginGameOver();
+    }
+    public void resetEargle()
+    {
+        Quaternion turnRotation = Quaternion.Euler(0, 0, 0f);
+        // Apply this rotation to the rigidbody's rotation.
+        transform.rotation = turnRotation;// (m_Rigidbody.rotation * turnRotation);
+    }
+    // Update is called once per frame
+    void Update1 () {
 	
 	}
 }

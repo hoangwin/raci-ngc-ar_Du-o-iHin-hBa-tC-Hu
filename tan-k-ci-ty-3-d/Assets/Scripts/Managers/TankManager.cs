@@ -64,11 +64,11 @@ using UnityEngine;
                 m_Shooting.m_CurrentFireSpeed = 40;
                 m_Movement.m_Speed = 12;
             }
-            else if (m_Movement.m_PlayerType == 3)
+            else if (m_Movement.m_PlayerType == 3)//armo
             {
                 m_Shooting.m_CurrentFireDame = 1;
-                m_Shooting.m_CurrentFireSpeed = 40;
-                m_Movement.m_Speed = 12;
+                m_Shooting.m_CurrentFireSpeed = 30;
+                m_Movement.m_Speed = 8;
             }
 
             
@@ -92,11 +92,12 @@ using UnityEngine;
             for (int i = 0; i < renderers.Length; i++)
             {
                 // ... set their material color to the color specific to this tank.
-                if (m_PlayerNumber != 0)
+                if (m_PlayerNumber == 1 || m_PlayerNumber ==2)
                     renderers[i].material.color = m_PlayerColor;
-                else
+                else if (m_Shooting.m_PlayerType != 1)
                     renderers[i].material.color = Color.grey;
-            }
+
+        }
         }
 
 

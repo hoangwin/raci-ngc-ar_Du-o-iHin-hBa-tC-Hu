@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MapManager : MonoBehaviour {
+public class MapManager : MonoBehaviour
+{
 
     public static int _MAP_SIZE_WIDTH = 26;
     public static int _MAP_SIZE_HEIGHT = 26;
@@ -15,18 +16,20 @@ public class MapManager : MonoBehaviour {
     public GameObject _treePrefab;
     public GameObject _waterPrefab;
     public static MapManager m_Instance;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
 
         m_Instance = this;
-        
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
     public void initLevel(int level)
     {
         TextAsset mytxtData = (TextAsset)Resources.Load("levels/" + level.ToString());
@@ -80,7 +83,7 @@ public class MapManager : MonoBehaviour {
                         _arrayMap[i, j] = Box.Type.WATER;
                         obj.transform.parent = this.transform;
                     }
-                    
+
                 }
                 else
 
@@ -95,5 +98,19 @@ public class MapManager : MonoBehaviour {
 
             }
     }
-    
+    public void DestroyAllMap()
+    {
+        foreach (Transform child in this.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        //test
+       // for (int i = -1; i <= _MAP_SIZE_HEIGHT; i++)
+        //    for (int j = -1; j <= _MAP_SIZE_WIDTH; j++)
+         //   {
+          //      Destroy(this.transform.gh);
+
+            //}
+    }
+
 }

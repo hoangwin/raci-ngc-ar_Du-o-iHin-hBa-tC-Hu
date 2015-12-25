@@ -14,7 +14,8 @@ public class Box : MonoBehaviour {
         WALL,
         ROCK,
         TREE,
-        WATER
+        WATER,
+        EARGLE
     }
 	// Use this for initialization
     public Type type;
@@ -29,12 +30,16 @@ public class Box : MonoBehaviour {
 	}
     public void destroy()
     {
-       // Debug.Log("aaaaa");
-       Destroy(this.gameObject);
-       m_SuperBox.DestroyOneChildBox();
+        // Debug.Log("aaaaa");
+        Destroy(this.gameObject);
+        if (m_SuperBox != null)
+            m_SuperBox.DestroyOneChildBox();
     }
-  //  private void OnColliderEnter(Collider other)
-  //  {
-      //  Debug.Log("bbbb");
-  //  }
+   
+
+
+    //  private void OnColliderEnter(Collider other)
+    //  {
+    //  Debug.Log("bbbb");
+    //  }
 }

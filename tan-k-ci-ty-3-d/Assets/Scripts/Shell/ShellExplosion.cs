@@ -58,18 +58,23 @@ public class ShellExplosion : MonoBehaviour
         Vector3 vel = GetComponent<Rigidbody>().velocity;
         Collider[] collidersBox = null;
         if (vel.z > 20 || vel.z < -20)
-            collidersBox = Physics.OverlapBox(other.gameObject.transform.position, new Vector3(1.0f, 0.2f, 0.2f), Quaternion.Euler(Vector3.zero), m_BoxMask);
+            collidersBox = Physics.OverlapBox(other.gameObject.transform.position, new Vector3(1.0f, 0.4f, 0.2f), Quaternion.Euler(Vector3.zero), m_BoxMask);
         else if (vel.x > 20 || vel.x < -20)
-            collidersBox = Physics.OverlapBox(other.gameObject.transform.position, new Vector3(0.2f, 0.2f, 1.0f), Quaternion.Euler(Vector3.zero), m_BoxMask);
+            collidersBox = Physics.OverlapBox(other.gameObject.transform.position, new Vector3(0.2f, 0.4f, 1.0f), Quaternion.Euler(Vector3.zero), m_BoxMask);
 
         if (collidersBox != null)
         {
+            if (m_PlayerNumber == 1)
+                Debug.Log(collidersBox.Length);
             for (int i = 0; i < collidersBox.Length; i++)
             {
                 Box box = collidersBox[i].GetComponent<Box>();
                 if (!box)
                     continue;
-                box.destroy();
+                if (box.type == Box.Type.EARGLE)
+                    box.m_SuperBox.destroyEargle();
+                else
+                    box.destroy();
             }
         }
 

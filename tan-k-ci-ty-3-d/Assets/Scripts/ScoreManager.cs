@@ -8,7 +8,8 @@ public class ScoreManager : MonoBehaviour {
     public static SuperInt m_LevelUNblock;
     public static int[] m_Player1Score;//type-num
     public static int[] m_Player2Score;
-	void Start () {
+    public static int m_CurrentLevel;
+    void Start () {
         m_Player1Score = new int[4];
         m_Player2Score = new int[4];
 	}
