@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class TankHealth : MonoBehaviour
 {
@@ -13,14 +14,14 @@ public class TankHealth : MonoBehaviour
     private float m_CurrentHealth;
     public float m_CurrentLive;
     private bool m_Dead;
-
-
+    
     private void Awake()
     {
         m_ExplosionParticles = Instantiate(m_ExplosionPrefab).GetComponent<ParticleSystem>();
         m_ExplosionAudio = m_ExplosionParticles.GetComponent<AudioSource>();
 
         m_ExplosionParticles.gameObject.SetActive(false);
+
     }
 
 
@@ -54,7 +55,7 @@ public class TankHealth : MonoBehaviour
 
 
 
-
+    
 
     private void OnDeath()
     {
@@ -84,6 +85,18 @@ public class TankHealth : MonoBehaviour
                 // TransitEffect.m_Instance.
                 TransitEffect.m_Instance.BeginGameOver();
             }
+
+            TankEffect tankEffect = this.gameObject.GetComponent<TankEffect>();
+            if(tankEffect.m_BonusType != TankEffect.BONUS.NONE)
+            {
+                //Debug.Log("aaaaaaaaaaaaaaaaaaaaaaa: " + (int)(tankEffect.m_BonusType - 1));
+                GameManager.m_AwardBoxsLive[GameManager.m_AwardBoxsCount] = Instantiate(GameManager.m_Instancce.m_AwardBoxsPrefab[(int)(tankEffect.m_BonusType-1)], Vector3.zero, Quaternion.identity) as GameObject;
+                int row = Random.Range(2, 24);
+                int col = Random.Range(2, 24);
+                GameManager.m_AwardBoxsLive[GameManager.m_AwardBoxsCount].transform.position = new Vector3(col * MapManager._CELL_WIDTH,2,-row* MapManager._CELL_HEIGHT);                
+            }
+
+
         }
         else
         {

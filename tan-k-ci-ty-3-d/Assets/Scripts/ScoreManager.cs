@@ -20,6 +20,15 @@ public class ScoreManager : MonoBehaviour {
             m_Player1Score = new int[4];
             m_Player2Score = new int[4];
         }
+        else
+        {
+            for(int i =0;i<4;i++)
+            {
+                m_Player1Score[i] = 0;
+                m_Player2Score[i] = 0;
+            }
+        }
+
     }
 
 	

@@ -63,7 +63,7 @@ public class TankMovement : MonoBehaviour
                 
     private void Update()
     {
-        if (m_PlayerNumber == 1 || m_PlayerNumber ==2)
+        if (GameManager.m_IsPlaying && (m_PlayerNumber == 1 || m_PlayerNumber ==2))
              updatePlayerInput();
         m_TimeChangeDirection +=Time.deltaTime;
         if (m_TimeChangeDirection > 1)
@@ -152,7 +152,7 @@ public class TankMovement : MonoBehaviour
     private void FixedUpdate()
     {
         // Move and turn the tank.
-        if (m_PlayerNumber == 1 || m_PlayerNumber == 2)
+        if (GameManager.m_IsPlaying && (m_PlayerNumber == 1 || m_PlayerNumber == 2))
         {
             Move();
             //  Turn();

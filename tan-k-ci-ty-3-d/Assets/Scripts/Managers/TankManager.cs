@@ -1,8 +1,8 @@
 ﻿using System;
 using UnityEngine;
+using System.Collections;
 
-
-    [Serializable]
+[Serializable]
     public class TankManager
     {
         // This class is to manage various settings on a tank.
@@ -22,31 +22,37 @@ using UnityEngine;
         private TankMovement m_Movement;                        // Reference to tank's movement script, used to disable and enable control.
         private TankShooting m_Shooting;                        // Reference to tank's shooting script, used to disable and enable control.
         private TankHealth m_Health;                        // Reference to tank's shooting script, used to disable and enable control.
-        
+        private TankEffect m_Effect;                        // Reference to tank's movement script, used to disable and enable control.
 
-        public void Setup (int type)
+
+
+    public void Setup(int type)
+    {
+        // Get references to the components.
+        m_Movement = m_Instance.GetComponent<TankMovement>();
+        m_Shooting = m_Instance.GetComponent<TankShooting>();
+        m_Health = m_Instance.GetComponent<TankHealth>();
+        m_Effect = m_Instance.GetComponent<TankEffect>();
+
+        // Set the player numbers to be consistent across the scripts.
+        m_Movement.m_PlayerNumber = m_PlayerNumber;
+        m_Shooting.m_PlayerNumber = m_PlayerNumber;
+        m_Health.m_PlayerNumber = m_PlayerNumber;
+        m_Effect.m_PlayerNumber = m_PlayerNumber;
+
+        m_Movement.m_PlayerType = type;
+        m_Shooting.m_PlayerType = type;
+        m_Health.m_PlayerType = type;
+        m_Effect.m_PlayerType = type;
+
+        if (m_PlayerNumber == 1 || m_PlayerNumber == 2)
         {
-            // Get references to the components.
-            m_Movement = m_Instance.GetComponent<TankMovement> ();
-            m_Shooting = m_Instance.GetComponent<TankShooting> ();
-            m_Health = m_Instance.GetComponent<TankHealth>();
-          
-            // Set the player numbers to be consistent across the scripts.
-            m_Movement.m_PlayerNumber = m_PlayerNumber;
-            m_Shooting.m_PlayerNumber = m_PlayerNumber;
-            m_Health.m_PlayerNumber = m_PlayerNumber;
-
-            m_Movement.m_PlayerType = type;
-            m_Shooting.m_PlayerType = type;
-            m_Health.m_PlayerType = type;
-
-            if (m_PlayerNumber == 1 || m_PlayerNumber == 2)
-            {
-                m_Shooting.m_CurrentFireDame = 1;
-                m_Shooting.m_CurrentFireSpeed = 30;
-                m_Movement.m_Speed = 12;
-            }
-            else  if (m_Movement.m_PlayerType == 0)
+            m_Shooting.m_CurrentFireDame = 1;
+            m_Shooting.m_CurrentFireSpeed = 30;
+            m_Movement.m_Speed = 12;
+        }
+        else {
+            if (m_Movement.m_PlayerType == 0)
             {
                 m_Shooting.m_CurrentFireDame = 1;
                 m_Shooting.m_CurrentFireSpeed = 25;
@@ -71,41 +77,50 @@ using UnityEngine;
                 m_Movement.m_Speed = 8;
             }
 
-            
-
-
-            m_Health.m_CurrentLive = 3;
-            // Create a string using the correct color that says 'PLAYER 1' etc based on the tank's color and the player's number.
-            if (m_PlayerNumber != 0)
-            {
-                m_ColoredPlayerText = "<color=#" + ColorUtility.ToHtmlStringRGB(m_PlayerColor) + ">PLAYER " + m_PlayerNumber + "</color>";
-            }
-            else
-            {                
-                m_ColoredPlayerText = "<color=#" + ColorUtility.ToHtmlStringRGB(Color.grey) + ">ENEMY</color>";
-            }
-
-            // Get all of the renderers of the tank.
-            MeshRenderer[] renderers = m_Instance.GetComponentsInChildren<MeshRenderer> ();
-
-            // Go through all the renderers...
-            for (int i = 0; i < renderers.Length; i++)
-            {
-                // ... set their material color to the color specific to this tank.
-                if (m_PlayerNumber == 1 || m_PlayerNumber ==2)
-                    renderers[i].material.color = m_PlayerColor;
-                else if (m_Shooting.m_PlayerType != 1)
-                    renderers[i].material.color = Color.grey;
-
-        }
         }
 
 
+
+
+        m_Health.m_CurrentLive = 3;
+        // Create a string using the correct color that says 'PLAYER 1' etc based on the tank's color and the player's number.
+        if (m_PlayerNumber != 0)
+        {
+            m_ColoredPlayerText = "<color=#" + ColorUtility.ToHtmlStringRGB(m_PlayerColor) + ">PLAYER " + m_PlayerNumber + "</color>";
+        }
+        else
+        {
+            m_ColoredPlayerText = "<color=#" + ColorUtility.ToHtmlStringRGB(Color.grey) + ">ENEMY</color>";
+        }
+
+        // Get all of the renderers of the tank.
+        MeshRenderer[] renderers = m_Instance.GetComponentsInChildren<MeshRenderer>();
+
+        // Go through all the renderers...
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            // ... set their material color to the color specific to this tank.
+            if (m_PlayerNumber == 1 || m_PlayerNumber == 2)
+                renderers[i].material.color = m_PlayerColor;
+            else if (m_Shooting.m_PlayerType != 1)
+                renderers[i].material.color = Color.grey;
+
+        }
+        m_Effect.initEffect();
+         
+    }
+
+    
         // Used during the phases of the game where the player shouldn't be able to control their tank.
         public void DisableControl ()
         {
+        if(m_Movement != null)
             m_Movement.enabled = false;
+        if (m_Shooting != null)
+        {
             m_Shooting.enabled = false;
+            m_Shooting.stopAutoFire();
+        }
 
          
         }
@@ -126,11 +141,14 @@ using UnityEngine;
             m_Instance.transform.rotation = m_SpawnPoint.rotation;
             m_Instance.SetActive (true);
         }
+
         public bool checkDeadALL()
         {
             if (m_Health !=null && m_Health.m_CurrentLive > 0)
                 return false;
             return true;
         }
-    
-}
+
+   
+
+    }

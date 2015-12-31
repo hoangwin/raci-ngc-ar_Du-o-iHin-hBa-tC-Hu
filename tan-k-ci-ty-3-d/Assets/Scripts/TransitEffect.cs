@@ -68,6 +68,7 @@ public class TransitEffect : MonoBehaviour {
 
     public void BeginGameOver()
     {
+        
         MapManager.m_Instance.StopAllCoroutines();
         StartCoroutine(TransitEffect.m_Instance.DeplayGameOverWait());
     }
@@ -75,10 +76,12 @@ public class TransitEffect : MonoBehaviour {
     private IEnumerator DeplayGameOverWait()
     {
         yield return new WaitForSeconds(3);
+        GameManager.m_IsPlaying = false;
+        GameManager.m_Instancce.StopAllTank();
         TransitEffect.m_Instance.ActivePanel(TransitEffect.m_Instance.m_PanelGameOver);
         GameOver.setInit();
         StartCoroutine(GameOver.m_Instance.ShowScoreInfo());
-        Debug.Log(ScoreManager.m_Player1Score[0]+ ","+ScoreManager.m_Player1Score[1]+ "," +ScoreManager.m_Player1Score[2]+ "," + ScoreManager.m_Player1Score[3]);        
+        //Debug.Log(ScoreManager.m_Player1Score[0]+ ","+ScoreManager.m_Player1Score[1]+ "," +ScoreManager.m_Player1Score[2]+ "," + ScoreManager.m_Player1Score[3]);        
     }
 
     public void ActivePanel(GameObject _pannel)

@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public int m_NumRoundsToWin = 5;            // The number of rounds a single player has to win to win the game.
-    public float m_StartDelay = 3f;             // The delay between the start of RoundStarting and RoundPlaying phases.
-    public float m_EndDelay = 3f;               // The delay between the end of RoundPlaying and RoundEnding phases.
     public CameraControl m_CameraControl;       // Reference to the CameraControl script for control during different phases.
     public Text m_MessageText;                  // Reference to the overlay Text to display winning text, etc.
     public GameObject[] m_TankPrefab;             // Reference to the prefab the players will control.
@@ -24,9 +21,20 @@ public class GameManager : MonoBehaviour
     public static int m_MAX_Player_Count = 1;
     public static bool m_isWaitingCreaTank = false;
     public static bool m_IsPlaying;
+
+    public  ParticleSystem[] m_particalInit;    
+    public ParticleSystem m_particalPlayerInit;
+    public GameObject m_QuestionMark;
+
+    public GameObject[] m_AwardBoxsPrefab;
+    public static GameObject[] m_AwardBoxsLive;
+    public static int m_AwardBoxsCount;
+
+
     private void Start()
     {
         m_Instancce = this;
+        m_AwardBoxsLive = new GameObject[5];
     }
     public void initGame()
     {
@@ -35,8 +43,9 @@ public class GameManager : MonoBehaviour
             m_MAX_Player_Count = 1;
         else
             m_MAX_Player_Count = 2;
+        m_AwardBoxsCount = 0;
         // Create the delays so they only have to be made once.
-        
+
         MapManager.m_Instance.initLevel(ScoreManager.m_CurrentLevel);
 
         SpawnAllTanks();
@@ -46,6 +55,11 @@ public class GameManager : MonoBehaviour
         StartCoroutine(RoundWaitingStaring());
         m_IsPlaying = true;
         m_isWaitingCreaTank = false;
+
+        for(int i =0;i<5;i++)
+        {
+            GameManager.m_Instancce.m_particalInit[i].gameObject.SetActive(false);
+        }
 
     }
 public void DestroyAllGame()
@@ -82,7 +96,7 @@ public void DestroyAllGame()
                 Instantiate(m_TankPrefab[0], m_Tanks[i].m_SpawnPoint.position, m_Tanks[i].m_SpawnPoint.rotation) as GameObject;
             m_Tanks[i].m_PlayerNumber = i + 1;
 
-            m_Tanks[i].Setup(0);
+            m_Tanks[i].Setup(1);
             m_Tanks[i].m_Instance.tag = "TankPlayer";
         }
     }
@@ -90,6 +104,8 @@ public void DestroyAllGame()
     public IEnumerator CreateTank()//enemy
     {
         m_isWaitingCreaTank = true;
+        GameManager.m_Instancce.m_particalInit[m_TankCount % 3 + 2].gameObject.SetActive(true);
+        GameManager.m_Instancce.m_particalInit[m_TankCount % 3 + 2].Play();
         yield return new WaitForSeconds(2);
         if (m_IsPlaying)
         {
@@ -98,11 +114,23 @@ public void DestroyAllGame()
                   Instantiate(m_TankPrefab[index], m_PositionBegin[m_TankCount % 3].position, m_PositionBegin[m_TankCount % 3].rotation) as GameObject;
             m_TanksEnemy[m_TankCount].m_PlayerNumber = 0;
             m_TanksEnemy[m_TankCount].Setup(index);//here
+            
+            
             m_TanksEnemy[m_TankCount].m_Instance.tag = "TankEnemy";
             m_TankCount++;
             m_TankCountLive++;            
         }
+        GameManager.m_Instancce.m_particalInit[(m_TankCount -1) % 3 + 2].gameObject.SetActive(false);
+        
         m_isWaitingCreaTank = false;
+    }
+    public void StopAllTank()
+    {
+        for (int i = 0; i < m_TanksEnemy.Length; i++)
+        {
+            if (m_TanksEnemy[i] != null)
+                m_TanksEnemy[i].DisableControl();
+        }
     }
     public void Update()
     {

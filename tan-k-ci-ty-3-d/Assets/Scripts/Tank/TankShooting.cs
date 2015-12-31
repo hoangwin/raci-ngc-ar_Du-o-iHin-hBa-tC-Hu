@@ -22,6 +22,8 @@ public class TankShooting : MonoBehaviour
     
     private GameObject m_ShellInstance;
 
+    
+
     private void OnEnable()
     {
         // When the tank is turned on, reset the launch force and the UI
@@ -44,7 +46,7 @@ public class TankShooting : MonoBehaviour
     private void Update()
     {
         
-        if (m_PlayerNumber == 1 || m_PlayerNumber == 2)
+        if (GameManager.m_IsPlaying &&( m_PlayerNumber == 1 || m_PlayerNumber == 2))
         {
             // The slider should have a default value of the minimum launch force.
 
@@ -93,7 +95,10 @@ public class TankShooting : MonoBehaviour
         // Reset the launch force.  This is a precaution in case of missing button events.
 
     }
-
+    public void stopAutoFire()
+    {
+        StopAllCoroutines();
+    }
     private IEnumerator AutoFire()
     {
         yield return new WaitForSeconds(2);

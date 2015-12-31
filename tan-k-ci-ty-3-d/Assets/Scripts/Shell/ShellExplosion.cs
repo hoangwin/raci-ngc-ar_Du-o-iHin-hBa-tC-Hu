@@ -64,8 +64,8 @@ public class ShellExplosion : MonoBehaviour
 
         if (collidersBox != null)
         {
-            if (m_PlayerNumber == 1)
-                Debug.Log(collidersBox.Length);
+           // if (m_PlayerNumber == 1)
+             //   Debug.Log(collidersBox.Length);
             for (int i = 0; i < collidersBox.Length; i++)
             {
                 Box box = collidersBox[i].GetComponent<Box>();
