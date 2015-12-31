@@ -3,26 +3,30 @@ using UnityEngine;
 using System.Collections;
 
 [Serializable]
-    public class TankManager
-    {
-        // This class is to manage various settings on a tank.
-        // It works with the GameManager class to control how the tanks behave
-        // and whether or not players have control of their tank in the 
-        // different phases of the game.
+public class TankManager
+{
+    // This class is to manage various settings on a tank.
+    // It works with the GameManager class to control how the tanks behave
+    // and whether or not players have control of their tank in the 
+    // different phases of the game.
 
-        public Color m_PlayerColor;                             // This is the color this tank will be tinted.
-        public Transform m_SpawnPoint;                          // The position and direction the tank will have when it spawns.
-        [HideInInspector] public int m_PlayerNumber;            // This specifies which player this the manager for.
-        [HideInInspector] public string m_ColoredPlayerText;    // A string that represents the player with their number colored to match their tank.
-        [HideInInspector] public GameObject m_Instance;         // A reference to the instance of the tank when it is created.
-        [HideInInspector] public TankManager m_InstanceScript;    
-        //[HideInInspector] public int m_Wins;                    // The number of wins this player has so far.
-        
+    public Color m_PlayerColor;                             // This is the color this tank will be tinted.
+    public Transform m_SpawnPoint;                          // The position and direction the tank will have when it spawns.
+    [HideInInspector]
+    public int m_PlayerNumber;            // This specifies which player this the manager for.
+    [HideInInspector]
+    public string m_ColoredPlayerText;    // A string that represents the player with their number colored to match their tank.
+    [HideInInspector]
+    public GameObject m_Instance;         // A reference to the instance of the tank when it is created.
+    [HideInInspector]
+    public TankManager m_InstanceScript;
+    //[HideInInspector] public int m_Wins;                    // The number of wins this player has so far.
 
-        private TankMovement m_Movement;                        // Reference to tank's movement script, used to disable and enable control.
-        private TankShooting m_Shooting;                        // Reference to tank's shooting script, used to disable and enable control.
-        private TankHealth m_Health;                        // Reference to tank's shooting script, used to disable and enable control.
-        private TankEffect m_Effect;                        // Reference to tank's movement script, used to disable and enable control.
+
+    public TankMovement m_Movement;                        // Reference to tank's movement script, used to disable and enable control.
+    public TankShooting m_Shooting;                        // Reference to tank's shooting script, used to disable and enable control.
+    public TankHealth m_Health;                        // Reference to tank's shooting script, used to disable and enable control.
+    public TankEffect m_Effect;                        // Reference to tank's movement script, used to disable and enable control.
 
 
 
@@ -106,15 +110,15 @@ using System.Collections;
                 renderers[i].material.color = Color.grey;
 
         }
-        m_Effect.initEffect();
-         
+        m_Effect.initEffect(this);
+
     }
 
-    
-        // Used during the phases of the game where the player shouldn't be able to control their tank.
-        public void DisableControl ()
-        {
-        if(m_Movement != null)
+
+    // Used during the phases of the game where the player shouldn't be able to control their tank.
+    public void DisableControl()
+    {
+        if (m_Movement != null)
             m_Movement.enabled = false;
         if (m_Shooting != null)
         {
@@ -122,33 +126,33 @@ using System.Collections;
             m_Shooting.stopAutoFire();
         }
 
-         
-        }
-
-
-        // Used during the phases of the game where the player should be able to control their tank.
-        public void EnableControl ()
-        {
-            m_Movement.enabled = true;
-            m_Shooting.enabled = true;
-        }
-
-
-        // Used at the start of each round to put the tank into it's default state.
-        public void Reset ()
-        {
-            m_Instance.transform.position = m_SpawnPoint.position;
-            m_Instance.transform.rotation = m_SpawnPoint.rotation;
-            m_Instance.SetActive (true);
-        }
-
-        public bool checkDeadALL()
-        {
-            if (m_Health !=null && m_Health.m_CurrentLive > 0)
-                return false;
-            return true;
-        }
-
-   
 
     }
+
+
+    // Used during the phases of the game where the player should be able to control their tank.
+    public void EnableControl()
+    {
+        m_Movement.enabled = true;
+        m_Shooting.enabled = true;
+    }
+
+
+    // Used at the start of each round to put the tank into it's default state.
+    public void Reset()
+    {
+        m_Instance.transform.position = m_SpawnPoint.position;
+        m_Instance.transform.rotation = m_SpawnPoint.rotation;
+        m_Instance.SetActive(true);
+    }
+
+    public bool checkDeadALL()
+    {
+        if (m_Health != null && m_Health.m_CurrentLive > 0)
+            return false;
+        return true;
+    }
+
+
+
+}

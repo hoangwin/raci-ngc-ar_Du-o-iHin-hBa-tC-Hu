@@ -6,32 +6,23 @@ public class TankEffect : MonoBehaviour {
     // Use this for initialization
     public int m_PlayerNumber = 1;
     public int m_PlayerType = 1;//0,1,2,3//loi thuong noi nhanh,loai khochet,loai?
-    public ParticleSystem m_ParticalInit;
-    public BONUS m_BonusType;
-    public enum BONUS
+    public ParticleSystem m_ParticalShield;
+    public AwardBox.BONUS m_BonusType;
+    
+    public void initEffect(TankManager tankManager)
     {
-        NONE,
-        GRENADE,
-        HELMET,
-        SHOVEL,
-        STAR,
-        TANK,
-        TIMER
-    }
-    public void initEffect()
-    {
-        if (m_ParticalInit == null && m_PlayerNumber != 0)
+        if (m_ParticalShield == null && m_PlayerNumber != 0)
         {
 
-            m_ParticalInit = Instantiate(GameManager.m_Instancce.m_particalPlayerInit, this.transform.position, Quaternion.identity) as ParticleSystem;
-            m_ParticalInit.transform.parent = this.transform;
-            m_ParticalInit.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 2, this.transform.position.z);
-            m_ParticalInit.gameObject.SetActive(false);
+            m_ParticalShield = Instantiate(GameManager.m_Instancce.m_particalPlayerInit, this.transform.position, Quaternion.identity) as ParticleSystem;
+            m_ParticalShield.transform.parent = this.transform;
+            m_ParticalShield.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 2, this.transform.position.z);
+            m_ParticalShield.gameObject.SetActive(false);
 
         }
         if (m_PlayerNumber != 0)
         {
-            StartCoroutine(EffectInit());
+            StartCoroutine(EffectInit(tankManager));
         }
         else
         {
@@ -39,22 +30,22 @@ public class TankEffect : MonoBehaviour {
             if(GameManager.m_TankCount == 5 || GameManager.m_TankCount == 9 || GameManager.m_TankCount == 13||GameManager.m_TankCount == 1)
             //if (i ==0)
             {
-                m_BonusType = (BONUS)Random.Range((int)BONUS.NONE+1,(int) BONUS.TIMER + 1);
+                m_BonusType = AwardBox.BONUS.HELMET;// (AwardBox.BONUS)Random.Range((int)AwardBox.BONUS.NONE+1,(int)AwardBox.BONUS.TIMER + 1);
                 GameObject obj =  Instantiate(GameManager.m_Instancce.m_QuestionMark, this.transform.position, this.transform.rotation) as GameObject;
                 obj.transform.Translate(0, 1.5f, 0);
                 obj.SetActive(true);
                 obj.transform.parent = this.transform;
-                Debug.Log(m_BonusType);
+               // Debug.Log(m_BonusType);
             }
         }
     }
    
-    public IEnumerator EffectInit()
+    public IEnumerator EffectInit(TankManager tankManager)
     {
 
-        m_ParticalInit.gameObject.SetActive(true);
+        m_ParticalShield.gameObject.SetActive(true);
         yield return new WaitForSeconds(2);
-        m_ParticalInit.gameObject.SetActive(false);
+        m_ParticalShield.gameObject.SetActive(false);
     }
     void Start1 () {
 	

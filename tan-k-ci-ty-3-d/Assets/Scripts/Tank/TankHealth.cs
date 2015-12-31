@@ -14,7 +14,8 @@ public class TankHealth : MonoBehaviour
     private float m_CurrentHealth;
     public float m_CurrentLive;
     private bool m_Dead;
-    
+    private bool m_IsShield = false;
+
     private void Awake()
     {
         m_ExplosionParticles = Instantiate(m_ExplosionPrefab).GetComponent<ParticleSystem>();
@@ -33,9 +34,10 @@ public class TankHealth : MonoBehaviour
 
     }
 
-
     public void TakeDamage(float amount, int fromPlayerNumber)
-    {
+    { 
+        if(m_IsShield)
+        return;
         // Adjust the tank's current health, update the UI based on the new health and check whether or not the tank is dead.
         m_CurrentHealth -= amount;
         if (m_CurrentHealth <= 0 && !m_Dead)
@@ -48,15 +50,32 @@ public class TankHealth : MonoBehaviour
                 if (fromPlayerNumber == 2)
                     ScoreManager.m_Player2Score[m_PlayerType]++;
             }
-
-
         }
     }
 
-
-
-    
-
+    public void getShield()
+    {
+        StopAllCoroutines();
+        StartCoroutine(getShieldBegin());
+    }
+    public IEnumerator getShieldBegin()
+    {
+        //if (m_IsShield)
+          //  StopAllCoroutines();
+            //Debug.Log("Dayyyyy");
+            m_IsShield = true;
+        if (m_PlayerNumber == 1)
+            GameManager.m_Instancce.m_Tanks[0].m_Effect.m_ParticalShield.gameObject.SetActive(true);
+        else if (m_PlayerNumber == 2)
+            GameManager.m_Instancce.m_Tanks[1].m_Effect.m_ParticalShield.gameObject.SetActive(true);
+        yield return new WaitForSeconds(15);
+        if (m_PlayerNumber == 1)
+            GameManager.m_Instancce.m_Tanks[0].m_Effect.m_ParticalShield.gameObject.SetActive(false);
+        else if (m_PlayerNumber == 2)
+            GameManager.m_Instancce.m_Tanks[1].m_Effect.m_ParticalShield.gameObject.SetActive(false);
+        m_IsShield = false;
+        //Debug.Log("Dayyyyy11111");
+    }
     private void OnDeath()
     {
         // Play the effects for the death of the tank and deactivate it.
@@ -87,13 +106,14 @@ public class TankHealth : MonoBehaviour
             }
 
             TankEffect tankEffect = this.gameObject.GetComponent<TankEffect>();
-            if(tankEffect.m_BonusType != TankEffect.BONUS.NONE)
+            if(tankEffect.m_BonusType != AwardBox.BONUS.NONE)
             {
                 //Debug.Log("aaaaaaaaaaaaaaaaaaaaaaa: " + (int)(tankEffect.m_BonusType - 1));
                 GameManager.m_AwardBoxsLive[GameManager.m_AwardBoxsCount] = Instantiate(GameManager.m_Instancce.m_AwardBoxsPrefab[(int)(tankEffect.m_BonusType-1)], Vector3.zero, Quaternion.identity) as GameObject;
                 int row = Random.Range(2, 24);
                 int col = Random.Range(2, 24);
-                GameManager.m_AwardBoxsLive[GameManager.m_AwardBoxsCount].transform.position = new Vector3(col * MapManager._CELL_WIDTH,2,-row* MapManager._CELL_HEIGHT);                
+                GameManager.m_AwardBoxsLive[GameManager.m_AwardBoxsCount].transform.position = new Vector3(col * MapManager._CELL_WIDTH,2,-row* MapManager._CELL_HEIGHT);
+                GameManager.m_AwardBoxsLive[GameManager.m_AwardBoxsCount].GetComponent<AwardBox>().m_type = tankEffect.m_BonusType;
             }
 
 
