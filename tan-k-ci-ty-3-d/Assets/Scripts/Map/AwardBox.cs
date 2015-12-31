@@ -45,8 +45,8 @@ public class AwardBox : MonoBehaviour {
                     //StartCoroutine(tankManager.m_Health.getShield(tankManager.m_Health.m_PlayerNumber));
 
                     break;
-                case BONUS.SHOVEL:
-
+                case BONUS.SHOVEL:                    
+                    MapManager.m_Instance.EffectShovel();
                     break;
                 case BONUS.STAR:
                     break;

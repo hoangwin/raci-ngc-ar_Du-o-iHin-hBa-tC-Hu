@@ -55,7 +55,8 @@ public class TankHealth : MonoBehaviour
 
     public void getShield()
     {
-        StopAllCoroutines();
+        
+        StopCoroutine(getShieldBegin());
         StartCoroutine(getShieldBegin());
     }
     public IEnumerator getShieldBegin()
