@@ -20,7 +20,7 @@ public class AwardBox : MonoBehaviour {
         //Debug.Log("Hehehehe");
         if (other.gameObject.tag.Equals("TankPlayer"))
         {
-            Debug.Log("111111111111");
+           // Debug.Log("111111111111");
             TankManager tankManager = null;
             TankHealth tankHeath = other.gameObject.GetComponent<TankHealth>();
             if (tankHeath.m_PlayerNumber == 1)
@@ -29,7 +29,7 @@ public class AwardBox : MonoBehaviour {
                 tankManager = GameManager.m_Instancce.m_Tanks[1];
 
          
-            Debug.Log("m_type :" + m_type);
+           // Debug.Log("m_type :" + m_type);
             switch (m_type)
             {
                 case BONUS.GRENADE://destroy all

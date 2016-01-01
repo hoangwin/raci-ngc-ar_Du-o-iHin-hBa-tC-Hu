@@ -23,7 +23,7 @@ public class TankShooting : MonoBehaviour
     private GameObject[] m_ShellInstance = new GameObject[2];
 
     public int m_CountStar = 0;
-    public GameObject m_Star;
+    public GameObject m_Star;    
 
     public void InitNewStar(int _newStar)
     {
@@ -68,11 +68,15 @@ public class TankShooting : MonoBehaviour
     {
         // The fire axis is based on the player number.
         m_FireButton = "Fire1";// +m_PlayerNumber;
-       
+
         // The rate that the launch force charges up is the range of possible forces by the max charge time.
 
-        if(m_PlayerNumber ==0)
+        if (m_PlayerNumber == 0)
             StartCoroutine(AutoFire());
+        else
+            m_FireButton = "Fire" + m_PlayerNumber.ToString();
+       
+
     }
 
 

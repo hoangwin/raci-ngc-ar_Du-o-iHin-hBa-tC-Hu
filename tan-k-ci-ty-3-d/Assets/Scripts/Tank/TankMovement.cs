@@ -24,6 +24,11 @@ public class TankMovement : MonoBehaviour
     ArrayList m_ListForRandom = new ArrayList();
     float m_TimeChangeDirection;
 
+    private string m_StrUP = "";
+    private string m_StrDown = "";
+    private string m_StrLeft = "";
+    private string m_StrRight = "";
+
     private void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
@@ -49,9 +54,16 @@ public class TankMovement : MonoBehaviour
         m_TimeChangeDirection = 0;
         m_MovementAxisName = "Vertical" + m_PlayerNumber;
         m_TurnAxisName = "Horizontal" + m_PlayerNumber;
+        if(m_PlayerNumber !=0)
+        {
+            m_StrUP = "Up" + m_PlayerNumber.ToString();
+            m_StrDown = "Down" + m_PlayerNumber.ToString();
+            m_StrLeft = "Left" + m_PlayerNumber.ToString();
+            m_StrRight = "Right" + m_PlayerNumber.ToString();
+        }
         //for test
-        m_MovementAxisName = "Vertical";
-        m_TurnAxisName = "Horizontal";
+      //  m_MovementAxisName = "Vertical";
+       // m_TurnAxisName = "Horizontal";
         //for test
 
         m_OriginalPitch = m_MovementAudio.pitch;
@@ -82,14 +94,15 @@ public class TankMovement : MonoBehaviour
         //dpad in gamepad
 
         //
-		 if (Input.GetButton("Up"))
+		 if (Input.GetButton(m_StrUP))
                 m_MovementInputValueY = 1;
-            else if (Input.GetButton("Down"))// Input.GetAxis(m_MovementAxisName);
+            else if (Input.GetButton(m_StrDown))// Input.GetAxis(m_MovementAxisName);
                 m_MovementInputValueY = -1;
-            if (Input.GetButton("Left"))//m_MovementInputValueX = Input.GetAxis(m_TurnAxisName);
+            if (Input.GetButton(m_StrLeft))//m_MovementInputValueX = Input.GetAxis(m_TurnAxisName);
                 m_MovementInputValueX = -1;
-            else if (Input.GetButton("Right"))// Input.GetAxis(m_MovementAxisName);
+            else if (Input.GetButton(m_StrRight))// Input.GetAxis(m_MovementAxisName);
                 m_MovementInputValueX = 1;
+
         if (m_MovementInputValueY == 0 && m_MovementInputValueX == 0)
         {
                 m_MovementInputValueY = Input.GetAxis(m_MovementAxisName);

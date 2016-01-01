@@ -15,8 +15,9 @@ public class GameOver : MonoBehaviour {
     public Text[] m_TextPlayer2 =null;
     // Use this for initialization
     public static GameOver m_Instance;
-	// Use this for initialization
-	void Start () {
+    float axisValue = 0;
+    // Use this for initialization
+    void Start () {
         m_Instance = this;
 	}
     public static void setInit()
@@ -44,7 +45,7 @@ public class GameOver : MonoBehaviour {
 	void Update () {
         if (TransitEffect.m_Instance.m_isEffecting)
             return;
-        if (Input.GetButtonDown("Down") || Input.GetButtonDown("Right"))
+        if (Input.GetButtonDown("Down1") || Input.GetButtonDown("Right1") || Input.GetButtonDown("Down2") || Input.GetButtonDown("Right2") )
         {
             m_Index++;
             if (m_Index == 3)
@@ -57,7 +58,7 @@ public class GameOver : MonoBehaviour {
             //m_TankImagePostion = m_Postion[m_Index];
             m_TankImagePostion.position = m_Postion[m_Index].position;// new Vector3(m_TankImagePostion.position.x, m_Postion[m_Index].position.y, m_TankImagePostion.position.z);
         }
-        if (Input.GetButtonDown("Up") || Input.GetButtonDown("Left"))
+        if (Input.GetButtonDown("Up1") || Input.GetButtonDown("Left1") || Input.GetButtonDown("Up2") || Input.GetButtonDown("Left2"))
         {
             m_Index--;
             if (m_isWin)
@@ -76,8 +77,58 @@ public class GameOver : MonoBehaviour {
                     m_Index = 2;
                 }
             }
+
             m_TankImagePostion.position = m_Postion[m_Index].position;// new Vector3(m_TankImagePostion.position.x, m_Postion[m_Index].position.y, m_TankImagePostion.position.z);
             //m_TankImagePostion = m_Postion[m_Index];
+        }
+        else
+        {
+            if (axisValue == 0)
+            {
+                axisValue = Input.GetAxis("Horizontal1");
+                if (axisValue == 0)
+                    axisValue = Input.GetAxis("Vertical1");
+                if (axisValue > .1f)
+                {
+                    m_Index++;
+                }
+                else if (axisValue < -.1f)
+                {
+                    m_Index--;
+                }
+                if (m_isWin)
+                {
+                    if (m_Index == -1)
+                    {
+
+                        m_Index = 2;
+                    }
+                }
+                if (m_Index == 3)
+                {
+                    if (m_isWin)
+                        m_Index = 0;
+                    else
+                        m_Index = 1;
+                }
+                else
+                {
+                    if (m_Index == 0)
+                    {
+
+                        m_Index = 2;
+                    }
+                }
+
+
+                m_TankImagePostion.position = m_Postion[m_Index].position;
+            }
+            else
+            {
+                axisValue = Input.GetAxis("Horizontal1");
+                if (axisValue == 0)
+                    axisValue = Input.GetAxis("Vertical1");
+            }
         }
         if (Input.GetButtonDown("Enter"))
         {
