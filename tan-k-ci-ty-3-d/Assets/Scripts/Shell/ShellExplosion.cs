@@ -13,9 +13,11 @@ public class ShellExplosion : MonoBehaviour
     public float m_ExplosionRadius = 5f;
     public int m_PlayerNumber;
     public int m_PlayerType;
+        private int m_countTrigger;
 
     private void Start()
     {
+        m_countTrigger = 0;
         Destroy(gameObject, m_MaxLifeTime);
     }
 
@@ -27,6 +29,7 @@ public class ShellExplosion : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        
         if (other.gameObject.tag == this.gameObject.tag)
         {
             return;
@@ -39,7 +42,10 @@ public class ShellExplosion : MonoBehaviour
         {
             return;
         }
-
+        m_countTrigger++;
+        if (m_countTrigger > 1)
+            return;
+          
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, m_ExplosionRadius, m_TankMask);
         for (int i = 0; i < colliders.Length; i++)
@@ -57,10 +63,19 @@ public class ShellExplosion : MonoBehaviour
 
         Vector3 vel = GetComponent<Rigidbody>().velocity;
         Collider[] collidersBox = null;
-        if (vel.z > 20 || vel.z < -20)
-            collidersBox = Physics.OverlapBox(other.gameObject.transform.position, new Vector3(1.0f, 0.4f, 0.2f), Quaternion.Euler(Vector3.zero), m_BoxMask);
-        else if (vel.x > 20 || vel.x < -20)
-            collidersBox = Physics.OverlapBox(other.gameObject.transform.position, new Vector3(0.2f, 0.4f, 1.0f), Quaternion.Euler(Vector3.zero), m_BoxMask);
+        if (m_damege == 1)
+        {
+            if (vel.z > 20 || vel.z < -20)
+                collidersBox = Physics.OverlapBox(transform.position, new Vector3(1.0f, 0.4f, 0.25f), Quaternion.Euler(Vector3.zero), m_BoxMask);
+            else if (vel.x > 20 || vel.x < -20)
+                collidersBox = Physics.OverlapBox(transform.position, new Vector3(0.25f, 0.4f, 1.0f), Quaternion.Euler(Vector3.zero), m_BoxMask);
+        }else
+        {
+            if (vel.z > 20 || vel.z < -20)
+                collidersBox = Physics.OverlapBox(transform.position, new Vector3(1.0f, 0.4f, 0.2f), Quaternion.Euler(Vector3.zero), m_BoxMask);
+            else if (vel.x > 20 || vel.x < -20)
+                collidersBox = Physics.OverlapBox(transform.position, new Vector3(0.2f, 0.4f, 1.0f), Quaternion.Euler(Vector3.zero), m_BoxMask);
+        }
 
         if (collidersBox != null)
         {
@@ -73,8 +88,22 @@ public class ShellExplosion : MonoBehaviour
                     continue;
                 if (box.type == Box.Type.EARGLE)
                     box.m_SuperBox.destroyEargle();
-                else
+                else if (box.type == Box.Type.WALL)
                     box.destroy();
+                else if (box.type == Box.Type.ROCK)
+                {
+                    if (m_damege == 2)
+                    {
+                        box.m_CountNumTakeDame += 1;
+                        if (box.m_CountNumTakeDame >= 2)
+
+                            box.destroy();
+                        else
+                            box.transform.GetComponent<Renderer>().material.color = Color.grey;
+                        
+                    }
+                }
+                    
             }
         }
 

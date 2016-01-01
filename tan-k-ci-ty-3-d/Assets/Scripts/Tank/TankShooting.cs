@@ -20,10 +20,43 @@ public class TankShooting : MonoBehaviour
     public float m_CurrentFireDame;         // The force that will be given to the shell when the fire button is released.
     
     
-    private GameObject m_ShellInstance;
+    private GameObject[] m_ShellInstance = new GameObject[2];
 
-    
+    public int m_CountStar = 0;
+    public GameObject m_Star;
 
+    public void InitNewStar(int _newStar)
+    {
+        if (_newStar > 3)
+            _newStar = 3;
+        m_CountStar = _newStar;
+        if (m_CountStar == 0)
+        {
+            m_Star.SetActive(false);
+        }
+        else if (m_CountStar == 1)
+        {
+            m_Star.SetActive(true);
+            m_Star.transform.GetComponent<Renderer>().material.color = Color.green;
+            m_CurrentFireDame = 1;
+            m_CurrentFireSpeed = 35;
+            
+        }
+        else if (m_CountStar == 2)
+        {
+            m_CurrentFireDame = 1;
+            m_CurrentFireSpeed = 35;
+            m_Star.SetActive(true);
+            m_Star.transform.GetComponent<Renderer>().material.color = Color.yellow;
+        }
+        else if (m_CountStar == 3)
+        {
+            m_Star.transform.GetComponent<Renderer>().material.color = Color.red;
+            m_Star.SetActive(true);
+            m_CurrentFireDame = 2;
+            m_CurrentFireSpeed = 35;
+        }
+    }
     private void OnEnable()
     {
         // When the tank is turned on, reset the launch force and the UI
@@ -54,13 +87,12 @@ public class TankShooting : MonoBehaviour
             // If the max force has been exceeded and the shell hasn't yet been launched...
 
             // Otherwise, if the fire button has just started being pressed...
-            if (Input.GetButtonDown(m_FireButton) && (m_ShellInstance == null))
+            if (Input.GetButtonDown(m_FireButton) )
             {
-                Fire("ShellOfPlayer");//khi player 1 ban
-                // ... reset the fired flag and reset the launch force.
-                
-
-                // Change the clip to the charging clip and start it playing.
+                if(m_CountStar <=1 && (m_ShellInstance[0] == null))
+                    Fire("ShellOfPlayer");//khi player 1 ban
+                else if (m_CountStar >1 && (m_ShellInstance[0] == null || m_ShellInstance[1] == null))
+                    Fire("ShellOfPlayer");//khi player 1 ban
                 
             }
             // Otherwise, if the fire button is being held and the shell hasn't been launched yet...
@@ -74,7 +106,7 @@ public class TankShooting : MonoBehaviour
     private void Fire(string tag)
     {
         // Set the fired flag so only Fire is only called once.
-         // The force given to the shell if the fire button is held for the max charge time.
+        // The force given to the shell if the fire button is held for the max charge time.
 
         // Create an instance of the shell and store a reference to it's rigidbody.
         Rigidbody shellInstance =
@@ -84,10 +116,14 @@ public class TankShooting : MonoBehaviour
         shellInstance.gameObject.GetComponent<ShellExplosion>().m_PlayerNumber = m_PlayerNumber;
         shellInstance.gameObject.GetComponent<ShellExplosion>().m_PlayerType = m_PlayerType;
 
+        shellInstance.gameObject.GetComponent<ShellExplosion>().m_damege = m_CurrentFireDame;
 
-        m_ShellInstance = shellInstance.gameObject;
+        if (m_ShellInstance[0] == null)
+            m_ShellInstance[0] = shellInstance.gameObject;
+        else
+            m_ShellInstance[1] = shellInstance.gameObject;
         // Set the shell's velocity to the launch force in the fire position's forward direction.
-        shellInstance.velocity = m_CurrentFireSpeed * m_FireTransform.forward;        
+        shellInstance.velocity = m_CurrentFireSpeed * m_FireTransform.forward;
         // Change the clip to the firing clip and play it.
         m_ShootingAudio.clip = m_FireClip;
         m_ShootingAudio.Play();
@@ -102,7 +138,8 @@ public class TankShooting : MonoBehaviour
     private IEnumerator AutoFire()
     {
         yield return new WaitForSeconds(2);
-        Fire("ShellOfEnemy");//khi auto ban
+        if (!GameManager.m_isTimerEffect)
+            Fire("ShellOfEnemy");//khi auto ban
         StartCoroutine(AutoFire());
     }
     //StartCoroutine(ChangDirectionMove());

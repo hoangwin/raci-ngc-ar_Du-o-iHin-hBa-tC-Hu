@@ -29,7 +29,9 @@ public class GameManager : MonoBehaviour
     public GameObject[] m_AwardBoxsPrefab;
     public static GameObject[] m_AwardBoxsLive;
     public static int m_AwardBoxsCount;
+    public static bool m_isTimerEffect;
 
+    public GameObject m_StarFrefab;
 
     private void Start()
     {
@@ -83,7 +85,17 @@ public void DestroyAllGame()
            // if (m_TanksEnemy[m_TankCount].m_Instance != null)
                 Destroy(m_TanksEnemy[i].m_Instance);
     }
-    
+    public void StartTimerEffect()//enemy
+    {
+        StartCoroutine(TimerEffect());
+    }
+    public IEnumerator TimerEffect()//enemy
+    {
+        m_isTimerEffect = true;
+        yield return new WaitForSeconds(12);
+        m_isTimerEffect = false;
+    }
+
     private void SpawnAllTanks()
     {
         // For all the tanks...
@@ -206,6 +218,7 @@ public void DestroyAllGame()
     public void reLiveATank(int index)
     {
         m_Tanks[index].Reset();
+
     }
 
     

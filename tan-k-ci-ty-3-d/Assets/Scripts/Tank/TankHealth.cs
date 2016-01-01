@@ -15,6 +15,7 @@ public class TankHealth : MonoBehaviour
     public float m_CurrentLive;
     private bool m_Dead;
     private bool m_IsShield = false;
+    
 
     private void Awake()
     {
@@ -24,7 +25,7 @@ public class TankHealth : MonoBehaviour
         m_ExplosionParticles.gameObject.SetActive(false);
 
     }
-
+   
 
     private void OnEnable()
     {
@@ -82,7 +83,7 @@ public class TankHealth : MonoBehaviour
         // Play the effects for the death of the tank and deactivate it.
         if (m_Dead)
             return;
-
+      
         m_Dead = true;
         m_ExplosionParticles.transform.position = transform.position;
         m_ExplosionParticles.gameObject.SetActive(true);

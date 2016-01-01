@@ -52,27 +52,27 @@ public class TankManager
         if (m_PlayerNumber == 1 || m_PlayerNumber == 2)
         {
             m_Shooting.m_CurrentFireDame = 1;
-            m_Shooting.m_CurrentFireSpeed = 30;
+            m_Shooting.m_CurrentFireSpeed = 25;
             m_Movement.m_Speed = 12;
         }
         else {
-            if (m_Movement.m_PlayerType == 0)
+            if (m_Movement.m_PlayerType == 0)//normal
             {
                 m_Shooting.m_CurrentFireDame = 1;
                 m_Shooting.m_CurrentFireSpeed = 25;
                 m_Movement.m_Speed = 10;
             }
-            else if (m_Movement.m_PlayerType == 1)
+            else if (m_Movement.m_PlayerType == 1)//fast
             {
                 m_Shooting.m_CurrentFireDame = 1;
                 m_Shooting.m_CurrentFireSpeed = 30;
-                m_Movement.m_Speed = 14;
+                m_Movement.m_Speed = 16;
             }
-            else if (m_Movement.m_PlayerType == 2)
+            else if (m_Movement.m_PlayerType == 2)//power
             {
                 m_Shooting.m_CurrentFireDame = 1;
                 m_Shooting.m_CurrentFireSpeed = 40;
-                m_Movement.m_Speed = 12;
+                m_Movement.m_Speed = 14;
             }
             else if (m_Movement.m_PlayerType == 3)//armo
             {
@@ -82,10 +82,7 @@ public class TankManager
             }
 
         }
-
-
-
-
+        
         m_Health.m_CurrentLive = 3;
         // Create a string using the correct color that says 'PLAYER 1' etc based on the tank's color and the player's number.
         if (m_PlayerNumber != 0)
@@ -111,6 +108,14 @@ public class TankManager
 
         }
         m_Effect.initEffect(this);
+
+        if (m_PlayerNumber == 1 || m_PlayerNumber == 2)
+        {
+            m_Shooting.m_Star = GameObject.Instantiate(GameManager.m_Instancce.m_StarFrefab, m_Health.transform.position, Quaternion.identity) as GameObject;
+            m_Shooting.m_Star.transform.position = new Vector3(m_Shooting.m_Star.transform.position.x, 2, m_Shooting.m_Star.transform.position.z);
+            m_Shooting.m_Star.transform.parent = m_Health.transform;
+            m_Shooting.InitNewStar(0);
+        }
 
     }
 
@@ -141,6 +146,8 @@ public class TankManager
     // Used at the start of each round to put the tank into it's default state.
     public void Reset()
     {
+        
+        m_Shooting.InitNewStar(0);
         m_Instance.transform.position = m_SpawnPoint.position;
         m_Instance.transform.rotation = m_SpawnPoint.rotation;
         m_Instance.SetActive(true);

@@ -154,7 +154,7 @@ public class MapManager : MonoBehaviour
 
                     if (obj != null)
                     {
-                        Debug.Log(obj);
+                       // Debug.Log(obj);
                         
                         obj.transform.parent = this.transform;
                         _arrayMapObject[i, j] = obj;

@@ -158,7 +158,10 @@ public class TankMovement : MonoBehaviour
             //  Turn();
         }
         else
-            MoveRandom();
+        {
+            if (!GameManager.m_isTimerEffect)
+                MoveRandom();
+        }
        // if(m_PlayerNumber ==0)
       //  Debug.Log(m_Rigidbody.velocity);
 

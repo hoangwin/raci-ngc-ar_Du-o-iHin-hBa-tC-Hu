@@ -49,10 +49,13 @@ public class AwardBox : MonoBehaviour {
                     MapManager.m_Instance.EffectShovel();
                     break;
                 case BONUS.STAR:
+                    tankManager.m_Shooting.InitNewStar(++tankManager.m_Shooting.m_CountStar);
                     break;
                 case BONUS.TANK:
+                    tankManager.m_Health.m_CurrentLive++;
                     break;
                 case BONUS.TIMER:
+                    GameManager.m_Instancce.StartTimerEffect();
                     break;
             }
             GameObject.Destroy(this.gameObject);
