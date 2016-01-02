@@ -15,7 +15,7 @@ public class MainMenu : MonoBehaviour {
         m_Postion[1].gameObject.SetActive(false);
         m_isOnePerson = true;
 #endif
-
+        ScoreManager.Load();
 
     }
     float axisValue = 0;
@@ -77,9 +77,9 @@ public class MainMenu : MonoBehaviour {
         if (Input.GetButtonDown("Enter"))
         {
             if(m_Index == 0 || m_Index ==1)
-                TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.GAMEPLAY);
+                TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.MAIN_SELECT_STAGE);
             GameManager.m_Mode = m_Index;
-            ScoreManager.m_CurrentLevel = 1;
+            //ScoreManager.m_CurrentLevel = 1;
         }
 	
 	}

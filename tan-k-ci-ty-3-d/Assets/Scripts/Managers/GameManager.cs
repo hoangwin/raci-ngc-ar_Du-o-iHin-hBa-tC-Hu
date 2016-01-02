@@ -7,12 +7,17 @@ public class GameManager : MonoBehaviour
 {
     public CameraControl m_CameraControl;       // Reference to the CameraControl script for control during different phases.
     public Text m_MessageText;                  // Reference to the overlay Text to display winning text, etc.
+    public Text m_StageText;
+    public Text m_Tank1Text;
+    public Text m_Tank2Text;
+    public Text m_TankenemyText;
     public GameObject[] m_TankPrefab;             // Reference to the prefab the players will control.
     public TankManager[] m_Tanks;               // A collection of managers for enabling and disabling different aspects of the tanks.
     public TankManager[] m_TanksEnemy;               // A collection of managers for enabling and disabling different aspects of the tanks.
     public SuperBox m_Eargle;
+    public static  int[] m_TanksStarSave = new int[2];
 
-    
+
     public Transform[] m_PositionBegin;
     public static int m_TankCount = 0;
     public static int m_TankCountLive = 0;
@@ -41,11 +46,22 @@ public class GameManager : MonoBehaviour
     public void initGame()
     {
         DestroyAllGame();
+        m_StageText.text = "STAGE:" + ScoreManager.m_CurrentLevel.ToString();
+        m_Tank1Text.text = "3";
+        m_TankenemyText.text ="20";
+
         if (m_Mode == 0)
+        {
+            m_Tank2Text.text = "0";
             m_MAX_Player_Count = 1;
+        }
         else
+        {
+            m_Tank2Text.text = "3";
             m_MAX_Player_Count = 2;
+        }
         m_AwardBoxsCount = 0;
+       
         // Create the delays so they only have to be made once.
 
         MapManager.m_Instance.initLevel(ScoreManager.m_CurrentLevel);
@@ -130,7 +146,8 @@ public void DestroyAllGame()
             
             m_TanksEnemy[m_TankCount].m_Instance.tag = "TankEnemy";
             m_TankCount++;
-            m_TankCountLive++;            
+            m_TankCountLive++;
+            GameManager.m_Instancce.m_TankenemyText.text = (20 - GameManager.m_TankCount).ToString();
         }
         GameManager.m_Instancce.m_particalInit[(m_TankCount -1) % 3 + 2].gameObject.SetActive(false);
         
@@ -148,8 +165,20 @@ public void DestroyAllGame()
     {
         if (m_IsPlaying)
         {
-            if (m_TankCountLive < 4 && m_TankCount < 20 && !m_isWaitingCreaTank)
-                StartCoroutine(CreateTank());
+            if (!TransitEffect.m_Instance.m_isEffecting)
+            {
+                if (Input.GetKeyUp(KeyCode.Escape))
+                {
+                 //   Debug.Log("bbbbbbbbbbbbbbbbbb");
+                    Time.timeScale = 0;
+                    TransitEffect.m_Instance.ActivePanel(TransitEffect.m_Instance.m_PanelPause);
+                }
+                if (m_TankCountLive < 4 && m_TankCount < 20 && !m_isWaitingCreaTank)
+                {
+                    StartCoroutine(CreateTank());
+
+                }
+            }
         }
         // Debug.Log("aaaaaaaaa");
     }
@@ -220,6 +249,10 @@ public void DestroyAllGame()
         m_Tanks[index].Reset();
 
     }
+    public void DestroyAllAward()
+    {
+        for (int i = 0; i < m_AwardBoxsLive.Length; i++)
+            Destroy(m_AwardBoxsLive[i]);
+    }
 
-    
 }

@@ -13,7 +13,8 @@ public class ScoreManager : MonoBehaviour {
         m_Player1Score = new int[4];
         m_Player2Score = new int[4];
 	}
-    public static void init()
+
+    public static void initTankScore()
     {
         if (m_Player1Score == null)
         {
@@ -30,10 +31,18 @@ public class ScoreManager : MonoBehaviour {
         }
 
     }
-
-	
-	// Update is called once per frame
-	void Update () {
+    public static void Load()
+    {
+        m_LevelUNblock = new SuperInt(1, "UNLOCK_STAGE");
+        m_LevelUNblock.Load();
+    }
+    public static void Save()
+    {
+        
+        m_LevelUNblock.Save();
+    }
+    // Update is called once per frame
+    void Update () {
 	
 	}
 }

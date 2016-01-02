@@ -143,7 +143,7 @@ public class MapManager : MonoBehaviour
                     {
                         obj = Instantiate(_treePrefab, pos, rotation) as GameObject;
                         obj.transform.position = pos;
-                        _arrayMap[i, j] = Box.Type.TREE; 
+                        _arrayMap[i, j] = Box.Type.NONE; //chu y cho nay vi ay gan giong voi NONE
                     }
                     else if (c == '~')//nuoc
                     {

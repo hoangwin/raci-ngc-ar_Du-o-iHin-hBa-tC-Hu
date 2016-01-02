@@ -53,6 +53,10 @@ public class AwardBox : MonoBehaviour {
                     break;
                 case BONUS.TANK:
                     tankManager.m_Health.m_CurrentLive++;
+                    if (tankManager.m_Health.m_PlayerNumber == 1)
+                        GameManager.m_Instancce.m_Tank1Text.text = tankManager.m_Health.m_CurrentLive.ToString();
+                    else
+                        GameManager.m_Instancce.m_Tank2Text.text = tankManager.m_Health.m_CurrentLive.ToString();
                     break;
                 case BONUS.TIMER:
                     GameManager.m_Instancce.StartTimerEffect();

@@ -56,6 +56,13 @@ public class TankShooting : MonoBehaviour
             m_CurrentFireDame = 2;
             m_CurrentFireSpeed = 35;
         }
+
+        if (m_PlayerNumber == 1)
+            if (GameManager.m_TanksStarSave[0] < m_CountStar)
+                GameManager.m_TanksStarSave[0] = m_CountStar;
+        else if (m_PlayerNumber == 2)
+                if (GameManager.m_TanksStarSave[1] < m_CountStar)
+                    GameManager.m_TanksStarSave[1] = m_CountStar;
     }
     private void OnEnable()
     {

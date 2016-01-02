@@ -12,9 +12,10 @@ public class Box : MonoBehaviour {
     public enum Type
     {
         NONE,
+        TREE,
         WALL,
         ROCK,
-        TREE,
+        
         WATER,
         EARGLE
     }

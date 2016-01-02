@@ -274,27 +274,27 @@ public class TankMovement : MonoBehaviour
         //MapManager._arrayMap[]
         m_ListForRandom.Clear();
 
-        if (cellROW - 1 >= 0 && MapManager._arrayMap[cellROW - 1, cellCOL] == Box.Type.NONE && MapManager._arrayMap[cellROW - 1, cellCOL + 1] == Box.Type.NONE)
+        if (cellROW - 1 >= 0 && MapManager._arrayMap[cellROW - 1, cellCOL] == Box.Type.NONE && MapManager._arrayMap[cellROW - 1, cellCOL + 1] < Box.Type.WALL)
         {
           //  if (m_PlayerNumber == 1)
           //  Debug.Log("1111111");
             m_ListForRandom.Add(1);
         }
-		if (cellCOL + 2 < MapManager._MAP_SIZE_WIDTH && MapManager._arrayMap[cellROW, cellCOL + 2] == Box.Type.NONE && MapManager._arrayMap[ cellROW + 1,cellCOL + 2] == Box.Type.NONE)
+		if (cellCOL + 2 < MapManager._MAP_SIZE_WIDTH && MapManager._arrayMap[cellROW, cellCOL + 2] == Box.Type.NONE && MapManager._arrayMap[ cellROW + 1,cellCOL + 2] < Box.Type.WALL)
         {
           //  if (m_PlayerNumber == 1)
           //  Debug.Log("222222222");
             m_ListForRandom.Add(2);
            
         }
-		if (cellROW + 2 < MapManager._MAP_SIZE_HEIGHT && MapManager._arrayMap[cellROW + 2,cellCOL] == Box.Type.NONE && MapManager._arrayMap[cellROW + 2,cellCOL+1] == Box.Type.NONE)
+		if (cellROW + 2 < MapManager._MAP_SIZE_HEIGHT && MapManager._arrayMap[cellROW + 2,cellCOL] == Box.Type.NONE && MapManager._arrayMap[cellROW + 2,cellCOL+1] < Box.Type.WALL)
         {
           //  if (m_PlayerNumber == 1)
           //      Debug.Log("3333333333333");
             m_ListForRandom.Add(3);
            
         }
-        if (cellCOL - 1 >= 0 && MapManager._arrayMap[cellROW, cellCOL - 1] == Box.Type.NONE && MapManager._arrayMap[cellROW + 1, cellCOL - 1] == Box.Type.NONE)
+        if (cellCOL - 1 >= 0 && MapManager._arrayMap[cellROW, cellCOL - 1] == Box.Type.NONE && MapManager._arrayMap[cellROW + 1, cellCOL - 1] < Box.Type.WALL)
         {
           //  if (m_PlayerNumber == 1)
           //      Debug.Log("444444444444");
@@ -326,24 +326,24 @@ public class TankMovement : MonoBehaviour
         //MapManager._arrayMap[]
         m_ListForRandom.Clear();
 
-		if (cellROW - 1 >= 0 && MapManager._arrayMap[cellROW - 1, cellCOL] == Box.Type.NONE && MapManager._arrayMap[cellROW - 1, cellCOL + 1] == Box.Type.NONE)
+		if (cellROW - 1 >= 0 && MapManager._arrayMap[cellROW - 1, cellCOL] == Box.Type.NONE && MapManager._arrayMap[cellROW - 1, cellCOL + 1] < Box.Type.WALL)
 		{
 			
 			m_ListForRandom.Add(1);
 		}
-		if (cellCOL + 2 < MapManager._MAP_SIZE_WIDTH && MapManager._arrayMap[cellROW, cellCOL + 2] == Box.Type.NONE && MapManager._arrayMap[ cellROW + 1,cellCOL + 2] == Box.Type.NONE)
+		if (cellCOL + 2 < MapManager._MAP_SIZE_WIDTH && MapManager._arrayMap[cellROW, cellCOL + 2] == Box.Type.NONE && MapManager._arrayMap[ cellROW + 1,cellCOL + 2] < Box.Type.WALL)
 		{
 			m_ListForRandom.Add(2);
 
 		}
-		if (cellROW + 2 < MapManager._MAP_SIZE_HEIGHT && MapManager._arrayMap[cellROW + 2,cellCOL] == Box.Type.NONE && MapManager._arrayMap[cellROW + 2,cellCOL+1] == Box.Type.NONE)
+		if (cellROW + 2 < MapManager._MAP_SIZE_HEIGHT && MapManager._arrayMap[cellROW + 2,cellCOL] == Box.Type.NONE && MapManager._arrayMap[cellROW + 2,cellCOL+1] < Box.Type.WALL)
 		{
 			
 			m_ListForRandom.Add(3);
 			m_ListForRandom.Add(3);
 
 		}
-		if (cellCOL - 1 >= 0 && MapManager._arrayMap[cellROW, cellCOL - 1] == Box.Type.NONE && MapManager._arrayMap[cellROW + 1, cellCOL - 1] == Box.Type.NONE)
+		if (cellCOL - 1 >= 0 && MapManager._arrayMap[cellROW, cellCOL - 1] == Box.Type.NONE && MapManager._arrayMap[cellROW + 1, cellCOL - 1] < Box.Type.WALL)
 		{
 			
 			m_ListForRandom.Add(4);

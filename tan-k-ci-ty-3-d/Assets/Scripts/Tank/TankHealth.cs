@@ -14,8 +14,7 @@ public class TankHealth : MonoBehaviour
     private float m_CurrentHealth;
     public float m_CurrentLive;
     private bool m_Dead;
-    private bool m_IsShield = false;
-    
+    private bool m_IsShield = false;   
 
     private void Awake()
     {
@@ -111,20 +110,19 @@ public class TankHealth : MonoBehaviour
             if(tankEffect.m_BonusType != AwardBox.BONUS.NONE)
             {
                 //Debug.Log("aaaaaaaaaaaaaaaaaaaaaaa: " + (int)(tankEffect.m_BonusType - 1));
-                GameManager.m_AwardBoxsLive[GameManager.m_AwardBoxsCount] = Instantiate(GameManager.m_Instancce.m_AwardBoxsPrefab[(int)(tankEffect.m_BonusType-1)], Vector3.zero, Quaternion.identity) as GameObject;
+                GameManager.m_AwardBoxsLive[GameManager.m_AwardBoxsCount] =  Instantiate(GameManager.m_Instancce.m_AwardBoxsPrefab[(int)(tankEffect.m_BonusType-1)], Vector3.zero, Quaternion.identity) as GameObject;
                 int row = Random.Range(2, 24);
                 int col = Random.Range(2, 24);
                 GameManager.m_AwardBoxsLive[GameManager.m_AwardBoxsCount].transform.position = new Vector3(col * MapManager._CELL_WIDTH,2,-row* MapManager._CELL_HEIGHT);
                 GameManager.m_AwardBoxsLive[GameManager.m_AwardBoxsCount].GetComponent<AwardBox>().m_type = tankEffect.m_BonusType;
             }
-
-
         }
         else
         {
             m_CurrentLive--;
             if (m_CurrentLive < 1)
-            {
+            {                
+             
                 if (GameManager.m_Instancce.checkLose())
                 {
                     Debug.Log("aaa");
@@ -138,9 +136,19 @@ public class TankHealth : MonoBehaviour
                 // gameObject.SetActive(true);
                 GameManager.m_Instancce.reLiveATank(m_PlayerNumber - 1);
             }
+            if (m_PlayerNumber == 1)
+            {
+                GameManager.m_TanksStarSave[0] = 0;
+                GameManager.m_Instancce.m_Tank1Text.text = m_CurrentLive.ToString();
+            }
+            else
+            {
+                GameManager.m_TanksStarSave[1] = 0;
+                GameManager.m_Instancce.m_Tank2Text.text = m_CurrentLive.ToString();
+            }
         }
 
     }
-
+    
 
 }

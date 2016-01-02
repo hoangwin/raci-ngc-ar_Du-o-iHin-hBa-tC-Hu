@@ -100,7 +100,10 @@
     <Compile Include="Assets\Scripts\Map\Eargle.cs" />
     <Compile Include="Assets\Scripts\Map\MapManager.cs" />
     <Compile Include="Assets\Scripts\Map\SuperBox.cs" />
+    <Compile Include="Assets\Scripts\PauseMenu.cs" />
     <Compile Include="Assets\Scripts\ScoreManager.cs" />
+    <Compile Include="Assets\Scripts\SelectLevelButton.cs" />
+    <Compile Include="Assets\Scripts\SelectStage.cs" />
     <Compile Include="Assets\Scripts\Shell\ShellExplosion.cs" />
     <Compile Include="Assets\Scripts\Tank\TankEffect.cs" />
     <Compile Include="Assets\Scripts\Tank\TankHealth.cs" />
@@ -150,6 +153,7 @@
     <None Include="Assets\Resources\levels\33.txt" />
     <None Include="Assets\Resources\levels\34.txt" />
     <None Include="Assets\Resources\levels\35.txt" />
+    <None Include="Assets\Resources\levels\36.txt" />
     <None Include="Assets\Resources\levels\4.txt" />
     <None Include="Assets\Resources\levels\5.txt" />
     <None Include="Assets\Resources\levels\6.txt" />

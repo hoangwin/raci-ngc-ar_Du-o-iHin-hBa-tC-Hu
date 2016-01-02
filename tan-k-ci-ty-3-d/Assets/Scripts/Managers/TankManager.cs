@@ -82,8 +82,9 @@ public class TankManager
             }
 
         }
-        
+
         m_Health.m_CurrentLive = 3;
+
         // Create a string using the correct color that says 'PLAYER 1' etc based on the tank's color and the player's number.
         if (m_PlayerNumber != 0)
         {
@@ -114,9 +115,12 @@ public class TankManager
             m_Shooting.m_Star = GameObject.Instantiate(GameManager.m_Instancce.m_StarFrefab, m_Health.transform.position, Quaternion.identity) as GameObject;
             m_Shooting.m_Star.transform.position = new Vector3(m_Shooting.m_Star.transform.position.x, 2, m_Shooting.m_Star.transform.position.z);
             m_Shooting.m_Star.transform.parent = m_Health.transform;
-            m_Shooting.InitNewStar(0);
-        }
 
+            if (m_PlayerNumber == 1)
+                m_Shooting.InitNewStar(GameManager.m_TanksStarSave[0]);
+            else
+                m_Shooting.InitNewStar(GameManager.m_TanksStarSave[1]);
+        }
     }
 
 

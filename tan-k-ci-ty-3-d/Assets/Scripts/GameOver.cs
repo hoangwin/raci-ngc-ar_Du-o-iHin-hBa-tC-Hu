@@ -29,6 +29,7 @@ public class GameOver : MonoBehaviour {
         if (m_isWin)
         {
             m_Instance.m_Index = 0;
+            m_Instance.m_Postion[0].gameObject.SetActive(true);
             m_Instance.m_TankImagePostion.position = m_Instance.m_Postion[0].position;// new Vector3(m_TankImagePostion.position.x, m_Postion[m_Index].position.y, m_TankImagePostion.position.z);
             m_Instance.m_Title.sprite = m_Instance.m_ImageCompleted;
         }
@@ -38,11 +39,19 @@ public class GameOver : MonoBehaviour {
             m_Instance.m_Postion[0].gameObject.SetActive(false);
             m_Instance.m_TankImagePostion.position = m_Instance.m_Postion[1].position;
             m_Instance.m_Title.sprite = m_Instance.m_ImageGameOver;
+            GameManager.m_TanksStarSave[0] = GameManager.m_TanksStarSave[1] = 0;
         }
+        if(ScoreManager.m_CurrentLevel +1 > ScoreManager.m_LevelUNblock.NUM)
+        {
+            ScoreManager.m_LevelUNblock.NUM++;
+            ScoreManager.Save();
+        }
+        
+
 
     }
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update () {
         if (TransitEffect.m_Instance.m_isEffecting)
             return;
         if (Input.GetButtonDown("Down1") || Input.GetButtonDown("Right1") || Input.GetButtonDown("Down2") || Input.GetButtonDown("Right2") )
@@ -58,7 +67,7 @@ public class GameOver : MonoBehaviour {
             //m_TankImagePostion = m_Postion[m_Index];
             m_TankImagePostion.position = m_Postion[m_Index].position;// new Vector3(m_TankImagePostion.position.x, m_Postion[m_Index].position.y, m_TankImagePostion.position.z);
         }
-        if (Input.GetButtonDown("Up1") || Input.GetButtonDown("Left1") || Input.GetButtonDown("Up2") || Input.GetButtonDown("Left2"))
+        else if (Input.GetButtonDown("Up1") || Input.GetButtonDown("Left1") || Input.GetButtonDown("Up2") || Input.GetButtonDown("Left2"))
         {
             m_Index--;
             if (m_isWin)
@@ -111,13 +120,9 @@ public class GameOver : MonoBehaviour {
                     else
                         m_Index = 1;
                 }
-                else
-                {
-                    if (m_Index == 0)
-                    {
-
-                        m_Index = 2;
-                    }
+                else if (m_Index <0)
+                {                    
+                        m_Index = 2;                    
                 }
 
 
@@ -132,6 +137,7 @@ public class GameOver : MonoBehaviour {
         }
         if (Input.GetButtonDown("Enter"))
         {
+            ScoreManager.initTankScore();
             if (m_Index == 0 || m_Index == 1)
             {
                 if (m_Index == 0)

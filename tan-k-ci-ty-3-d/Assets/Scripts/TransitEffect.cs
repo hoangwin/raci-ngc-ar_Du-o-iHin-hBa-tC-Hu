@@ -11,13 +11,15 @@ public class TransitEffect : MonoBehaviour {
     public GameObject m_PanelMainMenu;
     public GameObject m_PanelGameOver;
     public GameObject m_PanelIngame;
-    public GameObject m_PanelSelectLevel;
-    public GameObject m_PanelConstruction;
+    public GameObject m_PanelSelectLevel;    
+    public GameObject m_PanelPause;
+
     public bool m_isEffecting = false;
     TYPE_TRANSIT m_TypeTransit;
     public enum TYPE_TRANSIT
     {
         MAIN_MENU,
+        MAIN_SELECT_STAGE,
         GAMEOVER,
         GAMEPLAY
     }
@@ -53,6 +55,13 @@ public class TransitEffect : MonoBehaviour {
             ActivePanel(m_PanelIngame);
             GameManager.m_Instancce.initGame();
         }
+        else if (m_TypeTransit == TYPE_TRANSIT.MAIN_SELECT_STAGE)
+        {
+            ActivePanel(m_PanelSelectLevel);
+
+            SelectStage.m_Instance.m_Index = ScoreManager.m_LevelUNblock.NUM - 1;
+            SelectStage.m_Instance.ChangePage();
+        }
         else if (m_TypeTransit == TYPE_TRANSIT.MAIN_MENU)
         {
             GameManager.m_IsPlaying = false;
@@ -70,6 +79,7 @@ public class TransitEffect : MonoBehaviour {
     {
         
         MapManager.m_Instance.StopAllCoroutines();
+        GameManager.m_Instancce.DestroyAllAward();
         StartCoroutine(TransitEffect.m_Instance.DeplayGameOverWait());
     }
      
@@ -106,10 +116,10 @@ public class TransitEffect : MonoBehaviour {
         else
             m_PanelSelectLevel.SetActive(false);
 
-        if (_pannel == m_PanelConstruction)
-            m_PanelConstruction.SetActive(true);
+        if (_pannel == m_PanelPause)
+            m_PanelPause.SetActive(true);
         else
-            m_PanelConstruction.SetActive(false);
+            m_PanelPause.SetActive(false);
     }
 
 }
