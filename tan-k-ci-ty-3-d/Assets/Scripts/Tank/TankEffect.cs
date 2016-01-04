@@ -31,7 +31,7 @@ public class TankEffect : MonoBehaviour {
             //if (i ==0)
             {
                 m_BonusType = (AwardBox.BONUS)Random.Range((int)AwardBox.BONUS.NONE+1,(int)AwardBox.BONUS.TIMER + 1);//AwardBox.BONUS.TIMER;// 
-                m_BonusType = AwardBox.BONUS.STAR;//here
+               // m_BonusType = AwardBox.BONUS.STAR;//here
                 GameObject obj =  Instantiate(GameManager.m_Instancce.m_QuestionMark, this.transform.position, this.transform.rotation) as GameObject;
                 obj.transform.Translate(0, 1.5f, 0);
                 obj.SetActive(true);

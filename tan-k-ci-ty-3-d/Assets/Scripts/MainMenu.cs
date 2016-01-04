@@ -15,7 +15,7 @@ public class MainMenu : MonoBehaviour {
         m_Postion[1].gameObject.SetActive(false);
         m_isOnePerson = true;
 #endif
-        ScoreManager.Load();
+        ScoreManager.Load();      
 
     }
     float axisValue = 0;
@@ -23,6 +23,7 @@ public class MainMenu : MonoBehaviour {
     string m_MovementAxisName = "Vertical";
         string m_TurnAxisName = "Horizontal";
     void Update() {
+      
         if (TransitEffect.m_Instance.m_isEffecting)
             return;
         if (!m_isOnePerson)

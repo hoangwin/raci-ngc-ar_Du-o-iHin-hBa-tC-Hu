@@ -253,6 +253,7 @@ public void DestroyAllGame()
     {
         for (int i = 0; i < m_AwardBoxsLive.Length; i++)
             Destroy(m_AwardBoxsLive[i]);
+        GameManager.m_AwardBoxsCount = 0;
     }
 
 }

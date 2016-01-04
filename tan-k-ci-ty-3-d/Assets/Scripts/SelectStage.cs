@@ -12,6 +12,11 @@ public class SelectStage : MonoBehaviour {
     public static SelectStage m_Instance;
     public Text m_TextPage;
     float axisValue = 0;
+    void Awake()
+    {
+        m_Instance = this;
+       // Debug.Log("cccc");
+    }
     void Start () {
         m_Instance = this;
 
@@ -99,6 +104,8 @@ public class SelectStage : MonoBehaviour {
         }
         if (Input.GetKeyUp(KeyCode.Escape))
         {
+            if (TransitEffect.m_Instance.m_isEffecting)
+                return;
             //Debug.Log("aaaaaaaaaaaa");
             //Time.timeScale = 1;
             TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.MAIN_MENU);
@@ -120,5 +127,35 @@ public class SelectStage : MonoBehaviour {
             }
         }
         m_ImageSelectPostion.position = m_Postion[m_Index].position;
+    }
+    public void ButtonExit()
+    {
+        if (TransitEffect.m_Instance.m_isEffecting)
+            return;
+        TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.MAIN_MENU);
+    }
+    public void ButtonLeft()
+    {
+        if (TransitEffect.m_Instance.m_isEffecting)
+            return;
+        SelectStage.m_Instance.m_page--;
+        if (SelectStage.m_Instance.m_page < 0)
+            SelectStage.m_Instance.m_page = 2;
+        //SelectStage.m_Instance.m_Index = 12 + SelectStage.m_Instance.m_Index;
+        SelectStage.m_Instance.m_TextPage.text = (SelectStage.m_Instance.m_page + 1).ToString() + "/3";
+        SelectStage.m_Instance.ChangePage();
+
+    }
+    public void ButtonRight()
+    {
+        if (TransitEffect.m_Instance.m_isEffecting)
+            return;
+        SelectStage.m_Instance.m_page += 1;
+        if (SelectStage.m_Instance.m_page >= 3)
+            SelectStage.m_Instance.m_page = 0;
+       // SelectStage.m_Instance.m_Index = SelectStage.m_Instance.m_Index - 12;
+        SelectStage.m_Instance.m_TextPage.text = (SelectStage.m_Instance.m_page + 1).ToString() + "/3";
+        SelectStage.m_Instance.ChangePage();
+
     }
 }

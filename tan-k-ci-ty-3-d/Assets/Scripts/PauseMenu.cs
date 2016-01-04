@@ -99,6 +99,8 @@ public class PauseMenu : MonoBehaviour {
         }
         if (Input.GetKeyUp(KeyCode.Escape))
         {
+            if (TransitEffect.m_Instance.m_isEffecting)
+                return;
             Debug.Log("aaaaaaaaaaaa");
             Time.timeScale = 1;
             TransitEffect.m_Instance.ActivePanel(TransitEffect.m_Instance.m_PanelIngame);

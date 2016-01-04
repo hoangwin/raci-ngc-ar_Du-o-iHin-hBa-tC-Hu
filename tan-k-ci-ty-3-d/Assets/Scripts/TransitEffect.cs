@@ -68,7 +68,7 @@ public class TransitEffect : MonoBehaviour {
             ActivePanel(m_PanelMainMenu);
             GameManager.m_Instancce.DestroyAllGame();
         }
-        iTween.ValueTo(gameObject, iTween.Hash("from", Color.black, "to", m_ColorTranparent, "time", 2f, "onupdate", "OnColorUpdated", "oncomplete", "TranSitAllCompleted"));
+        iTween.ValueTo(gameObject, iTween.Hash("from", Color.black, "to", m_ColorTranparent, "time", 1f, "onupdate", "OnColorUpdated", "oncomplete", "TranSitAllCompleted"));
     }
     public void TranSitAllCompleted()
     {

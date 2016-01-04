@@ -148,6 +148,7 @@ public class MapManager : MonoBehaviour
                     else if (c == '~')//nuoc
                     {
                         obj = Instantiate(_waterPrefab, pos, rotation) as GameObject;
+                        pos = new Vector3(j * _CELL_HEIGHT, 0, -i * _CELL_WIDTH);
                         obj.transform.position = pos;
                         _arrayMap[i, j] = Box.Type.WATER;
                     }

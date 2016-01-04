@@ -151,7 +151,15 @@ public class GameOver : MonoBehaviour {
                 TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.MAIN_MENU);
             }
         }
-	}
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            if (TransitEffect.m_Instance.m_isEffecting)
+                return;
+            //Debug.Log("aaaaaaaaaaaa");
+            //Time.timeScale = 1;
+            TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.MAIN_MENU);
+        }
+    }
     public IEnumerator ShowScoreInfo()
     {
         yield return new WaitForSeconds(0.5f);
