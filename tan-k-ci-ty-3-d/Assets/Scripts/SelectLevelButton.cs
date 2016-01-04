@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class SelectLevelButton : MonoBehaviour {
 
     // Use this for initialization
     public int m_Level;
+    public Text m_Text;
 	void Start () {
 	
 	}
@@ -13,13 +15,18 @@ public class SelectLevelButton : MonoBehaviour {
 	void Update () {
 	
 	}
-    public void ButtonLevelPress()
+    public void UpdateText()
+    {
+        m_Text.text = (m_Level + 12 * SelectStage.m_Instance.m_page).ToString();
+
+}
+public void ButtonLevelPress()
     {
         if (TransitEffect.m_Instance.m_isEffecting)
             return;
         SelectStage.m_Instance.m_Index = m_Level;
         int index = SelectStage.m_Instance.m_page * 12 + m_Level;
-        SelectStage.m_Instance.m_ImageSelectPostion.position = SelectStage.m_Instance.m_Postion[index-1].position;
+        SelectStage.m_Instance.m_ImageSelectPostion.position = SelectStage.m_Instance.m_Postion[m_Level - 1].position;
         if (index<= ScoreManager.m_LevelUNblock.NUM)
         {
             Time.timeScale = 1;

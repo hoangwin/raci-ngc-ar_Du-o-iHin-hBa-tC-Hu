@@ -20,13 +20,14 @@ public class GameOver : MonoBehaviour {
     void Start () {
         m_Instance = this;
 	}
-    public static void setInit()
+    public static void setInitWinLose()
     {
       
         if (m_Instance == null)
             m_Instance = TransitEffect.m_Instance.m_PanelGameOver.GetComponent<GameOver>();
-
-        if (m_isWin)
+     //   m_isWin = true;
+ 
+            if (m_isWin)
         {
             m_Instance.m_Index = 0;
             m_Instance.m_Postion[0].gameObject.SetActive(true);

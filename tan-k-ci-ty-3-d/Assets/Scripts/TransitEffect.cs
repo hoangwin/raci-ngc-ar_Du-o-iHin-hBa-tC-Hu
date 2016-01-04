@@ -52,13 +52,14 @@ public class TransitEffect : MonoBehaviour {
     {
         if (m_TypeTransit == TYPE_TRANSIT.GAMEPLAY)
         {
+            
             ActivePanel(m_PanelIngame);
             GameManager.m_Instancce.initGame();
         }
         else if (m_TypeTransit == TYPE_TRANSIT.MAIN_SELECT_STAGE)
         {
             ActivePanel(m_PanelSelectLevel);
-
+            GameManager.m_IsPlaying = false;
             SelectStage.m_Instance.m_Index = ScoreManager.m_LevelUNblock.NUM - 1;
             SelectStage.m_Instance.ChangePage();
         }
@@ -66,6 +67,7 @@ public class TransitEffect : MonoBehaviour {
         {
             GameManager.m_IsPlaying = false;
             ActivePanel(m_PanelMainMenu);
+            MapManager.m_Instance.changeBackGround(1);
             GameManager.m_Instancce.DestroyAllGame();
         }
         iTween.ValueTo(gameObject, iTween.Hash("from", Color.black, "to", m_ColorTranparent, "time", 1f, "onupdate", "OnColorUpdated", "oncomplete", "TranSitAllCompleted"));
@@ -73,6 +75,8 @@ public class TransitEffect : MonoBehaviour {
     public void TranSitAllCompleted()
     {
         m_isEffecting = false;
+        if (GameManager.m_IsPlaying)
+            GameManager.m_Instancce.PlaySoundStart();
     }
 
     public void BeginGameOver()
@@ -85,11 +89,12 @@ public class TransitEffect : MonoBehaviour {
      
     private IEnumerator DeplayGameOverWait()
     {
-        yield return new WaitForSeconds(3);
+        GameManager.m_Instancce.PlaySoundWinLose();
+        yield return new WaitForSeconds(3);        
         GameManager.m_IsPlaying = false;
         GameManager.m_Instancce.StopAllTank();
         TransitEffect.m_Instance.ActivePanel(TransitEffect.m_Instance.m_PanelGameOver);
-        GameOver.setInit();
+        GameOver.setInitWinLose();
         StartCoroutine(GameOver.m_Instance.ShowScoreInfo());
         //Debug.Log(ScoreManager.m_Player1Score[0]+ ","+ScoreManager.m_Player1Score[1]+ "," +ScoreManager.m_Player1Score[2]+ "," + ScoreManager.m_Player1Score[3]);        
     }

@@ -32,15 +32,7 @@ public class SelectStage : MonoBehaviour {
             else
                 m_Index += 1;
 
-            if (m_Index >= 12)//
-            {
-                m_page += 1;
-                if (m_page >= 3)
-                    m_page = 0;
-                m_Index = m_Index - 12;
-                m_TextPage.text = (m_page +1).ToString() +"/3";
-                ChangePage();
-            }
+            ChangePage();
             //m_TankImagePostion = m_Postion[m_Index];
             m_ImageSelectPostion.position = m_Postion[m_Index].position;// new Vector3(m_TankImagePostion.position.x, m_Postion[m_Index].position.y, m_TankImagePostion.position.z);
         }
@@ -50,15 +42,7 @@ public class SelectStage : MonoBehaviour {
                 m_Index -= 4;
             else
                 m_Index -= 1;
-            if (m_Index <= -1)
-            {
-                m_page--;
-                if (m_page < 0)
-                    m_page = 2;
-                m_Index = 12 + m_Index;
-                m_TextPage.text = (m_page + 1).ToString() + "/3";
-                ChangePage();
-            }
+            ChangePage();
 
             m_ImageSelectPostion.position = m_Postion[m_Index].position;// new Vector3(m_TankImagePostion.position.x, m_Postion[m_Index].position.y, m_TankImagePostion.position.z);
                                                                         //m_TankImagePostion = m_Postion[m_Index];
@@ -79,7 +63,7 @@ public class SelectStage : MonoBehaviour {
                     m_Index--;
                 }
 
-
+                ChangePage();
 
 
                 m_ImageSelectPostion.position = m_Postion[m_Index].position;
@@ -113,11 +97,28 @@ public class SelectStage : MonoBehaviour {
     }
     public void ChangePage()
     {
+        while (m_Index >= 12)//
+        {
+            m_page += 1;
+            if (m_page >= 3)
+                m_page = 0;
+            m_Index = m_Index - 12;
+            m_TextPage.text = (m_page + 1).ToString() + "/3";
 
+        }
+        while (m_Index <= -1)
+        {
+            m_page--;
+            if (m_page < 0)
+                m_page = 2;
+            m_Index = 12 + m_Index;
+            m_TextPage.text = (m_page + 1).ToString() + "/3";
+
+        }
         for (int i = 0; i < 12; i++)
         {
             m_Postion[i].GetComponent<Image>().sprite = m_AllImageLevel[m_page * 12 + i];
-            if (m_page * 12 + i >= ScoreManager.m_LevelUNblock.NUM)
+            if (m_page * 12 + i + 1 >= ScoreManager.m_LevelUNblock.NUM)
             {
                 m_Postion[i].GetComponent<Button>().interactable = false;
             }
@@ -125,8 +126,12 @@ public class SelectStage : MonoBehaviour {
             {
                 m_Postion[i].GetComponent<Button>().interactable = true;
             }
+
+            m_Postion[i].GetComponent<SelectLevelButton>().UpdateText();
         }
+        
         m_ImageSelectPostion.position = m_Postion[m_Index].position;
+        
     }
     public void ButtonExit()
     {

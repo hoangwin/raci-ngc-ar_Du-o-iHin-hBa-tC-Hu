@@ -37,7 +37,11 @@ public class GameManager : MonoBehaviour
     public static bool m_isTimerEffect;
 
     public GameObject m_StarFrefab;
-
+	public AudioSource m_AudioSource;
+	public AudioClip m_ClickClip;
+	public AudioClip m_WinClip;
+	public AudioClip m_LoseClip;
+	public AudioClip m_StartClip;
     private void Start()
     {
         m_Instancce = this;
@@ -61,9 +65,10 @@ public class GameManager : MonoBehaviour
             m_MAX_Player_Count = 2;
         }
         m_AwardBoxsCount = 0;
-       
-        // Create the delays so they only have to be made once.
 
+        // Create the delays so they only have to be made once.
+        //ScoreManager.m_CurrentLevel = 33;
+        MapManager.m_Instance.changeBackGround(ScoreManager.m_CurrentLevel);
         MapManager.m_Instance.initLevel(ScoreManager.m_CurrentLevel);
 
         SpawnAllTanks();
@@ -224,7 +229,7 @@ public void DestroyAllGame()
 
         // As soon as the round begins playing let the players control the tanks.
         RoundStarting();
-        yield return new WaitForSeconds(3);        
+        yield return new WaitForSeconds(2);        
         // Clear the text from the screen.
         m_MessageText.text = string.Empty;
 
@@ -254,6 +259,24 @@ public void DestroyAllGame()
         for (int i = 0; i < m_AwardBoxsLive.Length; i++)
             Destroy(m_AwardBoxsLive[i]);
         GameManager.m_AwardBoxsCount = 0;
+    }
+    public void PlaySoundCLick()
+    {
+        m_AudioSource.clip = m_ClickClip;
+        m_AudioSource.Play();
+    }
+    public void PlaySoundStart()
+    {
+        m_AudioSource.clip = m_StartClip;
+        m_AudioSource.Play();
+    }
+    public void PlaySoundWinLose()
+    {
+        if (GameOver.m_isWin)
+            m_AudioSource.clip = m_WinClip;
+        else
+            m_AudioSource.clip = m_LoseClip;
+        m_AudioSource.Play();
     }
 
 }

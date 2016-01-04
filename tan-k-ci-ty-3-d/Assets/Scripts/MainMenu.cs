@@ -15,8 +15,8 @@ public class MainMenu : MonoBehaviour {
         m_Postion[1].gameObject.SetActive(false);
         m_isOnePerson = true;
 #endif
-        ScoreManager.Load();      
-
+        ScoreManager.Load();
+        MapManager.m_Instance.changeBackGround(1);
     }
     float axisValue = 0;
     // Update is called once per frame

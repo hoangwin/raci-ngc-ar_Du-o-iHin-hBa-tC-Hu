@@ -69,7 +69,12 @@ public class TankMovement : MonoBehaviour
         m_OriginalPitch = m_MovementAudio.pitch;
 		 if (m_PlayerNumber == 0)
             ChangDirectionMove();
-         
+        if (m_PlayerNumber == 0)
+        {
+            m_MovementAudio.Stop();
+         //   return;
+        }
+
     }
 
                 
@@ -77,12 +82,15 @@ public class TankMovement : MonoBehaviour
     {
         if (GameManager.m_IsPlaying && (m_PlayerNumber == 1 || m_PlayerNumber ==2))
              updatePlayerInput();
+      
+           
         m_TimeChangeDirection +=Time.deltaTime;
         if (m_TimeChangeDirection > 1)
         {
             m_TimeChangeDirection = 0;
             getNumDirectCanMove();
         }
+        EngineAudio();
     }
     void updatePlayerInput()
     {
@@ -126,15 +134,15 @@ public class TankMovement : MonoBehaviour
         }
         //Debug.Log("m_MovementInputValueY :" + m_MovementInputValueY);
         // Debug.Log(m_MovementInputValueY);
-        EngineAudio();
+       
     }
    
     private void EngineAudio()
     {
         if (m_PlayerNumber == 0)
         {
-            m_MovementAudio.Stop();
-            return;
+            //m_MovementAudio.Stop();
+               return;
         }
         // Play the correct audio clip based on whether or not the tank is moving and what audio is currently playing.
         if (Mathf.Abs(m_MovementInputValueY) < 0.1f && Mathf.Abs(m_MovementInputValueX) < 0.1f)
