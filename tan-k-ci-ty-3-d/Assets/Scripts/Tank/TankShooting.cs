@@ -20,7 +20,7 @@ public class TankShooting : MonoBehaviour
     public float m_CurrentFireDame;         // The force that will be given to the shell when the fire button is released.
     
     
-    private GameObject[] m_ShellInstance = new GameObject[2];
+    public GameObject[] m_ShellInstance = new GameObject[2];
 
     public int m_CountStar = 0;
     public GameObject m_Star;    
@@ -112,9 +112,9 @@ public class TankShooting : MonoBehaviour
             
         }
     }
+    
 
-
-    private void Fire(string tag)
+    public void Fire(string tag)
     {
         // Set the fired flag so only Fire is only called once.
         // The force given to the shell if the fire button is held for the max charge time.
@@ -148,8 +148,8 @@ public class TankShooting : MonoBehaviour
     }
     private IEnumerator AutoFire()
     {
-        yield return new WaitForSeconds(2);
-        if (!GameManager.m_isTimerEffect)
+        yield return new WaitForSeconds(1f);
+        if (!GameManager.m_isTimerEffect && m_ShellInstance[0] ==null)
             Fire("ShellOfEnemy");//khi auto ban
         StartCoroutine(AutoFire());
     }

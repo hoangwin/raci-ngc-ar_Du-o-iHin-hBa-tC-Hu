@@ -18,7 +18,6 @@ public class TankMovement : MonoBehaviour
     private float m_MovementInputValueY;
     private float m_MovementInputValueX;        
     private float m_OriginalPitch;
-
     
     private Vector3 m_LastPostion;
     ArrayList m_ListForRandom = new ArrayList();
@@ -101,40 +100,55 @@ public class TankMovement : MonoBehaviour
         // Debug.Log(Input.GetAxis(m_TurnAxisName));
         //dpad in gamepad
 
+
         //
-		 if (Input.GetButton(m_StrUP))
-                m_MovementInputValueY = 1;
-            else if (Input.GetButton(m_StrDown))// Input.GetAxis(m_MovementAxisName);
-                m_MovementInputValueY = -1;
-            if (Input.GetButton(m_StrLeft))//m_MovementInputValueX = Input.GetAxis(m_TurnAxisName);
-                m_MovementInputValueX = -1;
-            else if (Input.GetButton(m_StrRight))// Input.GetAxis(m_MovementAxisName);
-                m_MovementInputValueX = 1;
+        if (Input.GetButton(m_StrUP))
+            m_MovementInputValueY = 1;
+        else if (Input.GetButton(m_StrDown))// Input.GetAxis(m_MovementAxisName);
+            m_MovementInputValueY = -1;
+        if (Input.GetButton(m_StrLeft))//m_MovementInputValueX = Input.GetAxis(m_TurnAxisName);
+            m_MovementInputValueX = -1;
+        else if (Input.GetButton(m_StrRight))// Input.GetAxis(m_MovementAxisName);
+            m_MovementInputValueX = 1;
 
         if (m_MovementInputValueY == 0 && m_MovementInputValueX == 0)
         {
-                m_MovementInputValueY = Input.GetAxis(m_MovementAxisName);
-		        m_MovementInputValueX = Input.GetAxis(m_TurnAxisName);
-		        if (Mathf.Abs(m_MovementInputValueY) > Mathf.Abs(m_MovementInputValueX))
-		        {
-					if(Mathf.Abs(m_MovementInputValueX)>0.5f)
-					{
-			            m_MovementInputValueY = m_MovementInputValueY / Mathf.Abs(m_MovementInputValueY);
-		    	        m_MovementInputValueX = 0;
-					}
-		        }
-		        else if (Mathf.Abs(m_MovementInputValueY) < Mathf.Abs(m_MovementInputValueX))
-		        {
-					if(Mathf.Abs(m_MovementInputValueY)>0.5f)
-					{
-			            m_MovementInputValueY = 0;//
-			            m_MovementInputValueX = m_MovementInputValueX / Mathf.Abs(m_MovementInputValueX);
-					}
-		        }
+            m_MovementInputValueY = Input.GetAxis(m_MovementAxisName);
+            m_MovementInputValueX = Input.GetAxis(m_TurnAxisName);
+            if (m_PlayerNumber == 1 && m_MovementInputValueY == 0 && m_MovementInputValueX == 0)
+            {
+                TJoyStick4Way way = TJoyStick.Get4Way();
+                //  Debug.Log(way);
+                if (way == TJoyStick4Way.UP)
+                    m_MovementInputValueY = 1;
+                else if (way == TJoyStick4Way.DOWN)
+                    m_MovementInputValueY = -1;
+                if (way == TJoyStick4Way.LEFT)
+                    m_MovementInputValueX = -1;
+                else if (way == TJoyStick4Way.RIGHT)
+                    m_MovementInputValueX = 1;
+
+            }
+            if (Mathf.Abs(m_MovementInputValueY) > Mathf.Abs(m_MovementInputValueX))
+            {
+                if (Mathf.Abs(m_MovementInputValueX) > 0.5f)
+                {
+                    m_MovementInputValueY = m_MovementInputValueY / Mathf.Abs(m_MovementInputValueY);
+                    m_MovementInputValueX = 0;
+                }
+            }
+            else if (Mathf.Abs(m_MovementInputValueY) < Mathf.Abs(m_MovementInputValueX))
+            {
+                if (Mathf.Abs(m_MovementInputValueY) > 0.5f)
+                {
+                    m_MovementInputValueY = 0;//
+                    m_MovementInputValueX = m_MovementInputValueX / Mathf.Abs(m_MovementInputValueX);
+                }
+            }
         }
         //Debug.Log("m_MovementInputValueY :" + m_MovementInputValueY);
         // Debug.Log(m_MovementInputValueY);
-       
+
     }
    
     private void EngineAudio()
@@ -176,7 +190,7 @@ public class TankMovement : MonoBehaviour
         if (GameManager.m_IsPlaying && (m_PlayerNumber == 1 || m_PlayerNumber == 2))
         {
             Move();
-            //  Turn();
+          
         }
         else
         {
@@ -191,16 +205,7 @@ public class TankMovement : MonoBehaviour
 
     private void Move()
     {
-        if (m_PlayerNumber == 0)
-        {
-            if (!checkCanMove())//khi khong di chuyen dc nua thi chuyen huong
-            {
-                //Debug.Log("Can Chuyen Huong");
-                //StopAllCoroutines();
-                // m_timeChangeDirection = 0f;
-                // StartCoroutine(ChangDirectionMove());
-            }
-        }
+       
         // Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
         Vector3 movement = Vector3.zero;
         if (m_MovementInputValueY < 0)
@@ -322,48 +327,53 @@ public class TankMovement : MonoBehaviour
     private void ChangDirectionMove()
     {
 
-      //  Debug.Log("aaaaaaaaaaaaaaa");
-        
+        //  Debug.Log("aaaaaaaaaaaaaaa");
+
         // If there isn't a winner yet, restart this coroutine so the loop continues.
-            // Note that this coroutine doesn't yield.  This means that the current version of the GameLoop will end.
-      
-        int cellROW = Mathf.Abs( (int)(transform.position.z / (-MapManager._CELL_HEIGHT)));
+        // Note that this coroutine doesn't yield.  This means that the current version of the GameLoop will end.
+
+        int cellROW = Mathf.Abs((int)(transform.position.z / (-MapManager._CELL_HEIGHT)));
         int cellCOL = Mathf.Abs((int)(transform.position.x / (MapManager._CELL_WIDTH)));
         //tiem kiem 4 thang tiep theo de coi co se di duoc dau
         //if(cellCOL)
         //MapManager._arrayMap[]
         m_ListForRandom.Clear();
 
-		if (cellROW - 1 >= 0 && MapManager._arrayMap[cellROW - 1, cellCOL] == Box.Type.NONE && MapManager._arrayMap[cellROW - 1, cellCOL + 1] < Box.Type.WALL)
-		{
-			
-			m_ListForRandom.Add(1);
-		}
-		if (cellCOL + 2 < MapManager._MAP_SIZE_WIDTH && MapManager._arrayMap[cellROW, cellCOL + 2] == Box.Type.NONE && MapManager._arrayMap[ cellROW + 1,cellCOL + 2] < Box.Type.WALL)
-		{
-			m_ListForRandom.Add(2);
+        if (cellROW - 1 >= 0 && MapManager._arrayMap[cellROW - 1, cellCOL] == Box.Type.NONE && MapManager._arrayMap[cellROW - 1, cellCOL + 1] < Box.Type.WALL)
+        {
+           // if (!(m_MovementInputValueX == 0 && m_MovementInputValueY == 1))
 
-		}
-		if (cellROW + 2 < MapManager._MAP_SIZE_HEIGHT && MapManager._arrayMap[cellROW + 2,cellCOL] == Box.Type.NONE && MapManager._arrayMap[cellROW + 2,cellCOL+1] < Box.Type.WALL)
-		{
-			
-			m_ListForRandom.Add(3);
-			m_ListForRandom.Add(3);
+                m_ListForRandom.Add(1);
+        }
+        if (cellCOL + 2 < MapManager._MAP_SIZE_WIDTH && MapManager._arrayMap[cellROW, cellCOL + 2] == Box.Type.NONE && MapManager._arrayMap[cellROW + 1, cellCOL + 2] < Box.Type.WALL)
 
-		}
-		if (cellCOL - 1 >= 0 && MapManager._arrayMap[cellROW, cellCOL - 1] == Box.Type.NONE && MapManager._arrayMap[cellROW + 1, cellCOL - 1] < Box.Type.WALL)
-		{
-			
-			m_ListForRandom.Add(4);
+        {
+          //  if (!(m_MovementInputValueX == 1 && m_MovementInputValueY == 0))
+                m_ListForRandom.Add(2);
 
-		}
-      
-         if (m_ListForRandom.Count > 0 )
-         {
+        }
+        if (cellROW + 2 < MapManager._MAP_SIZE_HEIGHT && MapManager._arrayMap[cellROW + 2, cellCOL] == Box.Type.NONE && MapManager._arrayMap[cellROW + 2, cellCOL + 1] < Box.Type.WALL)
+        {
+           // if (!(m_MovementInputValueX == 0 && m_MovementInputValueY == -1))
+            {
+                m_ListForRandom.Add(3);
+                m_ListForRandom.Add(3);
+            }
+
+        }
+        if (cellCOL - 1 >= 0 && MapManager._arrayMap[cellROW, cellCOL - 1] == Box.Type.NONE && MapManager._arrayMap[cellROW + 1, cellCOL - 1] < Box.Type.WALL)
+        {
+          //  if (!(m_MovementInputValueX == -1 && m_MovementInputValueY == 0))
+                m_ListForRandom.Add(4);
+
+        }
+
+        if (m_ListForRandom.Count > 0)
+        {
             int i = Random.Range(0, m_ListForRandom.Count);
-           // Debug.Log("ii " + i);
-          //  Debug.Log("m_ListForRandom " + m_ListForRandom.Count);
-       //     Debug.Log("direct " + (int)(m_ListForRandom[i]));
+            // Debug.Log("ii " + i);
+            //  Debug.Log("m_ListForRandom " + m_ListForRandom.Count);
+            //     Debug.Log("direct " + (int)(m_ListForRandom[i]));
             if ((int)(m_ListForRandom[i]) == 1)
             {
                 m_MovementInputValueX = 0;
@@ -384,30 +394,10 @@ public class TankMovement : MonoBehaviour
                 m_MovementInputValueX = -1;
                 m_MovementInputValueY = 0;
             }
-
-            
         }
-       
-      
     }
 
-    private void Turn()
-    {
-        // Determine the number of degrees to be turned based on the input, speed and time between frames.
-        float turn = m_MovementInputValueX * m_TurnSpeed * Time.deltaTime;
-
-        // Make this into a rotation in the y axis.
-        Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
-
-        // Apply this rotation to the rigidbody's rotation.
-        m_Rigidbody.MoveRotation(m_Rigidbody.rotation * turnRotation);
-    }
-    bool checkCanMove()
-    {
-        if (transform.position.Equals(m_LastPostion))
-            return false;
-        return true;
-    }
+   
 
     void FixPosition(bool fixRow, bool FixCol)//fix row nghia la row cho dung
     {

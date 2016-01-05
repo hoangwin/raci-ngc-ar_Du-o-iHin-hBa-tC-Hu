@@ -10,6 +10,7 @@ public class GameOver : MonoBehaviour {
     public Image m_Title;
     public Sprite m_ImageGameOver;
     public Sprite m_ImageCompleted;
+    public Text m_TextState;
     public Text m_HighScore;
     public Text[] m_TextPlayer1 = null;
     public Text[] m_TextPlayer2 =null;
@@ -25,8 +26,8 @@ public class GameOver : MonoBehaviour {
       
         if (m_Instance == null)
             m_Instance = TransitEffect.m_Instance.m_PanelGameOver.GetComponent<GameOver>();
-     //   m_isWin = true;
- 
+        //   m_isWin = true;
+        m_Instance.m_TextState.text = "STATE " + ScoreManager.m_CurrentLevel.ToString();
             if (m_isWin)
         {
             m_Instance.m_Index = 0;

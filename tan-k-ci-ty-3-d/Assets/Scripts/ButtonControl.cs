@@ -75,7 +75,24 @@ public class ButtonControl : MonoBehaviour {
             TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.MAIN_MENU);
         }
     }
+    public void ButtonFire()
+    {
+        Debug.Log("aaaaaaaaaaaaa");
+        if (GameManager.m_Instancce.m_Tanks[0].m_Shooting.m_CountStar <= 1 && (GameManager.m_Instancce.m_Tanks[0].m_Shooting.m_ShellInstance[0] == null))
+            GameManager.m_Instancce.m_Tanks[0].m_Shooting.Fire("ShellOfPlayer");//khi player 1 ban
+        else if (GameManager.m_Instancce.m_Tanks[0].m_Shooting.m_CountStar > 1 && (GameManager.m_Instancce.m_Tanks[0].m_Shooting.m_ShellInstance[0] == null || GameManager.m_Instancce.m_Tanks[0].m_Shooting.m_ShellInstance[1] == null))
+            GameManager.m_Instancce.m_Tanks[0].m_Shooting.Fire("ShellOfPlayer");//khi player 1 ban
+    }
 
-   
-           
+    public void ButtonMove()
+    {
+        Debug.Log("aaaaaaaaaaaaa");
+        if (GameManager.m_Instancce.m_Tanks[0].m_Shooting.m_CountStar <= 1 && (GameManager.m_Instancce.m_Tanks[0].m_Shooting.m_ShellInstance[0] == null))
+            GameManager.m_Instancce.m_Tanks[0].m_Shooting.Fire("ShellOfPlayer");//khi player 1 ban
+        else if (GameManager.m_Instancce.m_Tanks[0].m_Shooting.m_CountStar > 1 && (GameManager.m_Instancce.m_Tanks[0].m_Shooting.m_ShellInstance[0] == null || GameManager.m_Instancce.m_Tanks[0].m_Shooting.m_ShellInstance[1] == null))
+            GameManager.m_Instancce.m_Tanks[0].m_Shooting.Fire("ShellOfPlayer");//khi player 1 ban
+    }
+
+
+
 }

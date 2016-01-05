@@ -66,13 +66,13 @@ public class TankManager
             {
                 m_Shooting.m_CurrentFireDame = 1;
                 m_Shooting.m_CurrentFireSpeed = 30;
-                m_Movement.m_Speed = 16;
+                m_Movement.m_Speed = 14;
             }
             else if (m_Movement.m_PlayerType == 2)//power
             {
                 m_Shooting.m_CurrentFireDame = 1;
-                m_Shooting.m_CurrentFireSpeed = 40;
-                m_Movement.m_Speed = 14;
+                m_Shooting.m_CurrentFireSpeed = 35;
+                m_Movement.m_Speed = 12;
             }
             else if (m_Movement.m_PlayerType == 3)//armo
             {

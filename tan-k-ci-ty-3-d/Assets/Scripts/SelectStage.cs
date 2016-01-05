@@ -118,7 +118,7 @@ public class SelectStage : MonoBehaviour {
         for (int i = 0; i < 12; i++)
         {
             m_Postion[i].GetComponent<Image>().sprite = m_AllImageLevel[m_page * 12 + i];
-            if (m_page * 12 + i + 1 >= ScoreManager.m_LevelUNblock.NUM)
+            if (m_page * 12 + i + 1 > ScoreManager.m_LevelUNblock.NUM)
             {
                 m_Postion[i].GetComponent<Button>().interactable = false;
             }
