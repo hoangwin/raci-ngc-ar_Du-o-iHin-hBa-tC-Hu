@@ -24,6 +24,8 @@ public void ButtonLevelPress()
     {
         if (TransitEffect.m_Instance.m_isEffecting)
             return;
+        Debug.Log("aaaa");
+        GameManager.m_Instancce.PlaySoundCLick();
         SelectStage.m_Instance.m_Index = m_Level;
         int index = SelectStage.m_Instance.m_page * 12 + m_Level;
         SelectStage.m_Instance.m_ImageSelectPostion.position = SelectStage.m_Instance.m_Postion[m_Level - 1].position;

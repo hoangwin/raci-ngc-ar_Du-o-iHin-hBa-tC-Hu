@@ -83,6 +83,7 @@ public class SelectStage : MonoBehaviour {
                 ScoreManager.m_CurrentLevel = m_page * 12 + m_Index + 1;
 
                 TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.GAMEPLAY);
+                GameManager.m_Instancce.PlaySoundCLick();
             }
 
         }
@@ -90,6 +91,7 @@ public class SelectStage : MonoBehaviour {
         {
             if (TransitEffect.m_Instance.m_isEffecting)
                 return;
+            GameManager.m_Instancce.PlaySoundCLick();
             //Debug.Log("aaaaaaaaaaaa");
             //Time.timeScale = 1;
             TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.MAIN_MENU);

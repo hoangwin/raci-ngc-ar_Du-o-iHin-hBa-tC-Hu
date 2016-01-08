@@ -9,6 +9,7 @@ public class TankMovement : MonoBehaviour
     public AudioSource m_MovementAudio;
     public AudioClip m_EngineIdling;
     public AudioClip m_EngineDriving;
+    
     public float m_PitchRange = 0.2f;
 
     
@@ -117,16 +118,20 @@ public class TankMovement : MonoBehaviour
             m_MovementInputValueX = Input.GetAxis(m_TurnAxisName);
             if (m_PlayerNumber == 1 && m_MovementInputValueY == 0 && m_MovementInputValueX == 0)
             {
-                TJoyStick4Way way = TJoyStick.Get4Way();
-                //  Debug.Log(way);
-                if (way == TJoyStick4Way.UP)
-                    m_MovementInputValueY = 1;
-                else if (way == TJoyStick4Way.DOWN)
-                    m_MovementInputValueY = -1;
-                if (way == TJoyStick4Way.LEFT)
-                    m_MovementInputValueX = -1;
-                else if (way == TJoyStick4Way.RIGHT)
-                    m_MovementInputValueX = 1;
+                if (SystemInfo.deviceType != DeviceType.Desktop)
+                {
+                    TJoyStick4Way way = TJoyStick.Get4Way();
+                    //  Debug.Log(way);
+                    if (way == TJoyStick4Way.UP)
+                        m_MovementInputValueY = 1;
+                    else if (way == TJoyStick4Way.DOWN)
+                        m_MovementInputValueY = -1;
+                    if (way == TJoyStick4Way.LEFT)
+                        m_MovementInputValueX = -1;
+                    else if (way == TJoyStick4Way.RIGHT)
+                        m_MovementInputValueX = 1;
+                }
+                
 
             }
             if (Mathf.Abs(m_MovementInputValueY) > Mathf.Abs(m_MovementInputValueX))

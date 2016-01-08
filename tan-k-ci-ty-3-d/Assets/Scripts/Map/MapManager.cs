@@ -32,7 +32,7 @@ public class MapManager : MonoBehaviour
 
      
         m_Instance = this;
-
+        MapManager.m_Instance.changeBackGround(1);
 
     }
 

@@ -90,8 +90,8 @@ public class TransitEffect : MonoBehaviour {
     private IEnumerator DeplayGameOverWait()
     {
         GameManager.m_Instancce.PlaySoundWinLose();
-        yield return new WaitForSeconds(3);        
         GameManager.m_IsPlaying = false;
+        yield return new WaitForSeconds(3);                
         GameManager.m_Instancce.StopAllTank();
         TransitEffect.m_Instance.ActivePanel(TransitEffect.m_Instance.m_PanelGameOver);
         GameOver.setInitWinLose();

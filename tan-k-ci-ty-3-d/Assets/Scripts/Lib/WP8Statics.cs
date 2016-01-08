@@ -32,9 +32,10 @@ public static class WP8Statics
     public static void ShowAds(string str)
     {
         //   ScoreControl._isAdcoin = 1;
-
+        Debug.Log("111" + WP8FunctionHandleShowAds);
         if (WP8FunctionHandleShowAds != null)
         {
+            Debug.Log("222" +WP8FunctionHandleShowAds);
             WP8FunctionHandleShowAds(str, null);
         }
     }

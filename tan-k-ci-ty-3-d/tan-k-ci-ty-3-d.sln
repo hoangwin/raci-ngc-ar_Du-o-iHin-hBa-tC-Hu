@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tan-k-ci-ty-3-d.CSharp.Plug
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tan-k-ci-ty-3-d.CSharp", "tan-k-ci-ty-3-d.CSharp.csproj", "{4F6D9046-A295-F16B-1B20-4DE463453387}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tan-k-ci-ty-3-d.CSharp.Editor", "tan-k-ci-ty-3-d.CSharp.Editor.csproj", "{5DB556A1-3F2B-B4C7-59C5-59067B8760A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{4F6D9046-A295-F16B-1B20-4DE463453387}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F6D9046-A295-F16B-1B20-4DE463453387}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F6D9046-A295-F16B-1B20-4DE463453387}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DB556A1-3F2B-B4C7-59C5-59067B8760A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DB556A1-3F2B-B4C7-59C5-59067B8760A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DB556A1-3F2B-B4C7-59C5-59067B8760A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DB556A1-3F2B-B4C7-59C5-59067B8760A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

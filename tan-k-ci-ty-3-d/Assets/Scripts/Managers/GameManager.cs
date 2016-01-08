@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public TankManager[] m_Tanks;               // A collection of managers for enabling and disabling different aspects of the tanks.
     public TankManager[] m_TanksEnemy;               // A collection of managers for enabling and disabling different aspects of the tanks.
     public SuperBox m_Eargle;
-    public static  int[] m_TanksStarSave = new int[2];
+    public static int[] m_TanksStarSave = new int[2];
 
 
     public Transform[] m_PositionBegin;
@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     public static bool m_isWaitingCreaTank = false;
     public static bool m_IsPlaying;
 
-    public  ParticleSystem[] m_particalInit;    
+    public ParticleSystem[] m_particalInit;
     public ParticleSystem m_particalPlayerInit;
     public GameObject m_QuestionMark;
 
@@ -37,22 +37,27 @@ public class GameManager : MonoBehaviour
     public static bool m_isTimerEffect;
 
     public GameObject m_StarFrefab;
-	public AudioSource m_AudioSource;
-	public AudioClip m_ClickClip;
-	public AudioClip m_WinClip;
-	public AudioClip m_LoseClip;
-	public AudioClip m_StartClip;
+
+    public static bool m_isSoundEnable;
+    public AudioSource m_AudioSource;
+    public AudioClip m_ClickClip;
+    public AudioClip m_WinClip;
+    public AudioClip m_LoseClip;
+    public AudioClip m_StartClip;
+    public AudioClip m_GetItemClip;
     private void Start()
     {
+        m_isSoundEnable = true;
         m_Instancce = this;
         m_AwardBoxsLive = new GameObject[5];
+        Vungle.init("Test_Android", "Test_iOS", "568f5cb5fdef7fa574000021");
     }
     public void initGame()
     {
         DestroyAllGame();
         m_StageText.text = "STAGE:" + ScoreManager.m_CurrentLevel.ToString();
         m_Tank1Text.text = "3";
-        m_TankenemyText.text ="20";
+        m_TankenemyText.text = "20";
 
         if (m_Mode == 0)
         {
@@ -79,19 +84,19 @@ public class GameManager : MonoBehaviour
         m_IsPlaying = true;
         m_isWaitingCreaTank = false;
 
-        for(int i =0;i<5;i++)
+        for (int i = 0; i < 5; i++)
         {
             GameManager.m_Instancce.m_particalInit[i].gameObject.SetActive(false);
         }
 
     }
-public void DestroyAllGame()
+    public void DestroyAllGame()
     {
         MapManager.m_Instance.StopAllCoroutines();
         DestroyAllTank();
         m_Eargle.resetEargle();
         MapManager.m_Instance.DestroyAllMap();
-        
+
     }
     private void DestroyAllTank()
     {
@@ -99,12 +104,12 @@ public void DestroyAllGame()
         m_TankCountLive = 0;
         for (int i = 0; i < m_MAX_Player_Count; i++)
         {
-           // if (m_Tanks[i].m_Instance != null)
-                Destroy(m_Tanks[i].m_Instance);
+            // if (m_Tanks[i].m_Instance != null)
+            Destroy(m_Tanks[i].m_Instance);
         }
         for (int i = 0; i < m_TanksEnemy.Length; i++)
-           // if (m_TanksEnemy[m_TankCount].m_Instance != null)
-                Destroy(m_TanksEnemy[i].m_Instance);
+            // if (m_TanksEnemy[m_TankCount].m_Instance != null)
+            Destroy(m_TanksEnemy[i].m_Instance);
     }
     public void StartTimerEffect()//enemy
     {
@@ -133,7 +138,7 @@ public void DestroyAllGame()
             m_Tanks[i].m_Instance.tag = "TankPlayer";
         }
     }
-  
+
     public IEnumerator CreateTank()//enemy
     {
         m_isWaitingCreaTank = true;
@@ -147,15 +152,15 @@ public void DestroyAllGame()
                   Instantiate(m_TankPrefab[index], m_PositionBegin[m_TankCount % 3].position, m_PositionBegin[m_TankCount % 3].rotation) as GameObject;
             m_TanksEnemy[m_TankCount].m_PlayerNumber = 0;
             m_TanksEnemy[m_TankCount].Setup(index);//here
-            
-            
+
+
             m_TanksEnemy[m_TankCount].m_Instance.tag = "TankEnemy";
             m_TankCount++;
             m_TankCountLive++;
             GameManager.m_Instancce.m_TankenemyText.text = (20 - GameManager.m_TankCount).ToString();
         }
-        GameManager.m_Instancce.m_particalInit[(m_TankCount -1) % 3 + 2].gameObject.SetActive(false);
-        
+        GameManager.m_Instancce.m_particalInit[(m_TankCount - 1) % 3 + 2].gameObject.SetActive(false);
+
         m_isWaitingCreaTank = false;
     }
     public void StopAllTank()
@@ -168,13 +173,15 @@ public void DestroyAllGame()
     }
     public void Update()
     {
+        timeShowAds += Time.deltaTime;
         if (m_IsPlaying)
         {
             if (!TransitEffect.m_Instance.m_isEffecting)
             {
                 if (Input.GetKeyUp(KeyCode.Escape))
                 {
-                 //   Debug.Log("bbbbbbbbbbbbbbbbbb");
+                    //   Debug.Log("bbbbbbbbbbbbbbbbbb");
+                    GameManager.m_Instancce.PlaySoundCLick();
                     Time.timeScale = 0;
                     TransitEffect.m_Instance.ActivePanel(TransitEffect.m_Instance.m_PanelPause);
                 }
@@ -217,7 +224,7 @@ public void DestroyAllGame()
         m_CameraControl.SetStartPositionAndSize();
 
         // Increment the round number and display text showing the players what round it is.
-       
+
         m_MessageText.text = "State " + ScoreManager.m_CurrentLevel;
         // Wait for the specified length of time until yielding control back to the game loop.
 
@@ -229,7 +236,7 @@ public void DestroyAllGame()
 
         // As soon as the round begins playing let the players control the tanks.
         RoundStarting();
-        yield return new WaitForSeconds(2);        
+        yield return new WaitForSeconds(2);
         // Clear the text from the screen.
         m_MessageText.text = string.Empty;
 
@@ -262,21 +269,92 @@ public void DestroyAllGame()
     }
     public void PlaySoundCLick()
     {
+        if (!m_isSoundEnable)
+            return;
         m_AudioSource.clip = m_ClickClip;
         m_AudioSource.Play();
     }
     public void PlaySoundStart()
     {
+        if (!m_isSoundEnable)
+            return;
         m_AudioSource.clip = m_StartClip;
+        m_AudioSource.Play();
+    }
+    public void PlaySoundGetItem()
+    {
+        if (!m_isSoundEnable)
+            return;
+        m_AudioSource.clip = m_GetItemClip;
         m_AudioSource.Play();
     }
     public void PlaySoundWinLose()
     {
+        if (!m_isSoundEnable)
+            return;
         if (GameOver.m_isWin)
             m_AudioSource.clip = m_WinClip;
         else
             m_AudioSource.clip = m_LoseClip;
         m_AudioSource.Play();
     }
+    public static bool firstShowAdsAtBegin = false;
+    static public float timeShowAds = 0;
+    public static void ShowADS()
+    {
+        Debug.Log(timeShowAds);
+        if (timeShowAds > 90 )//|| !firstShowAdsAtBegin)
+        {
+            Debug.Log("Ads");
+            //Debug.Log("Ads1");
+            if (!firstShowAdsAtBegin)
+                firstShowAdsAtBegin = true;
+            timeShowAds = 0;
+#if UNITY_IOS || UNITY_ANDROID || UNITY_WP8_1 //|| UNITY_EDITOR
+#if UNITY_ANDROID
+                using (AndroidJavaClass jc = new AndroidJavaClass("com.saiyan.maze3d.UnityPlayerNativeActivity"))
+                {
+                    jc.CallStatic<int>("ShowAds");
+                }
 
+#elif UNITY_WP8_1
+			
+			    WP8Statics.ShowAds("");
+#elif UNITY_IOS
+			    IOsStatic.ShowAds(" ", " ");
+#endif
+#else
+            //su dung vungle
+            //WP8Statics.ShowAds("");
+           
+            // System.Collections.Generic.Dictionary<string, object> option;
+            // option = new System.Collections.Generic.Dictionary<string, object> ();\
+
+            //   Vungle.playAdWithOptions(option);
+            Vungle.playAd();
+            Debug.Log("BeginAds!");
+            Vungle.adPlayableEvent += (isAdAvailable) => {
+                if (isAdAvailable)
+                {
+                    Debug.Log("An ad is ready to show!");
+                }
+                else {
+                    Debug.Log("No ad is available at this moment.");
+                }
+            };
+#endif
+        }
+    }
+    void OnApplicationPause(bool pauseStatus)
+    {
+        if (pauseStatus)
+        {
+            Debug.Log("PAUSE");
+            Vungle.onPause();
+        }
+        else {
+            Debug.Log("Resume");
+            Vungle.onResume();
+        }
+    }
 }

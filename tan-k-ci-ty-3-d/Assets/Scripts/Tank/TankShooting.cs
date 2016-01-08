@@ -89,8 +89,8 @@ public class TankShooting : MonoBehaviour
 
     private void Update()
     {
-        
-        if (GameManager.m_IsPlaying &&( m_PlayerNumber == 1 || m_PlayerNumber == 2))
+
+        if (GameManager.m_IsPlaying && (m_PlayerNumber == 1 || m_PlayerNumber == 2))
         {
             // The slider should have a default value of the minimum launch force.
 
@@ -98,18 +98,21 @@ public class TankShooting : MonoBehaviour
             // If the max force has been exceeded and the shell hasn't yet been launched...
 
             // Otherwise, if the fire button has just started being pressed...
-            if (Input.GetButtonDown(m_FireButton) )
+
+            if (Input.GetButtonDown(m_FireButton))
             {
-                if(m_CountStar <=1 && (m_ShellInstance[0] == null))
+                if (m_CountStar <= 1 && (m_ShellInstance[0] == null))
                     Fire("ShellOfPlayer");//khi player 1 ban
-                else if (m_CountStar >1 && (m_ShellInstance[0] == null || m_ShellInstance[1] == null))
+                else if (m_CountStar > 1 && (m_ShellInstance[0] == null || m_ShellInstance[1] == null))
                     Fire("ShellOfPlayer");//khi player 1 ban
-                
+
             }
+
+
             // Otherwise, if the fire button is being held and the shell hasn't been launched yet...
-            
+
             // Otherwise, if the fire button is released and the shell hasn't been launched yet...
-            
+
         }
     }
     

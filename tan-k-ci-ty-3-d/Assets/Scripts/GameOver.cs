@@ -48,8 +48,8 @@ public class GameOver : MonoBehaviour {
             ScoreManager.m_LevelUNblock.NUM++;
             ScoreManager.Save();
         }
-        
 
+        GameManager.ShowADS();
 
     }
     // Update is called once per frame
@@ -139,6 +139,7 @@ public class GameOver : MonoBehaviour {
         }
         if (Input.GetButtonDown("Enter"))
         {
+            GameManager.m_Instancce.PlaySoundCLick();
             ScoreManager.initTankScore();
             if (m_Index == 0 || m_Index == 1)
             {
@@ -153,12 +154,13 @@ public class GameOver : MonoBehaviour {
                 TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.MAIN_MENU);
             }
         }
-        if (Input.GetKeyUp(KeyCode.Escape))
-        {
+        if (Input.GetKeyUp(KeyCode.Escape) )
+        {GameManager.m_Instancce.PlaySoundCLick();
             if (TransitEffect.m_Instance.m_isEffecting)
                 return;
             //Debug.Log("aaaaaaaaaaaa");
             //Time.timeScale = 1;
+            GameManager.m_Instancce.PlaySoundCLick();
             TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.MAIN_MENU);
         }
     }
