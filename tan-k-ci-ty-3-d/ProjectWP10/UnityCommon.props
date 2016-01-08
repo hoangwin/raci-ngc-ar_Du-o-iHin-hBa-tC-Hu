@@ -1,0 +1,8 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <UnityInstallationDir>C:\Program Files\Unity5.3\Editor</UnityInstallationDir>
+        <UnityWSAPlayerDir>C:\Program Files\Unity5.3\Editor\Data\PlaybackEngines\MetroSupport</UnityWSAPlayerDir>
+        <UnityWSAToolsDir>$(SolutionDir)Unity\Tools</UnityWSAToolsDir>
+        <UnityProjectDir>F:\github\raci-ngc-ar_Du-o-iHin-hBa-tC-Hu\tan-k-ci-ty-3-d</UnityProjectDir>
+    </PropertyGroup>
+</Project>
