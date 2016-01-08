@@ -61,8 +61,35 @@ namespace Battle_Tank__City_War
 #if UNITY_WP_8_1
 			SetupLocationService();
 #endif
+            WP8Statics.WP8FunctionHandleStopAds += WP8Statics_StopAds;
+            WP8Statics.WP8FunctionHandleShowAds += WP8Statics_ShowAds;
+            WP8Statics.WP8FunctionHandleRateApp += WP8Statics_RateApp;
+           WP8Statics.WP8FunctionHandle2FbShared += WP8Statics_FbClickHandle;
 		}
+      
+        void WP8Statics_StopAds(object sender, EventArgs e)
+        {
+        //    adGridAdmob.Visibility = Visibility.Collapsed;
+        //    isShowAds = 0;
+         
+        }
+        void WP8Statics_FbClickHandle(object sender, EventArgs e)
+        {
+            //    adGridAdmob.Visibility = Visibility.Collapsed;
+            //    isShowAds = 0;
 
+        }
+        void WP8Statics_ShowAds(object sender, EventArgs e)
+        {
+        //    AdmobFullAdsShow();
+         
+        }
+        void WP8Statics_RateApp(object sender, EventArgs e)
+        {
+            
+         //   MarketplaceReviewTask marketplaceReviewTask = new MarketplaceReviewTask();
+          //  marketplaceReviewTask.Show();         
+        }
 		/// <summary>
 		/// Invoked when this page is about to be displayed in a Frame.
 		/// </summary>
