@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 
 
-#if UNITY_IPHONE
+#if UNITY_IPHONE1//here
 public enum VungleAdOrientation
 {
 	Portrait = 1,

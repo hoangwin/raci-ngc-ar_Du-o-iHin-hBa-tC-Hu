@@ -42,7 +42,9 @@ public class MainMenu : MonoBehaviour {
         
 #endif
         ScoreManager.Load();
-      
+#if UNITY_IOS
+        Application.targetFrameRate = 60;
+# endif
     }
 
     float axisValue = 0;
@@ -110,9 +112,10 @@ public class MainMenu : MonoBehaviour {
     
         if (Input.GetButtonDown("Enter"))
         {
-            GameManager.m_Instancce.PlaySoundCLick();
+            
             if (m_Index == 0 || m_Index == 1)
             {
+                GameManager.m_Instancce.PlaySoundCLick();
                 TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.MAIN_SELECT_STAGE);
                 GameManager.m_Mode = m_Index;
             }
@@ -129,11 +132,12 @@ public class MainMenu : MonoBehaviour {
         if (GameManager.m_isSoundEnable)
         {
             MainMenu.m_Instance._TextButtonSound.text = "SOUND:ON";
+            GameManager.m_Instancce.PlaySoundCLick();
         }
         else
         {
             MainMenu.m_Instance._TextButtonSound.text = "SOUND:OFF";
-            GameManager.m_Instancce.PlaySoundCLick();
+           
         }
     }
 

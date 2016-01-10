@@ -55,6 +55,8 @@ public class TransitEffect : MonoBehaviour {
             
             ActivePanel(m_PanelIngame);
             GameManager.m_Instancce.initGame();
+            //if (GameManager.m_IsPlaying)
+                GameManager.m_Instancce.PlaySoundStart();
         }
         else if (m_TypeTransit == TYPE_TRANSIT.MAIN_SELECT_STAGE)
         {
@@ -75,8 +77,7 @@ public class TransitEffect : MonoBehaviour {
     public void TranSitAllCompleted()
     {
         m_isEffecting = false;
-        if (GameManager.m_IsPlaying)
-            GameManager.m_Instancce.PlaySoundStart();
+
     }
 
     public void BeginGameOver()

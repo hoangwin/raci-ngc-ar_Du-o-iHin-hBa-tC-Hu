@@ -121,6 +121,12 @@ public class TankManager
             else
                 m_Shooting.InitNewStar(GameManager.m_TanksStarSave[1]);
         }
+        if (!GameManager.m_isSoundEnable)
+        {
+            m_Movement.m_MovementAudio.enabled = false;
+        }
+        else
+            m_Movement.m_MovementAudio.enabled = true;
     }
 
 

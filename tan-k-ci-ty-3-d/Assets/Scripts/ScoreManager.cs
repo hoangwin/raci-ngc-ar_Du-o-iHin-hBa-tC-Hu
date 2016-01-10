@@ -34,6 +34,7 @@ public class ScoreManager : MonoBehaviour {
     public static void Load()
     {
         m_LevelUNblock = new SuperInt(1, "UNLOCK_STAGE");
+        
         m_LevelUNblock.Load();
     }
     public static void Save()

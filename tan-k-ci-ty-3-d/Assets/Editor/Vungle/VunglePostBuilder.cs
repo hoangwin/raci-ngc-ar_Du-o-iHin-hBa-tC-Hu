@@ -36,6 +36,9 @@ public class VunglePostBuilder : MonoBehaviour
 			postBuildDirectory = pathToBuiltProject;
 
 			// grab the path to the postProcessor.py file
+			
+			UnityEngine.Debug.Log(Application.dataPath);
+			
 			var scriptPath = Path.Combine( Application.dataPath, "Editor/Vungle/VunglePostProcessor.py" );
 
 			// sanity check
@@ -52,7 +55,7 @@ public class VunglePostBuilder : MonoBehaviour
 			{
 				StartInfo = new ProcessStartInfo
 				{
-					FileName = "python2.6",
+					FileName = "python",
 					Arguments = args,
 					UseShellExecute = false,
 					RedirectStandardOutput = true,

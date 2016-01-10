@@ -50,7 +50,9 @@ public class GameManager : MonoBehaviour
         m_isSoundEnable = true;
         m_Instancce = this;
         m_AwardBoxsLive = new GameObject[5];
+#if UNITY_WSA
         Vungle.init("Test_Android", "Test_iOS", "568f5cb5fdef7fa574000021");
+#endif
     }
     public void initGame()
     {
@@ -303,7 +305,7 @@ public class GameManager : MonoBehaviour
     public static void ShowADS()
     {
         Debug.Log(timeShowAds);
-        if (timeShowAds > 90 )//|| !firstShowAdsAtBegin)
+        if (timeShowAds > 90 || !firstShowAdsAtBegin)
         {
             Debug.Log("Ads");
             //Debug.Log("Ads1");
@@ -312,7 +314,7 @@ public class GameManager : MonoBehaviour
             timeShowAds = 0;
 #if UNITY_IOS || UNITY_ANDROID || UNITY_WP8_1 //|| UNITY_EDITOR
 #if UNITY_ANDROID
-                using (AndroidJavaClass jc = new AndroidJavaClass("com.saiyan.maze3d.UnityPlayerNativeActivity"))
+                using (AndroidJavaClass jc = new AndroidJavaClass("com.battlecity.tankbattle.UnityPlayerActivity"))
                 {
                     jc.CallStatic<int>("ShowAds");
                 }
@@ -321,7 +323,7 @@ public class GameManager : MonoBehaviour
 			
 			    WP8Statics.ShowAds("");
 #elif UNITY_IOS
-			    IOsStatic.ShowAds(" ", " ");
+            IOsStatic.ShowAds(" ", " ");
 #endif
 #else
             //su dung vungle
@@ -349,11 +351,11 @@ public class GameManager : MonoBehaviour
     {
         if (pauseStatus)
         {
-            Debug.Log("PAUSE");
+           // Debug.Log("PAUSE");
             Vungle.onPause();
         }
         else {
-            Debug.Log("Resume");
+           // Debug.Log("Resume");
             Vungle.onResume();
         }
     }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+#if UNITY_WSA_10_0
 public static class WP8Statics
 {
     //public delegate void MyDelegate(int num);
@@ -50,3 +50,4 @@ public static class WP8Statics
         }
     }
 }
+#endif

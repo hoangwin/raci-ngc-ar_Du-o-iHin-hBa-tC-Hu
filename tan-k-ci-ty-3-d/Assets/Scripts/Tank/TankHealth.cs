@@ -82,14 +82,15 @@ public class TankHealth : MonoBehaviour
         // Play the effects for the death of the tank and deactivate it.
         if (m_Dead)
             return;
-      
+
         m_Dead = true;
         m_ExplosionParticles.transform.position = transform.position;
         m_ExplosionParticles.gameObject.SetActive(true);
         m_ExplosionParticles.Play();
         if (m_PlayerNumber == 0)
             Destroy(m_ExplosionParticles.gameObject, m_ExplosionParticles.duration);
-        m_ExplosionAudio.Play();
+        if (GameManager.m_isSoundEnable)
+            m_ExplosionAudio.Play();
         if (m_PlayerNumber == 0)
             Destroy(gameObject);
         else
@@ -97,23 +98,23 @@ public class TankHealth : MonoBehaviour
         if (m_PlayerNumber == 0)
         {
             GameManager.m_TankCountLive--;
-            
+
             if (GameManager.m_TankCountLive < 1 && GameManager.m_TankCount >= 20)
             {
-               // GameManager.m_IsPlaying = false;
+                // GameManager.m_IsPlaying = false;
                 GameOver.m_isWin = true;
                 // TransitEffect.m_Instance.
                 TransitEffect.m_Instance.BeginGameOver();
             }
 
             TankEffect tankEffect = this.gameObject.GetComponent<TankEffect>();
-            if(tankEffect.m_BonusType != AwardBox.BONUS.NONE)
+            if (tankEffect.m_BonusType != AwardBox.BONUS.NONE)
             {
                 //Debug.Log("aaaaaaaaaaaaaaaaaaaaaaa: " + (int)(tankEffect.m_BonusType - 1));
-                GameManager.m_AwardBoxsLive[GameManager.m_AwardBoxsCount] =  Instantiate(GameManager.m_Instancce.m_AwardBoxsPrefab[(int)(tankEffect.m_BonusType-1)], Vector3.zero, Quaternion.identity) as GameObject;
+                GameManager.m_AwardBoxsLive[GameManager.m_AwardBoxsCount] = Instantiate(GameManager.m_Instancce.m_AwardBoxsPrefab[(int)(tankEffect.m_BonusType - 1)], Vector3.zero, Quaternion.identity) as GameObject;
                 int row = Random.Range(2, 24);
                 int col = Random.Range(2, 24);
-                GameManager.m_AwardBoxsLive[GameManager.m_AwardBoxsCount].transform.position = new Vector3(col * MapManager._CELL_WIDTH,2,-row* MapManager._CELL_HEIGHT);
+                GameManager.m_AwardBoxsLive[GameManager.m_AwardBoxsCount].transform.position = new Vector3(col * MapManager._CELL_WIDTH, 2, -row * MapManager._CELL_HEIGHT);
                 GameManager.m_AwardBoxsLive[GameManager.m_AwardBoxsCount].GetComponent<AwardBox>().m_type = tankEffect.m_BonusType;
                 GameManager.m_AwardBoxsCount++;
             }
@@ -122,8 +123,8 @@ public class TankHealth : MonoBehaviour
         {
             m_CurrentLive--;
             if (m_CurrentLive < 1)
-            {                
-             
+            {
+
                 if (GameManager.m_Instancce.checkLose())
                 {
                     Debug.Log("aaa");

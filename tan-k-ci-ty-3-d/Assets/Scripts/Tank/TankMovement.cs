@@ -118,7 +118,8 @@ public class TankMovement : MonoBehaviour
             m_MovementInputValueX = Input.GetAxis(m_TurnAxisName);
             if (m_PlayerNumber == 1 && m_MovementInputValueY == 0 && m_MovementInputValueX == 0)
             {
-                if (SystemInfo.deviceType != DeviceType.Desktop)
+             //   Debug.Log(SystemInfo.deviceType);
+               // if (SystemInfo.deviceType != DeviceType.Desktop)
                 {
                     TJoyStick4Way way = TJoyStick.Get4Way();
                     //  Debug.Log(way);
@@ -163,6 +164,7 @@ public class TankMovement : MonoBehaviour
             //m_MovementAudio.Stop();
                return;
         }
+       
         // Play the correct audio clip based on whether or not the tank is moving and what audio is currently playing.
         if (Mathf.Abs(m_MovementInputValueY) < 0.1f && Mathf.Abs(m_MovementInputValueX) < 0.1f)
         {

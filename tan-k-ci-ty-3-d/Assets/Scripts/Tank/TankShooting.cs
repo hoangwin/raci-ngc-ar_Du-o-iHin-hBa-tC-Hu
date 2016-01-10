@@ -139,8 +139,13 @@ public class TankShooting : MonoBehaviour
         // Set the shell's velocity to the launch force in the fire position's forward direction.
         shellInstance.velocity = m_CurrentFireSpeed * m_FireTransform.forward;
         // Change the clip to the firing clip and play it.
-        m_ShootingAudio.clip = m_FireClip;
-        m_ShootingAudio.Play();
+        if (GameManager.m_isSoundEnable)
+        {
+            m_ShootingAudio.clip = m_FireClip;
+            m_ShootingAudio.Play();
+        }
+        
+        
 
         // Reset the launch force.  This is a precaution in case of missing button events.
 

@@ -116,7 +116,7 @@ public class Vungle
 	// Initializes the Vungle SDK. Pass in your Android and iOS app ID's from the Vungle web portal.
 	public static void init( string androidAppId, string iosAppId, string winAppId = "" )
 	{
-#if UNITY_IPHONE
+#if UNITY_IPHONE1//here
 		VungleBinding.startWithAppId( iosAppId , PLUGIN_VERSION);
 #elif UNITY_ANDROID
 		VungleAndroid.init( androidAppId , PLUGIN_VERSION);
@@ -129,7 +129,7 @@ public class Vungle
 	// Sets if sound should be enabled or not
 	public static void setSoundEnabled( bool isEnabled )
 	{
-#if UNITY_IPHONE
+#if UNITY_IPHONE1
 		VungleBinding.setSoundEnabled( isEnabled );
 #elif UNITY_ANDROID
 		VungleAndroid.setSoundEnabled( isEnabled );
@@ -142,7 +142,7 @@ public class Vungle
 	// Checks to see if a video is available
 	public static bool isAdvertAvailable()
 	{
-#if UNITY_IPHONE
+#if UNITY_IPHONE1
 		return VungleBinding.isAdAvailable();
 #elif UNITY_ANDROID
 		return VungleAndroid.isVideoAvailable();
@@ -158,7 +158,7 @@ public class Vungle
 	[Obsolete("This method is deprecated. Please use playAdWithOptions( Dictionary<string,object> ) method instead.")]
 	public static void playAd( bool incentivized = false, string user = "", int orientation = 6)
 	{
-#if UNITY_IPHONE
+#if UNITY_IPHONE1
 		VungleBinding.playAd( incentivized, user, (VungleAdOrientation)orientation);
 #elif UNITY_ANDROID
 		VungleAndroid.playAd( incentivized, user );
@@ -174,7 +174,7 @@ public class Vungle
 		{
 			throw new ArgumentException("You can not call this method with null parameter");
 		}
-#if UNITY_IPHONE
+#if UNITY_IPHONE1
 		VungleBinding.playAdEx( options );
 #elif UNITY_ANDROID
 		VungleAndroid.playAdEx( options );
@@ -186,7 +186,7 @@ public class Vungle
 	// Clear cache
 	public static void clearCache()
 	{
-		#if UNITY_IPHONE
+		#if UNITY_IPHONE1
 		VungleBinding.clearCache();
 		#elif UNITY_ANDROID
 		//VungleAndroid.clearCache();
@@ -199,7 +199,7 @@ public class Vungle
 	// Clear sleep
 	public static void clearSleep()
 	{
-		#if UNITY_IPHONE
+		#if UNITY_IPHONE1
 		VungleBinding.clearSleep();
 		#elif UNITY_ANDROID
 		#elif UNITY_WSA_10_0
@@ -209,7 +209,7 @@ public class Vungle
 	
 	public static void setEndPoint(string endPoint)
 	{
-		#if UNITY_IPHONE
+		#if UNITY_IPHONE1
 		VungleBinding.setEndPoint(endPoint);
 		#elif UNITY_ANDROID
 		#elif UNITY_WSA_10_0
@@ -220,7 +220,7 @@ public class Vungle
 
 	public static void setLogEnable(bool enable)
 	{
-		#if UNITY_IPHONE
+		#if UNITY_IPHONE1
 		VungleBinding.enableLogging(enable);
 		#elif UNITY_ANDROID
 		#elif UNITY_WSA_10_0
@@ -231,7 +231,7 @@ public class Vungle
 	
 	public static string getEndPoint()
 	{
-		#if UNITY_IPHONE
+		#if UNITY_IPHONE1
 		return VungleBinding.getEndPoint();
 		#elif UNITY_ANDROID
 		return "";

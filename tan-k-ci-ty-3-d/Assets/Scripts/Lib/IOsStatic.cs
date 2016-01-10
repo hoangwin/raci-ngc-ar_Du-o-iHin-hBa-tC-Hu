@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Runtime.InteropServices;
+#if UNITY_IOS
 public class IOsStatic : MonoBehaviour {
 
 	// Use this for initialization
@@ -19,3 +20,4 @@ public class IOsStatic : MonoBehaviour {
     }
 
 }
+#endif

@@ -37,10 +37,14 @@ public class SuperInt
 	}
 	public void Save()
 	{
-		PlayerPrefs.SetInt (KEY, NUM);
+       
+
+        PlayerPrefs.SetInt (KEY, NUM);
 	}
 	public void Load()
 	{
-			NUM = PlayerPrefs.GetInt (KEY, NUM_DEFAULT);
-	}
+     // PlayerPrefs.DeleteAll();
+        NUM = PlayerPrefs.GetInt (KEY, NUM_DEFAULT);
+       // NUM = 34;
+    }
 }

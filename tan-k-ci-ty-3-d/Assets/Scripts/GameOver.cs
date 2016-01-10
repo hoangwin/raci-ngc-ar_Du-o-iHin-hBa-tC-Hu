@@ -34,6 +34,13 @@ public class GameOver : MonoBehaviour {
             m_Instance.m_Postion[0].gameObject.SetActive(true);
             m_Instance.m_TankImagePostion.position = m_Instance.m_Postion[0].position;// new Vector3(m_TankImagePostion.position.x, m_Postion[m_Index].position.y, m_TankImagePostion.position.z);
             m_Instance.m_Title.sprite = m_Instance.m_ImageCompleted;
+
+            if (ScoreManager.m_CurrentLevel + 1 > ScoreManager.m_LevelUNblock.NUM)
+            {
+                ScoreManager.m_LevelUNblock.NUM++;
+                ScoreManager.Save();
+            }
+
         }
         else
         {
@@ -43,12 +50,7 @@ public class GameOver : MonoBehaviour {
             m_Instance.m_Title.sprite = m_Instance.m_ImageGameOver;
             GameManager.m_TanksStarSave[0] = GameManager.m_TanksStarSave[1] = 0;
         }
-        if(ScoreManager.m_CurrentLevel +1 > ScoreManager.m_LevelUNblock.NUM)
-        {
-            ScoreManager.m_LevelUNblock.NUM++;
-            ScoreManager.Save();
-        }
-
+     
         GameManager.ShowADS();
 
     }

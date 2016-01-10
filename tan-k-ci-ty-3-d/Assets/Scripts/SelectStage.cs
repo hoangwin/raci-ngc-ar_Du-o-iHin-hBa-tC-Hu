@@ -5,6 +5,7 @@ using System.Collections;
 public class SelectStage : MonoBehaviour {
     public Sprite[] m_AllImageLevel;
     // Use this for initialization
+    public int m_SelectLevel = 0;
     public int m_Index = 0;
     public int m_page = 0;
     public Transform[] m_Postion;
@@ -15,22 +16,27 @@ public class SelectStage : MonoBehaviour {
     void Awake()
     {
         m_Instance = this;
-       // Debug.Log("cccc");
+        // Debug.Log("cccc");
     }
-    void Start () {
+    void Start() {
         m_Instance = this;
-
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
         if (Input.GetButtonDown("Down1") || Input.GetButtonDown("Right1") || Input.GetButtonDown("Down2") || Input.GetButtonDown("Right2"))
         {
 
-            if (Input.GetButtonDown("Down1") ||Input.GetButtonDown("Down2") )
-                m_Index +=4;
+            if (Input.GetButtonDown("Down1") || Input.GetButtonDown("Down2"))
+            {
+                if (m_page * 12 + m_Index + 1 < ScoreManager.m_LevelUNblock.NUM)
+                    m_Index += 4;
+            }
             else
-                m_Index += 1;
+            {
+                if (m_page * 12 + m_Index + 1 < ScoreManager.m_LevelUNblock.NUM)
+                    m_Index += 1;
+            }
 
             ChangePage();
             //m_TankImagePostion = m_Postion[m_Index];
@@ -39,9 +45,15 @@ public class SelectStage : MonoBehaviour {
         if (Input.GetButtonDown("Up1") || Input.GetButtonDown("Left1") || Input.GetButtonDown("Up2") || Input.GetButtonDown("Left2"))
         {
             if (Input.GetButtonDown("Up1") || Input.GetButtonDown("Up2"))
-                m_Index -= 4;
+            {
+                if (m_page * 12 + m_Index - 4 >= 0)
+                    m_Index -= 4;
+            }
             else
-                m_Index -= 1;
+            {
+                if (m_page * 12 + m_Index - 1 >= 0)
+                    m_Index -= 1;
+            }
             ChangePage();
 
             m_ImageSelectPostion.position = m_Postion[m_Index].position;// new Vector3(m_TankImagePostion.position.x, m_Postion[m_Index].position.y, m_TankImagePostion.position.z);
@@ -81,7 +93,6 @@ public class SelectStage : MonoBehaviour {
             {
                 Time.timeScale = 1;
                 ScoreManager.m_CurrentLevel = m_page * 12 + m_Index + 1;
-
                 TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.GAMEPLAY);
                 GameManager.m_Instancce.PlaySoundCLick();
             }
@@ -99,6 +110,7 @@ public class SelectStage : MonoBehaviour {
     }
     public void ChangePage()
     {
+        // Debug.Log("aa");
         while (m_Index >= 12)//
         {
             m_page += 1;
@@ -131,16 +143,27 @@ public class SelectStage : MonoBehaviour {
 
             m_Postion[i].GetComponent<SelectLevelButton>().UpdateText();
         }
-        
+        if (m_page * 12 + m_Index + 1 <= ScoreManager.m_LevelUNblock.NUM)
+        {
+            m_ImageSelectPostion.gameObject.SetActive(true);
+        }
+        else {
+            if (m_page * 12 + 1 <= ScoreManager.m_LevelUNblock.NUM)
+                m_Index = ScoreManager.m_LevelUNblock.NUM-1- m_page * 12;
+            else
+            m_ImageSelectPostion.gameObject.SetActive(false);
+        }
+
         m_ImageSelectPostion.position = m_Postion[m_Index].position;
-        
-    }
+
+    } 
     public void ButtonExit()
     {
         if (TransitEffect.m_Instance.m_isEffecting)
             return;
         TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.MAIN_MENU);
     }
+
     public void ButtonLeft()
     {
         if (TransitEffect.m_Instance.m_isEffecting)
