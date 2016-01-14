@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{13a45c13-3265-47b8-bc48-a553b569df55}</ProjectGuid>
+    <ProjectGuid>{13A45C13-3265-47B8-BC48-A553B569DF55}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Battle_Tank__City_War</RootNamespace>
@@ -18,9 +18,13 @@
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>WSATestCertificate.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>Battle Tank  City War_StoreKey.pfx</PackageCertificateKeyFile>
     <AppxPackageSigningEnabled>true</AppxPackageSigningEnabled>
     <PlatformShortName>$(Platform)</PlatformShortName>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <PackageCertificateThumbprint>3FAE775FF5FCFB7495778B062559CE2EF6AED758</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -76,7 +80,7 @@
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
     <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
@@ -93,6 +97,7 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>True</UseDotNetNativeToolchain>
+    <EnableGatekeeperAnalysis>true</EnableGatekeeperAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -138,6 +143,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="Battle Tank  City War_StoreKey.pfx" />
     <None Include="project.json" />
     <SDKReference Include="Microsoft.VCLibs, Version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
@@ -173,6 +179,7 @@
     </Content>
     <Compile Include="Properties\AssemblyInfo.cs">
     </Compile>
+    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Properties\Default.rd.xml">
     </Content>
     <Reference Include="Assembly-CSharp-firstpass">
@@ -189,6 +196,12 @@
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>.\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="VungleSDK">
+      <HintPath>.\VungleSDK.winmd</HintPath>
+    </Reference>
+    <Reference Include="VungleSDKProxy">
+      <HintPath>.\VungleSDKProxy.winmd</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Networking">
       <HintPath>.\UnityEngine.Networking.dll</HintPath>
@@ -239,10 +252,10 @@
   </Target>
   <Target Name="BeforeCompile" Condition="'$(BuildingProject)' == 'true'">
     <PropertyGroup Condition=" '$(Configuration)' == 'Master' ">
-       <RemoveDebuggableAttribute>True</RemoveDebuggableAttribute>
+      <RemoveDebuggableAttribute>True</RemoveDebuggableAttribute>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' != 'Master' ">
-       <RemoveDebuggableAttribute>False</RemoveDebuggableAttribute>
+      <RemoveDebuggableAttribute>False</RemoveDebuggableAttribute>
     </PropertyGroup>
     <Message Importance="high" Text="Running AssemblyConverter..." />
     <Exec Command="&quot;$(UnityWSAToolsDir)\AssemblyConverter.exe&quot; -platform=uap -lock=&quot;$(ProjectDir)project.lock.json&quot; -bits=$(UnityBits) -removeDebuggableAttribute=$(RemoveDebuggableAttribute) -path=&quot;.&quot; -path=&quot;..\Players\UAP\$(PlatformTarget)\$(Configuration)&quot; &quot;$(ProjectDir)Assembly-CSharp-firstpass.dll&quot; &quot;$(ProjectDir)Assembly-CSharp.dll&quot; &quot;$(ProjectDir)UnityEngine.dll&quot; &quot;$(ProjectDir)UnityEngine.UI.dll&quot; &quot;$(ProjectDir)UnityEngine.Networking.dll&quot;" />
