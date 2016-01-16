@@ -1,0 +1,45 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{13E1F774-2594-89FA-D52F-6C2DD8953908}") = "race_car_2d", "Assembly-CSharp.csproj", "{4706725F-981C-AB17-7E01-11661D981EA8}"
+EndProject
+Project("{13E1F774-2594-89FA-D52F-6C2DD8953908}") = "race_car_2d", "Assembly-CSharp-Editor.csproj", "{BE8C60D8-AFE8-7166-6476-0EC728D828DE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4706725F-981C-AB17-7E01-11661D981EA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4706725F-981C-AB17-7E01-11661D981EA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4706725F-981C-AB17-7E01-11661D981EA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4706725F-981C-AB17-7E01-11661D981EA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE8C60D8-AFE8-7166-6476-0EC728D828DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE8C60D8-AFE8-7166-6476-0EC728D828DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE8C60D8-AFE8-7166-6476-0EC728D828DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE8C60D8-AFE8-7166-6476-0EC728D828DE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+																																																															GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+		Policies = $0
+		$0.TextStylePolicy = $1
+		$1.inheritsSet = null
+		$1.scope = text/x-csharp
+		$0.CSharpFormattingPolicy = $2
+		$2.inheritsSet = Mono
+		$2.inheritsScope = text/x-csharp
+		$2.scope = text/x-csharp
+		$0.TextStylePolicy = $3
+		$3.FileWidth = 120
+		$3.TabWidth = 4
+		$3.EolMarker = Unix
+		$3.inheritsSet = Mono
+		$3.inheritsScope = text/plain
+		$3.scope = text/plain
+	EndGlobalSection
+
+EndGlobal
