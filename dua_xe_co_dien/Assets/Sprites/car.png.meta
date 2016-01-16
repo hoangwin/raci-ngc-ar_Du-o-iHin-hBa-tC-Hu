@@ -1,0 +1,339 @@
+fileFormatVersion: 2
+guid: d505a16a56aecc34a9cf3e606aa69788
+TextureImporter:
+  fileIDToRecycleName: {}
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings:
+  - buildTarget: iPhone
+    maxTextureSize: 1024
+    textureFormat: -2
+    compressionQuality: 50
+    allowsAlphaSplitting: 0
+  spriteSheet:
+    sprites:
+    - name: car_0
+      rect:
+        serializedVersion: 2
+        x: 254
+        y: 841
+        width: 72
+        height: 140
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_1
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 853
+        width: 62
+        height: 120
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_2
+      rect:
+        serializedVersion: 2
+        x: 497
+        y: 841
+        width: 69
+        height: 140
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_3
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 644
+        width: 58
+        height: 142
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_4
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 644
+        width: 74
+        height: 145
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_5
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 643
+        width: 71
+        height: 146
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_6
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 450
+        width: 61
+        height: 147
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_7
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 453
+        width: 72
+        height: 136
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_8
+      rect:
+        serializedVersion: 2
+        x: 494
+        y: 450
+        width: 72
+        height: 141
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_9
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 306
+        width: 49
+        height: 38
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_10
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 306
+        width: 54
+        height: 41
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_11
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 306
+        width: 57
+        height: 42
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_12
+      rect:
+        serializedVersion: 2
+        x: 501
+        y: 306
+        width: 58
+        height: 43
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_13
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 306
+        width: 60
+        height: 43
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_14
+      rect:
+        serializedVersion: 2
+        x: 643
+        y: 305
+        width: 61
+        height: 43
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_15
+      rect:
+        serializedVersion: 2
+        x: 717
+        y: 306
+        width: 59
+        height: 44
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_16
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 242
+        width: 54
+        height: 44
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_17
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 241
+        width: 49
+        height: 43
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_18
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 240
+        width: 45
+        height: 43
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_19
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 241
+        width: 43
+        height: 41
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_20
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 242
+        width: 40
+        height: 39
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_21
+      rect:
+        serializedVersion: 2
+        x: 461
+        y: 242
+        width: 36
+        height: 38
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_22
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 242
+        width: 33
+        height: 38
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_23
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 242
+        width: 54
+        height: 34
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_24
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 845
+        width: 49
+        height: 138
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_25
+      rect:
+        serializedVersion: 2
+        x: 821
+        y: 811
+        width: 148
+        height: 161
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_26
+      rect:
+        serializedVersion: 2
+        x: 820
+        y: 596
+        width: 144
+        height: 160
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: car_27
+      rect:
+        serializedVersion: 2
+        x: 865
+        y: 380
+        width: 110
+        height: 157
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
