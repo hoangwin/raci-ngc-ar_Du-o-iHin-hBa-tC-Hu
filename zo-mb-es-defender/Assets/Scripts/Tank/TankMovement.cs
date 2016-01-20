@@ -28,10 +28,14 @@ public class TankMovement : MonoBehaviour
     private string m_StrDown = "";
     private string m_StrLeft = "";
     private string m_StrRight = "";
-
+    public Animator anim;
+    public bool m_IsRunning;
     private void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
+        anim.SetBool("RUNNING", true);
+
+
     }
 
 
@@ -90,7 +94,7 @@ public class TankMovement : MonoBehaviour
             m_TimeChangeDirection = 0;
             getNumDirectCanMove();
         }
-        EngineAudio();
+      //  EngineAudio();
     }
     void updatePlayerInput()
     {
@@ -152,6 +156,28 @@ public class TankMovement : MonoBehaviour
                 }
             }
         }
+        /*
+        if (m_PlayerNumber == 1 || m_PlayerNumber == 2)
+        {
+            if (m_MovementInputValueY == 0 && m_MovementInputValueX == 0)
+            {
+                if (m_IsRunning)
+                {
+                    m_IsRunning = false;
+                    anim.Play("IDE");
+                }
+            }
+            else
+            {
+                if (!m_IsRunning)
+                {
+                    m_IsRunning = true;
+                    anim.Play("RUNING");
+                }
+            }
+
+        }
+        */
         //Debug.Log("m_MovementInputValueY :" + m_MovementInputValueY);
         // Debug.Log(m_MovementInputValueY);
 

@@ -1,0 +1,153 @@
+fileFormatVersion: 2
+guid: 5c08990deb33a0e4abed216f6c7256c9
+timeCreated: 1453080071
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: RefRep.274
+    100002: RefRep.276
+    100004: RefRep.278
+    100006: RefRep.280
+    100008: RefRep.282
+    100010: RefRep.284
+    100012: RefRep.286
+    100014: RefRep.288
+    100016: RefRep.290
+    100018: RefRep.292
+    100020: RefRep.294
+    100022: RefRep.296
+    100024: RefRep.298
+    100026: RefRep.300
+    100028: RefRep.302
+    100030: RefRep.304
+    100032: //RootNode
+    400000: RefRep.274
+    400002: RefRep.276
+    400004: RefRep.278
+    400006: RefRep.280
+    400008: RefRep.282
+    400010: RefRep.284
+    400012: RefRep.286
+    400014: RefRep.288
+    400016: RefRep.290
+    400018: RefRep.292
+    400020: RefRep.294
+    400022: RefRep.296
+    400024: RefRep.298
+    400026: RefRep.300
+    400028: RefRep.302
+    400030: RefRep.304
+    400032: //RootNode
+    2300000: RefRep.274
+    2300002: RefRep.276
+    2300004: RefRep.278
+    2300006: RefRep.280
+    2300008: RefRep.282
+    2300010: RefRep.284
+    2300012: RefRep.286
+    2300014: RefRep.288
+    2300016: RefRep.290
+    2300018: RefRep.292
+    2300020: RefRep.294
+    2300022: RefRep.296
+    2300024: RefRep.298
+    2300026: RefRep.300
+    2300028: RefRep.302
+    2300030: RefRep.304
+    3300000: RefRep.274
+    3300002: RefRep.276
+    3300004: RefRep.278
+    3300006: RefRep.280
+    3300008: RefRep.282
+    3300010: RefRep.284
+    3300012: RefRep.286
+    3300014: RefRep.288
+    3300016: RefRep.290
+    3300018: RefRep.292
+    3300020: RefRep.294
+    3300022: RefRep.296
+    3300024: RefRep.298
+    3300026: RefRep.300
+    3300028: RefRep.302
+    3300030: RefRep.304
+    4300000: RefRep.274
+    4300002: RefRep.276
+    4300004: RefRep.278
+    4300006: RefRep.280
+    4300008: RefRep.282
+    4300010: RefRep.284
+    4300012: RefRep.286
+    4300014: RefRep.288
+    4300016: RefRep.290
+    4300018: RefRep.292
+    4300020: RefRep.294
+    4300022: RefRep.296
+    4300024: RefRep.298
+    4300026: RefRep.300
+    4300028: RefRep.302
+    4300030: RefRep.304
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

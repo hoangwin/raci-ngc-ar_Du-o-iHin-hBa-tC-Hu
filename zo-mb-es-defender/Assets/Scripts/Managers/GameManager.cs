@@ -149,11 +149,11 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2);
         if (m_IsPlaying)
         {
-            int index = Random.Range(0, 4);
+            int index = Random.Range(1, 5);
             m_TanksEnemy[m_TankCount].m_Instance =
                   Instantiate(m_TankPrefab[index], m_PositionBegin[m_TankCount % 3].position, m_PositionBegin[m_TankCount % 3].rotation) as GameObject;
             m_TanksEnemy[m_TankCount].m_PlayerNumber = 0;
-            m_TanksEnemy[m_TankCount].Setup(index);//here
+            m_TanksEnemy[m_TankCount].Setup(index-1);//here
 
 
             m_TanksEnemy[m_TankCount].m_Instance.tag = "TankEnemy";

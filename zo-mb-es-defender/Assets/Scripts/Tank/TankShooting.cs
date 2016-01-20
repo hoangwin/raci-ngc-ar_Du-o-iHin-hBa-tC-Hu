@@ -138,6 +138,7 @@ public class TankShooting : MonoBehaviour
             m_ShellInstance[1] = shellInstance.gameObject;
         // Set the shell's velocity to the launch force in the fire position's forward direction.
         shellInstance.velocity = m_CurrentFireSpeed * m_FireTransform.forward;
+     //   Debug.Log(m_CurrentFireSpeed * m_FireTransform.forward);
         // Change the clip to the firing clip and play it.
         if (GameManager.m_isSoundEnable)
         {
