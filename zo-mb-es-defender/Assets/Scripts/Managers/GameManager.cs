@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     public static int m_Mode;
     public static int m_MAX_Player_Count = 1;
     public static bool m_isWaitingCreaTank = false;
-    public static bool m_IsPlaying;
+    public static bool m_IsPlaying = false;
 
     public ParticleSystem[] m_particalInit;
     public ParticleSystem m_particalPlayerInit;
@@ -36,23 +36,27 @@ public class GameManager : MonoBehaviour
     public static int m_AwardBoxsCount;
     public static bool m_isTimerEffect;
 
+    public GameObject m_PanelGameOver;
+    public GameObject m_PanelIngame;
+    public GameObject m_PanelPause;
+
+
     public GameObject m_StarFrefab;
 
-    public static bool m_isSoundEnable;
-    public AudioSource m_AudioSource;
-    public AudioClip m_ClickClip;
-    public AudioClip m_WinClip;
-    public AudioClip m_LoseClip;
-    public AudioClip m_StartClip;
-    public AudioClip m_GetItemClip;
+
     private void Start()
     {
-        m_isSoundEnable = true;
+
         m_Instancce = this;
         m_AwardBoxsLive = new GameObject[5];
 #if UNITY_WSA
         Vungle.init("Test_Android", "Test_iOS", "568f5cb5fdef7fa574000021");
 #endif
+        //   ActivePanel(m_PanelIngame);
+        GameManager.m_Instancce.initGame();
+     
+
+
     }
     public void initGame()
     {
@@ -72,10 +76,8 @@ public class GameManager : MonoBehaviour
             m_MAX_Player_Count = 2;
         }
         m_AwardBoxsCount = 0;
-
-        // Create the delays so they only have to be made once.
         //ScoreManager.m_CurrentLevel = 33;
-        MapManager.m_Instance.changeBackGround(ScoreManager.m_CurrentLevel);
+
         MapManager.m_Instance.initLevel(ScoreManager.m_CurrentLevel);
 
         SpawnAllTanks();
@@ -90,6 +92,8 @@ public class GameManager : MonoBehaviour
         {
             GameManager.m_Instancce.m_particalInit[i].gameObject.SetActive(false);
         }
+        SoundEngine.m_Instancce.PlaySoundStart();
+        ActivePanel(m_PanelIngame);
 
     }
     public void DestroyAllGame()
@@ -153,7 +157,8 @@ public class GameManager : MonoBehaviour
             m_TanksEnemy[m_TankCount].m_Instance =
                   Instantiate(m_TankPrefab[index], m_PositionBegin[m_TankCount % 3].position, m_PositionBegin[m_TankCount % 3].rotation) as GameObject;
             m_TanksEnemy[m_TankCount].m_PlayerNumber = 0;
-            m_TanksEnemy[m_TankCount].Setup(index-1);//here
+            Debug.Log(index - 1);
+            m_TanksEnemy[m_TankCount].Setup(index - 1);//here
 
 
             m_TanksEnemy[m_TankCount].m_Instance.tag = "TankEnemy";
@@ -178,14 +183,14 @@ public class GameManager : MonoBehaviour
         timeShowAds += Time.deltaTime;
         if (m_IsPlaying)
         {
-            if (!TransitEffect.m_Instance.m_isEffecting)
+            //  if (!TransitEffect.m_Instance.m_isEffecting)
             {
                 if (Input.GetKeyUp(KeyCode.Escape))
                 {
                     //   Debug.Log("bbbbbbbbbbbbbbbbbb");
-                    GameManager.m_Instancce.PlaySoundCLick();
+                    SoundEngine.m_Instancce.PlaySoundCLick();
                     Time.timeScale = 0;
-                    TransitEffect.m_Instance.ActivePanel(TransitEffect.m_Instance.m_PanelPause);
+                    GameManager.m_Instancce.ActivePanel(GameManager.m_Instancce.m_PanelPause);
                 }
                 if (m_TankCountLive < 4 && m_TankCount < 20 && !m_isWaitingCreaTank)
                 {
@@ -269,37 +274,7 @@ public class GameManager : MonoBehaviour
             Destroy(m_AwardBoxsLive[i]);
         GameManager.m_AwardBoxsCount = 0;
     }
-    public void PlaySoundCLick()
-    {
-        if (!m_isSoundEnable)
-            return;
-        m_AudioSource.clip = m_ClickClip;
-        m_AudioSource.Play();
-    }
-    public void PlaySoundStart()
-    {
-        if (!m_isSoundEnable)
-            return;
-        m_AudioSource.clip = m_StartClip;
-        m_AudioSource.Play();
-    }
-    public void PlaySoundGetItem()
-    {
-        if (!m_isSoundEnable)
-            return;
-        m_AudioSource.clip = m_GetItemClip;
-        m_AudioSource.Play();
-    }
-    public void PlaySoundWinLose()
-    {
-        if (!m_isSoundEnable)
-            return;
-        if (GameOver.m_isWin)
-            m_AudioSource.clip = m_WinClip;
-        else
-            m_AudioSource.clip = m_LoseClip;
-        m_AudioSource.Play();
-    }
+
     public static bool firstShowAdsAtBegin = false;
     static public float timeShowAds = 0;
     public static void ShowADS()
@@ -314,10 +289,10 @@ public class GameManager : MonoBehaviour
             timeShowAds = 0;
 #if UNITY_IOS || UNITY_ANDROID || UNITY_WP8_1 //|| UNITY_EDITOR
 #if UNITY_ANDROID
-                using (AndroidJavaClass jc = new AndroidJavaClass("com.battlecity.tankbattle.UnityPlayerActivity"))
-                {
-                    jc.CallStatic<int>("ShowAds");
-                }
+            using (AndroidJavaClass jc = new AndroidJavaClass("com.battlecity.tankbattle.UnityPlayerActivity"))
+            {
+                jc.CallStatic<int>("ShowAds");
+            }
 
 #elif UNITY_WP8_1
 			
@@ -351,12 +326,62 @@ public class GameManager : MonoBehaviour
     {
         if (pauseStatus)
         {
-           // Debug.Log("PAUSE");
+            // Debug.Log("PAUSE");
             Vungle.onPause();
         }
         else {
-           // Debug.Log("Resume");
+            // Debug.Log("Resume");
             Vungle.onResume();
         }
+
+    }
+
+    public void ActivePanel(GameObject _pannel)
+    {
+
+        if (_pannel == m_PanelGameOver)
+        {
+            if (m_PanelGameOver != null)
+                m_PanelGameOver.SetActive(true);
+        }
+        else if (m_PanelGameOver != null)
+            m_PanelGameOver.SetActive(false);
+
+        if (_pannel == m_PanelIngame)
+        {
+            if (m_PanelIngame != null)
+                m_PanelIngame.SetActive(true);
+        }
+        else
+                if (m_PanelIngame != null)
+            m_PanelIngame.SetActive(false);
+
+
+        if (_pannel == m_PanelPause)
+        {
+            if (m_PanelPause != null)
+                m_PanelPause.SetActive(true);
+        }
+        else
+                if (m_PanelPause != null)
+            m_PanelPause.SetActive(false);
+    }
+    public void BeginGameOver()
+    {
+
+        MapManager.m_Instance.StopAllCoroutines();
+        GameManager.m_Instancce.DestroyAllAward();
+        StartCoroutine(DeplayGameOverWait());
+    }
+    private IEnumerator DeplayGameOverWait()
+    {
+        SoundEngine.m_Instancce.PlaySoundWinLose();
+        GameManager.m_IsPlaying = false;
+        yield return new WaitForSeconds(3);
+        GameManager.m_Instancce.StopAllTank();
+        ActivePanel(m_PanelGameOver);
+        GameOver.setInitWinLose();
+        StartCoroutine(GameOver.m_Instance.ShowScoreInfo());
+        //Debug.Log(ScoreManager.m_Player1Score[0]+ ","+ScoreManager.m_Player1Score[1]+ "," +ScoreManager.m_Player1Score[2]+ "," + ScoreManager.m_Player1Score[3]);        
     }
 }

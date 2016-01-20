@@ -18,21 +18,19 @@ public class MapManager : MonoBehaviour
     public GameObject _waterPrefab;
     public static MapManager m_Instance;
 
-
-    public Color[] _DefaultCOlorGround;
-    public Color[] _DefaultCOlor_bound;
-    public Color[] _DefaultCOlor_Item;
-    public Material _ItemMaterial;
-    public Material _GroundMaterial;
-    public Material _BoundMaterial;
     // Use this for initialization
+    void Awake()
+    {
+        m_Instance = this;
+     
+    }
     void Start()
     {
       
 
      
         m_Instance = this;
-        MapManager.m_Instance.changeBackGround(1);
+     
 
     }
 
@@ -41,33 +39,7 @@ public class MapManager : MonoBehaviour
     {
 
     }
-    public void changeBackGround(int index)
-    {
-
-        if (index < 13)
-        {
-            //   Debug.Log("11111111111");
-            _ItemMaterial.color = _DefaultCOlor_Item[0];
-            _GroundMaterial.color = _DefaultCOlorGround[0];
-            _BoundMaterial.color = _DefaultCOlor_bound[0];
-        }
-        else if (index < 25)
-        {
-            //  Debug.Log("222222222");
-            _ItemMaterial.color = _DefaultCOlor_Item[1];
-            _GroundMaterial.color = _DefaultCOlorGround[1];
-            _BoundMaterial.color = _DefaultCOlor_bound[1];
-        }
-        else
-        {
-            //  Debug.Log("333333333333");
-            _ItemMaterial.color = _DefaultCOlor_Item[2];
-            _GroundMaterial.color = _DefaultCOlorGround[2];
-            _BoundMaterial.color = _DefaultCOlor_bound[2];
-        }
-
-
-    }
+   
     public void InitSHOVEL()//11-23 ->14,25
     {
         Destroy(_arrayMapObject[23, 11]);
@@ -144,7 +116,8 @@ public class MapManager : MonoBehaviour
         _arrayMapObject[i, j] = obj;
     }
     public void initLevel(int level)
-    {
+    { 
+        if(level ==0)level =1;
         TextAsset mytxtData = (TextAsset)Resources.Load("levels/" + level.ToString());
         string txt = mytxtData.text;
 

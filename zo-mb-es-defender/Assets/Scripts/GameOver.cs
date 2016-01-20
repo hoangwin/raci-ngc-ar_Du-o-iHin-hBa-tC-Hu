@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour {
     public int m_Index = 0;
@@ -25,7 +26,7 @@ public class GameOver : MonoBehaviour {
     {
       
         if (m_Instance == null)
-            m_Instance = TransitEffect.m_Instance.m_PanelGameOver.GetComponent<GameOver>();
+            m_Instance = GameManager.m_Instancce.m_PanelGameOver.GetComponent<GameOver>();
         //   m_isWin = true;
         m_Instance.m_TextState.text = "STATE " + ScoreManager.m_CurrentLevel.ToString();
             if (m_isWin)
@@ -56,8 +57,8 @@ public class GameOver : MonoBehaviour {
     }
     // Update is called once per frame
     void Update () {
-        if (TransitEffect.m_Instance.m_isEffecting)
-            return;
+        //if (TransitEffect.m_Instance.m_isEffecting)
+            //return;
         if (Input.GetButtonDown("Down1") || Input.GetButtonDown("Right1") || Input.GetButtonDown("Down2") || Input.GetButtonDown("Right2") )
         {
             m_Index++;
@@ -141,7 +142,7 @@ public class GameOver : MonoBehaviour {
         }
         if (Input.GetButtonDown("Enter"))
         {
-            GameManager.m_Instancce.PlaySoundCLick();
+            SoundEngine.m_Instancce.PlaySoundCLick();
             ScoreManager.initTankScore();
             if (m_Index == 0 || m_Index == 1)
             {
@@ -149,21 +150,22 @@ public class GameOver : MonoBehaviour {
                     ScoreManager.m_CurrentLevel++;
                 if (ScoreManager.m_CurrentLevel > 35)
                     ScoreManager.m_CurrentLevel = 1;
-                TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.GAMEPLAY);
+
+                GameManager.m_Instancce.initGame();
             }
             if(m_Index ==2)
             {
-                TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.MAIN_MENU);
+                SceneManager.LoadScene("MainMenu");                
             }
         }
         if (Input.GetKeyUp(KeyCode.Escape) )
-        {GameManager.m_Instancce.PlaySoundCLick();
-            if (TransitEffect.m_Instance.m_isEffecting)
-                return;
+        {
+            
+         
             //Debug.Log("aaaaaaaaaaaa");
             //Time.timeScale = 1;
-            GameManager.m_Instancce.PlaySoundCLick();
-            TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.MAIN_MENU);
+            SoundEngine.m_Instancce.PlaySoundCLick();
+            SceneManager.LoadScene("MainMenu");
         }
     }
     public IEnumerator ShowScoreInfo()

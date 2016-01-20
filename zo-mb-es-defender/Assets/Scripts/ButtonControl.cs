@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class ButtonControl : MonoBehaviour {
@@ -18,73 +19,79 @@ public class ButtonControl : MonoBehaviour {
     }
     public void ButtonTANk1Press()
     {
-        if (TransitEffect.m_Instance.m_isEffecting)
-            return;
-        GameManager.m_Instancce.PlaySoundCLick();
+        
         MainMenu.m_Instance.m_Index = 0;
-        TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.MAIN_SELECT_STAGE);
+        
         GameManager.m_Mode = MainMenu.m_Instance.m_Index;
         MainMenu.m_Instance.m_TankImagePostion.position = new Vector3(MainMenu.m_Instance.m_TankImagePostion.position.x, MainMenu.m_Instance.m_Postion[MainMenu.m_Instance.m_Index].position.y, MainMenu.m_Instance.m_TankImagePostion.position.z);
+        MainMenu.m_Instance.ActivePanel(MainMenu.m_Instance.m_PanelSelectLevel);
+        GameManager.m_IsPlaying = false;
+        SelectStage.m_Instance.m_Index = ScoreManager.m_LevelUNblock.NUM - 1;
+        SelectStage.m_Instance.ChangePage();
+        SoundEngine.m_Instancce.PlaySoundCLick();
     }
 
     public void ButtonTANk2Press()
     {
-        if (TransitEffect.m_Instance.m_isEffecting)
-            return;
-        GameManager.m_Instancce.PlaySoundCLick();
+        SoundEngine.m_Instancce.PlaySoundCLick();
         MainMenu.m_Instance.m_Index = 1;
-        TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.MAIN_SELECT_STAGE);
-        GameManager.m_Mode = MainMenu.m_Instance.m_Index;
         MainMenu.m_Instance.m_TankImagePostion.position = new Vector3(MainMenu.m_Instance.m_TankImagePostion.position.x, MainMenu.m_Instance.m_Postion[MainMenu.m_Instance.m_Index].position.y, MainMenu.m_Instance.m_TankImagePostion.position.z);
+        GameManager.m_Mode = MainMenu.m_Instance.m_Index;
+        MainMenu.m_Instance.ActivePanel(MainMenu.m_Instance.m_PanelSelectLevel);
+        GameManager.m_IsPlaying = false;
+        SelectStage.m_Instance.m_Index = ScoreManager.m_LevelUNblock.NUM - 1;
+        SelectStage.m_Instance.ChangePage();        
+        
     }
 
     public void ButtonPause()
     {
-        if (!TransitEffect.m_Instance.m_isEffecting)
+     //   if (!TransitEffect.m_Instance.m_isEffecting)
         {
-            GameManager.m_Instancce.PlaySoundCLick();
+            SoundEngine.m_Instancce.PlaySoundCLick();
             Time.timeScale = 0;
-                TransitEffect.m_Instance.ActivePanel(TransitEffect.m_Instance.m_PanelPause);
+           GameManager .m_Instancce.ActivePanel(GameManager.m_Instancce.m_PanelPause);
          
         }
     }
     public void ButtonResume()
     {
 
-        if (!TransitEffect.m_Instance.m_isEffecting)
+       // if (!TransitEffect.m_Instance.m_isEffecting)
         {
-            GameManager.m_Instancce.PlaySoundCLick();
+            SoundEngine.m_Instancce.PlaySoundCLick();
             Time.timeScale = 1;
-            TransitEffect.m_Instance.ActivePanel(TransitEffect.m_Instance.m_PanelIngame);
+            GameManager.m_Instancce.ActivePanel(GameManager.m_Instancce.m_PanelIngame);
         }
     }
     public void ButtonReplay()
     {
-        if (!TransitEffect.m_Instance.m_isEffecting)
+       // if (!TransitEffect.m_Instance.m_isEffecting)
         {
-            GameManager.m_Instancce.PlaySoundCLick();
+            SoundEngine.m_Instancce.PlaySoundCLick();
             Time.timeScale = 1;
-            TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.GAMEPLAY);
+            GameManager.m_Instancce.initGame();
         }
     }
     public void ButtonNext()
     {
-        if (!TransitEffect.m_Instance.m_isEffecting)
+        //if (!TransitEffect.m_Instance.m_isEffecting)
         {
-            GameManager.m_Instancce.PlaySoundCLick();
+            SoundEngine.m_Instancce.PlaySoundCLick();
             Time.timeScale = 1;
             ScoreManager.m_CurrentLevel++;
 
-            TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.GAMEPLAY);
+            GameManager.m_Instancce.initGame();
         }
     }
     public void ButtonMainMenu()
     {
-        if (!TransitEffect.m_Instance.m_isEffecting)
+       // if (!TransitEffect.m_Instance.m_isEffecting)
         {
-            GameManager.m_Instancce.PlaySoundCLick();
+            SoundEngine.m_Instancce.PlaySoundCLick();
             Time.timeScale = 1;
-            TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.MAIN_MENU);
+                  SceneManager.LoadScene("MainMenu");
+
         }
     }
     public void ButtonFire()

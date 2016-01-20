@@ -131,6 +131,7 @@ public class TankShooting : MonoBehaviour
         shellInstance.gameObject.GetComponent<ShellExplosion>().m_PlayerType = m_PlayerType;
 
         shellInstance.gameObject.GetComponent<ShellExplosion>().m_damege = m_CurrentFireDame;
+        shellInstance.gameObject.GetComponent<ShellExplosion>().m_ShellParticles.Play();
 
         if (m_ShellInstance[0] == null)
             m_ShellInstance[0] = shellInstance.gameObject;
@@ -140,7 +141,7 @@ public class TankShooting : MonoBehaviour
         shellInstance.velocity = m_CurrentFireSpeed * m_FireTransform.forward;
      //   Debug.Log(m_CurrentFireSpeed * m_FireTransform.forward);
         // Change the clip to the firing clip and play it.
-        if (GameManager.m_isSoundEnable)
+        if (SoundEngine.m_isSoundEnable)
         {
             m_ShootingAudio.clip = m_FireClip;
             m_ShootingAudio.Play();

@@ -62,7 +62,7 @@ public class AwardBox : MonoBehaviour {
                     GameManager.m_Instancce.StartTimerEffect();
                     break;
             }
-            GameManager.m_Instancce.PlaySoundGetItem();
+            SoundEngine.m_Instancce.PlaySoundGetItem();
             GameObject.Destroy(this.gameObject);
         }
         //here

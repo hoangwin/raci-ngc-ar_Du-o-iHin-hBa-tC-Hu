@@ -32,7 +32,7 @@ public class SuperBox : MonoBehaviour {
         transform.rotation = turnRotation;// (m_Rigidbody.rotation * turnRotation);
         GameOver.m_isWin = false;
         // TransitEffect.m_Instance.
-        TransitEffect.m_Instance.BeginGameOver();
+        GameManager.m_Instancce.BeginGameOver();
     }
     public void resetEargle()
     {

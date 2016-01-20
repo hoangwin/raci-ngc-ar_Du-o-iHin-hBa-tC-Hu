@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-
+using UnityEngine.SceneManagement;
 public class SelectStage : MonoBehaviour {
     public Sprite[] m_AllImageLevel;
     // Use this for initialization
@@ -93,19 +93,19 @@ public class SelectStage : MonoBehaviour {
             {
                 Time.timeScale = 1;
                 ScoreManager.m_CurrentLevel = m_page * 12 + m_Index + 1;
-                TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.GAMEPLAY);
-                GameManager.m_Instancce.PlaySoundCLick();
+                 GameManager.m_IsPlaying = true;
+                SceneManager.LoadScene("GamePlay");
+                SoundEngine.m_Instancce.PlaySoundCLick();
             }
 
         }
         if (Input.GetKeyUp(KeyCode.Escape))
         {
-            if (TransitEffect.m_Instance.m_isEffecting)
-                return;
-            GameManager.m_Instancce.PlaySoundCLick();
+           
+            SoundEngine.m_Instancce.PlaySoundCLick();
             //Debug.Log("aaaaaaaaaaaa");
             //Time.timeScale = 1;
-            TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.MAIN_MENU);
+            SceneManager.LoadScene("MainMenu");
         }
     }
     public void ChangePage()
@@ -159,15 +159,16 @@ public class SelectStage : MonoBehaviour {
     } 
     public void ButtonExit()
     {
-        if (TransitEffect.m_Instance.m_isEffecting)
-            return;
-        TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.MAIN_MENU);
+        //if (TransitEffect.m_Instance.m_isEffecting)
+        //    return;
+        // TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.MAIN_MENU);
+        MainMenu.m_Instance.ActivePanel(MainMenu.m_Instance.m_PanelMainMenu);
     }
 
     public void ButtonLeft()
     {
-        if (TransitEffect.m_Instance.m_isEffecting)
-            return;
+       // if (TransitEffect.m_Instance.m_isEffecting)
+       //     return;
         SelectStage.m_Instance.m_page--;
         if (SelectStage.m_Instance.m_page < 0)
             SelectStage.m_Instance.m_page = 2;
@@ -178,8 +179,8 @@ public class SelectStage : MonoBehaviour {
     }
     public void ButtonRight()
     {
-        if (TransitEffect.m_Instance.m_isEffecting)
-            return;
+        //if (TransitEffect.m_Instance.m_isEffecting)
+         //   return;
         SelectStage.m_Instance.m_page += 1;
         if (SelectStage.m_Instance.m_page >= 3)
             SelectStage.m_Instance.m_page = 0;

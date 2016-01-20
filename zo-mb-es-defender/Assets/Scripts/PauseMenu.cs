@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class PauseMenu : MonoBehaviour {
@@ -14,8 +15,8 @@ public class PauseMenu : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (TransitEffect.m_Instance.m_isEffecting)
-            return;
+        //if (TransitEffect.m_Instance.m_isEffecting)
+        //    return;
         if (Input.GetButtonDown("Down1") || Input.GetButtonDown("Right1") || Input.GetButtonDown("Down2") || Input.GetButtonDown("Right2"))
         {
             m_Index++;
@@ -83,27 +84,28 @@ public class PauseMenu : MonoBehaviour {
             Time.timeScale = 1;
             if (m_Index == 0 )
             {
-                TransitEffect.m_Instance.ActivePanel(TransitEffect.m_Instance.m_PanelIngame);
+                GameManager.m_Instancce.ActivePanel(GameManager.m_Instancce.m_PanelIngame);
             }
             else if(m_Index == 1)
             {
                
                ScoreManager.m_CurrentLevel++;
-               
-                TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.GAMEPLAY);
+
+                GameManager.m_Instancce.initGame();
             }
             else if (m_Index == 2)
             {
-                TransitEffect.m_Instance.TranSitBlack(TransitEffect.TYPE_TRANSIT.MAIN_MENU);
+                SceneManager.LoadScene("MainMenu");
+                
             }
         }
         if (Input.GetKeyUp(KeyCode.Escape))
         {
-            if (TransitEffect.m_Instance.m_isEffecting)
-                return;
-            Debug.Log("aaaaaaaaaaaa");
+           // if (TransitEffect.m_Instance.m_isEffecting)
+           //     return;
+           // Debug.Log("aaaaaaaaaaaa");
             Time.timeScale = 1;
-            TransitEffect.m_Instance.ActivePanel(TransitEffect.m_Instance.m_PanelIngame);
+            GameManager.m_Instancce.ActivePanel(GameManager.m_Instancce.m_PanelIngame);
         }
     }
 }

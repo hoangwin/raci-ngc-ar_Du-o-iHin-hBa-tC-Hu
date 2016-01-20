@@ -4,7 +4,8 @@ public class ShellExplosion : MonoBehaviour
 {
     public LayerMask m_TankMask;//de kiem tra phai tank nam trpng ung no
     public LayerMask m_BoxMask;//de kiem tra phai tank nam trpng ung no
-    public ParticleSystem m_ExplosionParticles;       
+    public ParticleSystem m_ExplosionParticles;
+    public ParticleSystem m_ShellParticles;
     public AudioSource m_ExplosionAudio;
     
     public float m_damege = 0f;                  
@@ -18,6 +19,7 @@ public class ShellExplosion : MonoBehaviour
     private void Start()
     {
         m_countTrigger = 0;
+       
         Destroy(gameObject, m_MaxLifeTime);
     }
 
@@ -113,7 +115,7 @@ public class ShellExplosion : MonoBehaviour
         m_ExplosionParticles.Play();
 
         // Play the explosion sound effect.
-        if (GameManager.m_isSoundEnable)
+        if (SoundEngine.m_isSoundEnable)
             m_ExplosionAudio.Play();
 
         // Once the particles have finished, destroy the gameobject they are on.

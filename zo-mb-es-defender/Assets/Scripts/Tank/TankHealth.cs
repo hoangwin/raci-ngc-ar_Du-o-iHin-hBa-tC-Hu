@@ -89,7 +89,7 @@ public class TankHealth : MonoBehaviour
         m_ExplosionParticles.Play();
         if (m_PlayerNumber == 0)
             Destroy(m_ExplosionParticles.gameObject, m_ExplosionParticles.duration);
-        if (GameManager.m_isSoundEnable)
+        if (SoundEngine.m_isSoundEnable)
             m_ExplosionAudio.Play();
         if (m_PlayerNumber == 0)
             Destroy(gameObject);
@@ -104,7 +104,7 @@ public class TankHealth : MonoBehaviour
                 // GameManager.m_IsPlaying = false;
                 GameOver.m_isWin = true;
                 // TransitEffect.m_Instance.
-                TransitEffect.m_Instance.BeginGameOver();
+               GameManager.m_Instancce. BeginGameOver();
             }
 
             TankEffect tankEffect = this.gameObject.GetComponent<TankEffect>();
@@ -130,7 +130,7 @@ public class TankHealth : MonoBehaviour
                     Debug.Log("aaa");
                     GameOver.m_isWin = false;
                     GameManager.m_IsPlaying = false;
-                    TransitEffect.m_Instance.BeginGameOver();
+                    GameManager.m_Instancce.BeginGameOver();
                 }
             }
             else
@@ -151,6 +151,5 @@ public class TankHealth : MonoBehaviour
         }
 
     }
-    
-
+   
 }
