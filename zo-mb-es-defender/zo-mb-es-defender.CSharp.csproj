@@ -124,6 +124,7 @@
     <Compile Include="Assets\Scripts\Map\SuperBox.cs" />
     <Compile Include="Assets\Scripts\PauseMenu.cs" />
     <Compile Include="Assets\Scripts\ScoreManager.cs" />
+    <Compile Include="Assets\Scripts\ScreenFader.cs" />
     <Compile Include="Assets\Scripts\SelectLevelButton.cs" />
     <Compile Include="Assets\Scripts\SelectStage.cs" />
     <Compile Include="Assets\Scripts\Shell\ShellExplosion.cs" />
@@ -131,7 +132,6 @@
     <Compile Include="Assets\Scripts\Tank\TankHealth.cs" />
     <Compile Include="Assets\Scripts\Tank\TankMovement.cs" />
     <Compile Include="Assets\Scripts\Tank\TankShooting.cs" />
-    <Compile Include="Assets\Scripts\TransitEffect.cs" />
     <Compile Include="Assets\Scripts\UI\UIDirectionControl.cs" />
     <Compile Include="Assets\TLib\JoyStick\JoyStick_sample.cs" />
     <Compile Include="Assets\TLib\JoyStick\TJoyStick.cs" />

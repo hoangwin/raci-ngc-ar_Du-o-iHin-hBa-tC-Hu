@@ -148,6 +148,7 @@ public class GameOver : MonoBehaviour {
             {
                 if (m_Index == 0)
                     ScoreManager.m_CurrentLevel++;
+               
                 if (ScoreManager.m_CurrentLevel > 35)
                     ScoreManager.m_CurrentLevel = 1;
 
