@@ -70,14 +70,14 @@ public class TankMovement : MonoBehaviour
        // m_TurnAxisName = "Horizontal";
         //for test
 
-        m_OriginalPitch = m_MovementAudio.pitch;
+//        m_OriginalPitch = m_MovementAudio.pitch;
 		 if (m_PlayerNumber == 0)
             ChangDirectionMove();
-        if (m_PlayerNumber == 0)
-        {
-            m_MovementAudio.Stop();
-         //   return;
-        }
+  //      if (m_PlayerNumber == 0)
+    //    {
+      //      m_MovementAudio.Stop();
+
+        //}
 
     }
 

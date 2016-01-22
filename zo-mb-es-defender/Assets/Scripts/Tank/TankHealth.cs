@@ -114,7 +114,7 @@ public class TankHealth : MonoBehaviour
                 GameManager.m_AwardBoxsLive[GameManager.m_AwardBoxsCount] = Instantiate(GameManager.m_Instancce.m_AwardBoxsPrefab[(int)(tankEffect.m_BonusType - 1)], Vector3.zero, Quaternion.identity) as GameObject;
                 int row = Random.Range(2, 24);
                 int col = Random.Range(2, 24);
-                GameManager.m_AwardBoxsLive[GameManager.m_AwardBoxsCount].transform.position = new Vector3(col * MapManager._CELL_WIDTH, 2, -row * MapManager._CELL_HEIGHT);
+                GameManager.m_AwardBoxsLive[GameManager.m_AwardBoxsCount].transform.position = new Vector3(col * MapManager._CELL_WIDTH, 4, -row * MapManager._CELL_HEIGHT);
                 GameManager.m_AwardBoxsLive[GameManager.m_AwardBoxsCount].GetComponent<AwardBox>().m_type = tankEffect.m_BonusType;
                 GameManager.m_AwardBoxsCount++;
             }

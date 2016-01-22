@@ -37,7 +37,9 @@ public class SelectLevelButton : MonoBehaviour
             Time.timeScale = 1;
             ScoreManager.m_CurrentLevel = index;
             GameManager.m_IsPlaying = true;
+            
             SceneManager.LoadScene("GamePlay");
+
             SoundEngine.m_Instancce.PlaySoundCLick();
         }
     }

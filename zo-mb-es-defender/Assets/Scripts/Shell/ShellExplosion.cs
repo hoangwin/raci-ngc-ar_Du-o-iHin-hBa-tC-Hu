@@ -3,6 +3,7 @@
 public class ShellExplosion : MonoBehaviour
 {
     public LayerMask m_TankMask;//de kiem tra phai tank nam trpng ung no
+    public LayerMask m_TankEnemyMask;//de kiem tra phai tank nam trpng ung no
     public LayerMask m_BoxMask;//de kiem tra phai tank nam trpng ung no
     public ParticleSystem m_ExplosionParticles;
     public ParticleSystem m_ShellParticles;
@@ -11,7 +12,7 @@ public class ShellExplosion : MonoBehaviour
     public float m_damege = 0f;                  
     public float m_ExplosionForce = 1000f;            
     public float m_MaxLifeTime = 2f;                  
-    public float m_ExplosionRadius = 5f;
+    public float m_ExplosionRadius = 10f;
     public int m_PlayerNumber;
     public int m_PlayerType;
         private int m_countTrigger;
@@ -47,9 +48,14 @@ public class ShellExplosion : MonoBehaviour
         m_countTrigger++;
         if (m_countTrigger > 1)
             return;
-          
 
-        Collider[] colliders = Physics.OverlapSphere(transform.position, m_ExplosionRadius, m_TankMask);
+
+        Collider[] colliders;
+        if(m_PlayerNumber == 0)
+         colliders = Physics.OverlapSphere(transform.position, m_ExplosionRadius, m_TankMask);
+        else
+            colliders = Physics.OverlapSphere(transform.position, m_ExplosionRadius, m_TankEnemyMask);
+
         for (int i = 0; i < colliders.Length; i++)
         {
             Rigidbody targetRigidbody = colliders[i].GetComponent<Rigidbody>();

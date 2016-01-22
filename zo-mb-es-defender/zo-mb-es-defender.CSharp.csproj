@@ -214,7 +214,6 @@
     <None Include="Assets\Partical\CFX4 Particle AlphaBlend+Add.shader" />
     <None Include="Assets\Partical\CFX4 Particle AlphaBlend+AddSoft VColor.shader" />
     <None Include="Assets\Partical\CFXM_MobileParticleAdd_Alpha8.shader" />
-    <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
     <None Include="Assets\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />
     <None Include="Assets\Prefabs\box\README.txt" />
     <None Include="Assets\Prefabs\box\pack.txt" />

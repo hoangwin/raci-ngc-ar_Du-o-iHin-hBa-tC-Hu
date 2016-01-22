@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public CameraControl m_CameraControl;       // Reference to the CameraControl script for control during different phases.
+    
     public Text m_MessageText;                  // Reference to the overlay Text to display winning text, etc.
     public Text m_StageText;
     public Text m_Tank1Text;
@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
         MapManager.m_Instance.initLevel(ScoreManager.m_CurrentLevel);
 
         SpawnAllTanks();
-        SetCameraTargets();
+        
 
         // Once the tanks have been created and the camera is using them as targets, start the game.
         StartCoroutine(RoundWaitingStaring());
@@ -201,21 +201,7 @@ public class GameManager : MonoBehaviour
         }
         // Debug.Log("aaaaaaaaa");
     }
-    private void SetCameraTargets()
-    {
-        // Create a collection of transforms the same size as the number of tanks.
-        Transform[] targets = new Transform[m_MAX_Player_Count];
-
-        // For each of these transforms...
-        for (int i = 0; i < m_MAX_Player_Count; i++)
-        {
-            // ... set it to the appropriate tank transform.
-            targets[i] = m_Tanks[i].m_Instance.transform;
-        }
-
-        // These are the targets the camera should follow.
-        m_CameraControl.m_Targets = targets;
-    }
+  
 
 
     // This is called from start and will run each phase of the game one after another.
@@ -228,7 +214,7 @@ public class GameManager : MonoBehaviour
 
 
         // Snap the camera's zoom and position to something appropriate for the reset tanks.
-        m_CameraControl.SetStartPositionAndSize();
+   
 
         // Increment the round number and display text showing the players what round it is.
 

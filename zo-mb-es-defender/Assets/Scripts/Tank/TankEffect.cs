@@ -16,7 +16,7 @@ public class TankEffect : MonoBehaviour {
 
             m_ParticalShield = Instantiate(GameManager.m_Instancce.m_particalPlayerInit, this.transform.position, Quaternion.identity) as ParticleSystem;
             m_ParticalShield.transform.parent = this.transform;
-            m_ParticalShield.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 2, this.transform.position.z);
+            m_ParticalShield.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 3, this.transform.position.z);
             m_ParticalShield.gameObject.SetActive(false);
 
         }
