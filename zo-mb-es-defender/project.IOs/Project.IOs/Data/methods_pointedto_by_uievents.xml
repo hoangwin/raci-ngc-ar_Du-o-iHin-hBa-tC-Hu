@@ -1,0 +1,44 @@
+<linker>
+	<assembly fullname="Assembly-CSharp">
+		<type fullname="SelectLevelButton">
+			<method name="ButtonLevelPress"/>
+			<method name="ButtonLevelPress"/>
+			<method name="ButtonLevelPress"/>
+			<method name="ButtonLevelPress"/>
+			<method name="ButtonLevelPress"/>
+			<method name="ButtonLevelPress"/>
+			<method name="ButtonLevelPress"/>
+			<method name="ButtonLevelPress"/>
+			<method name="ButtonLevelPress"/>
+			<method name="ButtonLevelPress"/>
+			<method name="ButtonLevelPress"/>
+			<method name="ButtonLevelPress"/>
+		</type>
+		<type fullname="SelectStage">
+			<method name="ButtonLeft"/>
+			<method name="ButtonRight"/>
+			<method name="ButtonExit"/>
+		</type>
+		<type fullname="ButtonControl">
+			<method name="ButtonTANk2Press"/>
+			<method name="ButtonTANk1Press"/>
+			<method name="ButtonSound"/>
+			<method name="ButtonNext"/>
+			<method name="ButtonPause"/>
+			<method name="ButtonReplay"/>
+			<method name="ButtonMainMenu"/>
+			<method name="ButtonMainMenu"/>
+			<method name="ButtonFire"/>
+			<method name="ButtonReplay"/>
+			<method name="ButtonResume"/>
+		</type>
+		<type fullname="TJoyStick">
+			<method name="ButtonDown"/>
+			<method name="ButtonUp"/>
+			<method name="ButtonDrag"/>
+			<method name="ButtonDown"/>
+			<method name="ButtonUp"/>
+			<method name="ButtonDrag"/>
+		</type>
+	</assembly>
+</linker>
