@@ -1,0 +1,3 @@
+﻿"PHANVAN", "HOAVANG", "HOCBUA", "KHAUPHATTAMXA", "TANDUONG", "THIEUNIEN", "CATINH", "YTA", "TOIHAUTHU", "TIENNHAN", "BIDAO", "THANGHOA", "TUONGDAI", "TETHAP", "TANCA", 
+"PHÂN VÂN", "HOÁ VÀNG", "HÓC BÚA", "KHẨU PHẬT TÂM XÀ", "TÁN DƯƠNG", "THIẾU NIÊN", "CÁ TÍNH", "Y TÁ", "TỐI HẬU THƯ", "TIỀN NHÂN", "BÍ ĐAO", "THĂNG HOA", "TƯỢNG ĐÀI", "TÊ THẤP", "TAN CA", 
+"level481", "level482", "level483", "level484", "level485", "level486", "level487", "level488", "level489", "level490", "level491", "level492", "level493", "level494", "level495",
