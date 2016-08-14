@@ -50,6 +50,9 @@ public class AdsAdmob : MonoBehaviour
         AdRequest request = new AdRequest.Builder().Build();
         // Load the interstitial with the request.
         interstitial.LoadAd(request);
+
+
+        rewardBasedVideo = RewardBasedVideoAd.Instance;
     }
     public void HandleOnAdLoaded(object sender, System.EventArgs args)
     {
@@ -82,16 +85,16 @@ public class AdsAdmob : MonoBehaviour
         string adUnitId = "unexpected_platform";
 #endif
 
-        rewardBasedVideo = RewardBasedVideoAd.Instance;
+       
         if (!rewardBasedEventHandlersSet)
         {
             // Ad event fired when the rewarded video ad
             // has been received.
             //  rewardBasedVideo.OnAdLoaded += HandleRewardBasedVideoLoaded;
             // has failed to load.
-            //  rewardBasedVideo.OnAdFailedToLoad += HandleRewardBasedVideoFailedToLoad;
+              rewardBasedVideo.OnAdFailedToLoad += HandleRewardBasedVideoFailedToLoad;
             // is opened.
-            //  rewardBasedVideo.OnAdOpening += HandleRewardBasedVideoOpened;
+              rewardBasedVideo.OnAdOpening += HandleRewardBasedVideoOpened;
             // has started playing.
             //   rewardBasedVideo.OnAdStarted += HandleRewardBasedVideoStarted;
             // has rewarded the user.
@@ -111,6 +114,7 @@ public class AdsAdmob : MonoBehaviour
 
     public void ShowRewardAds()
     {
+        
         if (rewardBasedVideo.IsLoaded())
         {
             rewardBasedVideo.Show();
@@ -124,11 +128,24 @@ public class AdsAdmob : MonoBehaviour
 
     //Since a rewarded video instance is a singleton object, we recommend registering for ad events only once to avoid duplicate events.
     //The OnAdRewarded event is the only event that contains special event arguments.It passes an instance of Reward with a Type and Amount describing the reward given to the user.
+    public void HandleRewardBasedVideoFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+    {
+        GamePlay.instance.ButtonAddcoin.SetActive(false);
+        print("HandleRewardBasedVideoFailedToLoad event received with message: " + args.Message);
+    }
+    public void HandleRewardBasedVideoOpened(object sender, System.EventArgs args)
+    {
+        print("HandleRewardBasedVideoOpened event received");
+        ScoreControl.mScore += 100;
+        GamePlay.instance.SetUIText();
+    }
 
     public void HandleRewardBasedVideoRewarded(object sender, Reward args)
     {
-        ScoreControl.mScore += (int)(args.Amount);
-        GamePlay.instance.SetUIText();
+        RequestRewardBasedVideo();
+        print("HandleRewardBasedVideoRewarded event received with message: " + args.Amount);
+       // ScoreControl.mScore += (int)(args.Amount);
+       // GamePlay.instance.SetUIText();
         ScoreControl.saveGame();
 
         //  print("User rewarded with: " + amount.ToString() + " " + type);

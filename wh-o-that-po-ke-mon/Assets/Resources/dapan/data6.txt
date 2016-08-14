@@ -1,3 +1,0 @@
-﻿"CHIMSACALAN", "KIENTUONG", "MUCANHCHUON", "BATNGO", "BELU", "PHATGIAC", "TENLUA", "LYBIET", "THAIDO", "PHANDOI", "HANHHINH", "DONGDANG", "KIEMKE", "TITACH", "NONGNAY", "TRAIPHIEU", "TUMU", "HOATIET", "VANHOI", "QUYTAC", 
-"CHIM SA CÁ LẶN", "KIỆN TƯỚNG", "MŨ CÁNH CHUỒN", "BẤT NGỜ", "BÈ LŨ", "PHÁT GIÁC", "TÊN LỬA", "LY BIỆT", "THÁI ĐỘ", "PHẢN ĐỐI", "HÀNH HÌNH", "ĐỒNG ĐẢNG", "KIỂM KÊ", "TÍ TÁCH", "NÓNG NẢY", "TRÁI PHIẾU", "TÙ MÙ", "HOẠ TIẾT", "VẶN HỎI", "QUY TẮC", 
-"level436", "level437", "level438", "level439", "level440", "level441", "level442", "level443", "level444", "level445", "level446", "level447", "level448", "level449", "level450", "level451", "level452", "level453", "level454", "level455",

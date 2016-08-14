@@ -22,6 +22,8 @@ public class GamePlay : MonoBehaviour {
     public GameObject ImageViewQuestion;
     public UILabel LabelLevel;
     public UILabel LabelCoin;
+    public GameObject ButtonAddcoin;
+    public GameObject ButtonRate;
     public GameObject ObjectSoundOn;
     public GameObject ObjectSoundOFF;
 	// Use this for initialization
@@ -47,8 +49,9 @@ public class GamePlay : MonoBehaviour {
 		DEF.ScaleAnchorGui();
 
         ScoreControl.loadGame();
-        
-     
+
+        if (ScoreControl.mLevelUnblock < 3)
+            ButtonRate.SetActive(false);
         Level.loadTextData();
         SetUIText();
         ChangeScreenChoose(STATE_MENU, false);
@@ -190,6 +193,8 @@ public class GamePlay : MonoBehaviour {
         PanelDiaLog.SetActive(false);
         IsPanelDialogActive = false;
         AdsAdmob.m_Instance.ShowRewardAds();
+        PanelDiaLogAddCoin.SetActive(false);
+        IsPanelDialogActive = false;
     }
     public void ButtonNoAddCoinPress()
     {
@@ -220,11 +225,21 @@ public class GamePlay : MonoBehaviour {
     }
     public void ButtonRatePress()
     {
-        WP8Statics.RateApp("Rate App");
+        //WP8Statics.RateApp("Rate App");
+#if UNITY_ANDROID
+        Application.OpenURL("market://details?id=com.quizgame.shadowpokemon");
+#elif UNITY_WP8
+		WP8Statics.RateApp("");
+#elif UNITY_IOS
+        Application.OpenURL("https://itunes.apple.com/us/app/onet-3d/id985582877?ls=1&mt=8");	
+		
+		//   IOsStatic.ShowAds(" ", " ");
+#endif
+        //
     }
     public void ButtonSTGamePress()
     {
-        Application.OpenURL("http://stgame.vn/");
+        Application.OpenURL("http://aegamemobile.com/web/index.php");
     }  
     public IEnumerator TakeSnapshot(int width, int height)
     {

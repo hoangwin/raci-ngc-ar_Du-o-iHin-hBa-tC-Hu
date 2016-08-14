@@ -214,19 +214,7 @@
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (SoftClip).shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored.shader" />
     <None Include="Assets\Plugins\Android\GoogleMobileAdsPlugin\AndroidManifest.xml" />
-    <None Include="Assets\Resources\dapan\data.txt" />
-    <None Include="Assets\Resources\dapan\data2.txt" />
-    <None Include="Assets\Resources\dapan\data3.txt" />
-    <None Include="Assets\Resources\dapan\data4.txt" />
-    <None Include="Assets\Resources\dapan\data5.txt" />
-    <None Include="Assets\Resources\dapan\data6.txt" />
-    <None Include="Assets\Resources\dapan\data7.txt" />
-    <None Include="Assets\Resources\dapan\data8.txt" />
-    <None Include="Assets\Resources\dapan\data9.txt" />
     <None Include="Assets\Resources\dapan\datapokemon.txt" />
-    <None Include="Assets\Resources\dapan\newdata496_530.txt" />
-    <None Include="Assets\Resources\dapan\newdata567.txt" />
-    <None Include="Assets\Resources\data.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
