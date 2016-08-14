@@ -9,16 +9,15 @@ public class GamePlay : MonoBehaviour {
 	public const int STATE_MENU = 0;
 	public const int STATE_PLAY = 1;
 	public const int STATE_COMPLETED = 2;
-    public const int STATE_COMPLETEDALL = 3;
-    public const int STATE_ADCOINT = 4;
+    public const int STATE_COMPLETEDALL = 3;    
     public GameObject PanelMainMenu;
   //  public GameObject PanelInGame;
     public GameObject PanelGamePlay;
     public GameObject PanelCompleted;
-    public GameObject PanelCompletedAll;
-    public GameObject PanelAdCoin;
+    public GameObject PanelCompletedAll;    
     public GameObject PanelDiaLog;
     public bool IsPanelDialogActive;
+    public int m_PanelDialogActiveType;//0 = ta loi,//1 == hoi xem video
     public GameObject ImageViewQuestion;
     public UILabel LabelLevel;
     public UILabel LabelCoin;
@@ -78,10 +77,7 @@ public class GamePlay : MonoBehaviour {
                     else
                      ButtonBackPress();
             }
-            else if (PanelAdCoin.activeInHierarchy)
-            {
-                ButtonBackPress();
-            }
+          
         }
 
 	}
@@ -93,7 +89,7 @@ public class GamePlay : MonoBehaviour {
         PanelCompleted.SetActive(false);
         PanelCompletedAll.SetActive(false);
         PanelDiaLog.SetActive(false);
-        PanelAdCoin.SetActive(false);
+        
         IsPanelDialogActive = false;
         
         switch (nextState)
@@ -111,9 +107,7 @@ public class GamePlay : MonoBehaviour {
             case GamePlay.STATE_COMPLETEDALL:
                 PanelCompletedAll.SetActive(true);
                 break;
-            case GamePlay.STATE_ADCOINT:
-                PanelAdCoin.SetActive(true);
-                break;
+           
 
         }
         mpreStareState = mcurrentState;
@@ -136,6 +130,10 @@ public class GamePlay : MonoBehaviour {
         ButtonControl.instance.Align();
         SetUIText();
     }
+    public void ButtonAddCoin()
+    {
+        AdsAdmob.m_Instance.ShowRewardAds();
+    }
     public void ButtonBackPress()
     {
         SoundEngine.instance.PlayOneShot(SoundEngine.instance._soundclick);
@@ -148,15 +146,7 @@ public class GamePlay : MonoBehaviour {
             ChangeScreenChoose(mpreStareState, false);       
     }
 
-    public void ButtonAdcoinPress()
-    {
-        SoundEngine.instance.PlayOneShot(SoundEngine.instance._soundclick);
-        if (GamePlay.instance.IsPanelDialogActive)
-            return;
-        
-        ChangeScreenChoose(STATE_ADCOINT,false);
-        NAPCARD.instance.ButtonViettelPress();
-    }
+   
 
     public void ButtonAnswerPress()
     {
@@ -247,4 +237,6 @@ public class GamePlay : MonoBehaviour {
        // UnityEngine.Windows.File.WriteAllBytes(_path, texture.EncodeToPNG());
 #endif
     }
+
+   
 }
