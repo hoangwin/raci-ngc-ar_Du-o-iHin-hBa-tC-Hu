@@ -174,8 +174,8 @@ public class UIInput : MonoBehaviour
 			{
 				string val = mKeyboard.text;
 #if !UNITY_3_5
-				if (Application.platform == RuntimePlatform.BB10Player)
-					val = val.Replace("\\b", "\b");
+				//if (Application.platform == RuntimePlatform.BB10Player)
+				//	val = val.Replace("\\b", "\b");
 #endif
 				return val;
 			}

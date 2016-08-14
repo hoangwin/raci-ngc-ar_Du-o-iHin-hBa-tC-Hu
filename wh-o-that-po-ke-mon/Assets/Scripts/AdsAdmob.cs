@@ -9,16 +9,21 @@ public class AdsAdmob : MonoBehaviour
     InterstitialAd interstitial;
     RewardBasedVideoAd rewardBasedVideo;
     private bool rewardBasedEventHandlersSet = false;
+    float m_timer;
+    bool m_isfirsttime;
     void Start()
     {
         RequestInterstitial();
+        RequestRewardBasedVideo();
         m_Instance = this;
+        m_timer = 0;
+        m_isfirsttime = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        m_timer += Time.deltaTime;
     }
     private void RequestInterstitial()
     {
@@ -53,9 +58,14 @@ public class AdsAdmob : MonoBehaviour
     }
     public void ShowInterstitial()
     {
-        if (interstitial.IsLoaded())
+        if (m_timer > 90 || m_isfirsttime)
         {
-            interstitial.Show();
+            m_timer = 0;
+            m_isfirsttime = false;
+            if (interstitial.IsLoaded())
+            {
+                interstitial.Show();
+            }
         }
     }
 

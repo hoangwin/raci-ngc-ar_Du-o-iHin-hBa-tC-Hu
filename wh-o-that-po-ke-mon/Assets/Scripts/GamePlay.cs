@@ -16,8 +16,9 @@ public class GamePlay : MonoBehaviour {
     public GameObject PanelCompleted;
     public GameObject PanelCompletedAll;    
     public GameObject PanelDiaLog;
+    public GameObject PanelDiaLogAddCoin;
     public bool IsPanelDialogActive;
-    public int m_PanelDialogActiveType;//0 = ta loi,//1 == hoi xem video
+
     public GameObject ImageViewQuestion;
     public UILabel LabelLevel;
     public UILabel LabelCoin;
@@ -130,9 +131,14 @@ public class GamePlay : MonoBehaviour {
         ButtonControl.instance.Align();
         SetUIText();
     }
-    public void ButtonAddCoin()
+    public void ButtonAdcoinPress()
     {
-        AdsAdmob.m_Instance.ShowRewardAds();
+        if (IsPanelDialogActive)
+            return;
+        SoundEngine.instance.PlayOneShot(SoundEngine.instance._soundclick);
+        PanelDiaLogAddCoin.SetActive(true);
+        IsPanelDialogActive = true;
+        //  AdsAdmob.m_Instance.ShowRewardAds();
     }
     public void ButtonBackPress()
     {
@@ -150,7 +156,7 @@ public class GamePlay : MonoBehaviour {
 
     public void ButtonAnswerPress()
     {
-        if (ScoreControl.mScore < 10)
+        if (ScoreControl.mScore < 10 || IsPanelDialogActive)
             return;
         SoundEngine.instance.PlayOneShot(SoundEngine.instance._soundclick);
         PanelDiaLog.SetActive(true);
@@ -178,7 +184,19 @@ public class GamePlay : MonoBehaviour {
         PanelDiaLog.SetActive(false);
         IsPanelDialogActive = false;
     }
-
+    public void ButtonYesAddCoinPress()
+    {
+        SoundEngine.instance.PlayOneShot(SoundEngine.instance._soundclick);
+        PanelDiaLog.SetActive(false);
+        IsPanelDialogActive = false;
+        AdsAdmob.m_Instance.ShowRewardAds();
+    }
+    public void ButtonNoAddCoinPress()
+    {
+        SoundEngine.instance.PlayOneShot(SoundEngine.instance._soundclick);
+        PanelDiaLogAddCoin.SetActive(false);
+        IsPanelDialogActive = false;
+    }
     public void ButtonFBPress()
     {
         StartCoroutine(TakeSnapshot(Screen.width, Screen.height));

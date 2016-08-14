@@ -30,13 +30,17 @@ public class ScoreControl : MonoBehaviour {
 	public static void loadGame()
 	{
         _UDID = SystemInfo.deviceUniqueIdentifier;
-		//PlayerPrefs.DeleteAll();
-		UserName = PlayerPrefs.GetString(STRING_USER_NAME);
+	//	PlayerPrefs.DeleteAll();
+      //  PlayerPrefs.Save();
+        UserName = PlayerPrefs.GetString(STRING_USER_NAME);
 		if (UserName.Length <= 4)
 						UserName = "NaN";
         mLevelUnblock = PlayerPrefs.GetInt(STRING_USER_UNBLOCK);
         mScore = PlayerPrefs.GetInt(STRING_USER_SCORE);
         if (mLevelUnblock == 0)
-            mScore = 40;
+        {
+          //  mLevelUnblock = 1;
+               mScore = 40;
+        }
 	}
 }
